@@ -65,6 +65,67 @@
 
     footer { padding: 40px 0; border-top: 1px solid var(--hl-med); }
     footer p { font-size: 13px; color: var(--muted); }
+
+    .mockup-section {
+      padding: 48px 0 64px;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--hl-med);
+      background: var(--surface);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+
+    .carousel-slide { min-width: 100%; }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .carousel-btn {
+      background: none;
+      border: 1px solid var(--hl-med);
+      color: var(--subtle);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .carousel-btn:hover { border-color: var(--muted); color: var(--text); }
+    .carousel-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .carousel-dots { display: flex; gap: 8px; }
+
+    .carousel-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--hl-med); cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .carousel-dot.active { background: var(--foam); }
+
+    .carousel-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      min-width: 80px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -89,7 +150,31 @@
       <p>sqlch is a headless radio streaming daemon with a Unix socket interface, MPRIS support, and a Textual TUI. Below is a working demo — real stations, real audio, the preview feature and all.</p>
     </div>
 
-    <!-- mockup: Task 2 -->
+    <div class="mockup-section">
+      <div class="carousel" id="carousel">
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-slide" id="slide-tui">
+            <div style="height:400px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;">
+              TUI placeholder
+            </div>
+          </div>
+          <div class="carousel-slide" id="slide-headunit">
+            <div style="height:400px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;">
+              Head unit placeholder
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="btn-prev" disabled>←</button>
+        <div class="carousel-dots">
+          <div class="carousel-dot active" data-slide="0"></div>
+          <div class="carousel-dot" data-slide="1"></div>
+        </div>
+        <span class="carousel-label" id="carousel-label">TUI</span>
+        <button class="carousel-btn" id="btn-next">→</button>
+      </div>
+    </div>
 
     <!-- story: Task 9 -->
 
@@ -102,5 +187,27 @@
   </div>
 </footer>
 
+<script>
+  const track   = document.getElementById('carousel-track');
+  const dots    = document.querySelectorAll('.carousel-dot');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const labelEl = document.getElementById('carousel-label');
+  const LABELS  = ['TUI', 'Head Unit'];
+  let current = 0;
+
+  function goTo(n) {
+    current = n;
+    track.style.transform = `translateX(-${n * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === n));
+    btnPrev.disabled = n === 0;
+    btnNext.disabled = n === LABELS.length - 1;
+    labelEl.textContent = LABELS[n];
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
+</script>
 </body>
 </html>
