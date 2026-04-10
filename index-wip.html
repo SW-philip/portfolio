@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --love: #eb6f92;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    nav {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--subtle);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 88px;
+    }
+
+    .hero-eyebrow {
+      font-size: 13px;
+      color: var(--iris);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 28px;
+      max-width: 580px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero-body {
+      font-size: 17px;
+      color: var(--subtle);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    .hero-body strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* NAV CARDS */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .nav-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+
+    .nav-card:hover {
+      border-color: var(--muted);
+      background: var(--overlay);
+    }
+
+    .nav-card-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .nav-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-card-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .nav-card.accent-iris { border-color: var(--hl-med); }
+    .nav-card.accent-iris:hover { border-color: var(--iris); }
+    .nav-card.accent-iris .nav-card-label { color: var(--iris); }
+
+    .nav-card.accent-gold:hover { border-color: var(--gold); }
+    .nav-card.accent-gold .nav-card-label { color: var(--gold); }
+
+    .nav-card.accent-foam:hover { border-color: var(--foam); }
+    .nav-card.accent-foam .nav-card-label { color: var(--foam); }
+
+    .nav-card.accent-rose:hover { border-color: var(--rose); }
+    .nav-card.accent-rose .nav-card-label { color: var(--rose); }
+
+    /* CURRENTLY */
+    .currently {
+      padding: 64px 0;
+      border-top: 1px solid var(--hl-med);
+      margin-top: 80px;
+    }
+
+    .currently-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .currently-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .currently-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .currently-item:last-child {
+      border-bottom: 1px solid var(--hl-low);
+    }
+
+    .currently-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pine);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .currently-text {
+      font-size: 15px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .currently-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .currently-text a {
+      color: var(--foam);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+    }
+
+    .currently-text a:hover {
+      text-decoration-color: var(--foam);
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--hl-med);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 520px) {
+      .nav-cards { grid-template-columns: 1fr; }
+      .hero { padding: 64px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">Philip Repko</span>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="hero">
+      <p class="hero-eyebrow">Digital Experience Systems Designer</p>
+      <h1>I have a detailed answer for every <em>rhetorical</em> question.</h1>
+      <p class="hero-body">
+        I design systems that talk to people. Not at them. I've spent four years building conversational AI at a credit union — <strong>end to end, no net</strong> — and before that, 13 years learning that every operational failure is a systems problem wearing a people costume.
+      </p>
+
+      <div class="nav-cards">
+        <a href="/work" class="nav-card accent-iris">
+          <p class="nav-card-label">Work</p>
+          <p class="nav-card-title">The professional case</p>
+          <p class="nav-card-desc">Conversational AI, Deflection, Containment, the whole thing.</p>
+        </a>
+        <a href="/writing" class="nav-card accent-gold">
+          <p class="nav-card-label">Writing</p>
+          <p class="nav-card-title">Fiction, poetry, family</p>
+          <p class="nav-card-desc">A novel in progress. but check out my dad's new book, Homestretch.</p>
+        </a>
+        <a href="/projects" class="nav-card accent-foam">
+          <p class="nav-card-label">Projects</p>
+          <p class="nav-card-title">Things I'm building</p>
+          <p class="nav-card-desc">flake.nix, sqlch, and whatever else I'm currently breaking on purpose.</p>
+        </a>
+        <a href="mailto:me@philipjrepko.com" class="nav-card accent-rose">
+          <p class="nav-card-label">Contact</p>
+          <p class="nav-card-title">Get in touch</p>
+          <p class="nav-card-desc">For work, consulting, or just to talk about the thing.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="currently">
+      <p class="currently-label">Currently</p>
+      <div class="currently-items">
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--iris);"></div>
+          <p class="currently-text">Auditing 2,500+ conversation goals for a <strong>full rebrand</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--gold);"></div>
+          <p class="currently-text">Writing <strong>All These Perfect Floods</strong>, a novel about recursive memory and the stories we tell instead of the ones that actually happened</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--foam);"></div>
+          <p class="currently-text">Building <strong>My Toolbelt</strong></p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--rose);"></div>
+          <p class="currently-text">Reading <strong>Homestretch</strong> by P.E.A.Repko — my dad's second collection of poetry, out now</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · Philadelphia · philipjrepko.com</p>
+  </div>
+</footer>
+
+</body>
+</html>
