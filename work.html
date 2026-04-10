@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --love: #eb6f92;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+
+    .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
+
+    nav {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name { font-size: 15px; font-weight: 500; }
+
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-header {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .page-eyebrow {
+      font-size: 13px;
+      color: var(--iris);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--subtle);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    section { padding: 64px 0; border-bottom: 1px solid var(--hl-med); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    /* APPROACH */
+    .approach-body {
+      font-size: 16px;
+      color: var(--subtle);
+      line-height: 1.8;
+      max-width: 580px;
+    }
+
+    .approach-body p + p { margin-top: 18px; }
+
+    .approach-body strong { color: var(--text); font-weight: 500; }
+
+    .approach-body em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    /* CASE STUDY */
+    .case-study {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .case-study-header {
+      padding: 28px 28px 24px;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .case-tag {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--iris);
+      background: var(--hl-low);
+      border: 1px solid var(--hl-med);
+      border-radius: 4px;
+      padding: 3px 8px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .case-study-header h2 {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .case-study-header p {
+      font-size: 14px;
+      color: var(--subtle);
+    }
+
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .case-metric {
+      padding: 20px 24px;
+      border-right: 1px solid var(--hl-med);
+    }
+
+    .case-metric:last-child { border-right: none; }
+
+    .case-metric-value {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--foam);
+      margin-bottom: 4px;
+    }
+
+    .case-metric-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .case-body {
+      padding: 28px;
+    }
+
+    .case-body p {
+      font-size: 14px;
+      color: var(--subtle);
+      line-height: 1.75;
+    }
+
+    .case-body p + p { margin-top: 14px; }
+    .case-body strong { color: var(--text); font-weight: 500; }
+
+    .case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--foam);
+      border: 1px solid var(--hl-med);
+      border-radius: 6px;
+      padding: 8px 14px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .case-link:hover {
+      border-color: var(--foam);
+      background: var(--hl-low);
+      text-decoration: none;
+    }
+
+    /* PLATFORMS */
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--hl-med);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .platform {
+      background: var(--surface);
+      padding: 20px 22px;
+    }
+
+    .platform-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .platform-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      padding: 20px 0;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .timeline-item:last-child { border-bottom: 1px solid var(--hl-low); }
+
+    .timeline-year {
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 60px;
+      padding-top: 2px;
+    }
+
+    .timeline-content { flex: 1; }
+
+    .timeline-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.6;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--hl-med);
+    }
+
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 520px) {
+      .case-metrics { grid-template-columns: repeat(2, 1fr); }
+      .platforms { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="/">Philip Repko</a>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">Work</p>
+      <h1>I built it as if I was the member.</h1>
+      <p>That's the whole methodology. Everything else — the architecture, the branching logic, the decision not to automate something — follows from that one instinct.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Approach</p>
+      <div class="approach-body">
+        <p>Most conversational AI systems are built from the outside in. Someone maps the use cases, writes the intents, tests for edge cases. The result feels like a system that's been <em>designed at</em> members rather than <em>for</em> them.</p>
+        <p>I built ours differently. Every response goal, every button label, every branch point — I asked: <strong>if I were a member at 11pm trying to figure out why my transfer failed, would this actually help me?</strong> If not, it wasn't done.</p>
+        <p>The other thing I got right: I built for the integration I didn't have yet. Every deeplink in the system is a placeholder for an API call. The conversational logic doesn't change when the integration arrives — <strong>you swap one thing, not everything.</strong> That's not clever engineering, it's just knowing that the work you do today has to survive the decisions you haven't made yet.</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Case study</p>
+      <div class="case-study">
+        <div class="case-study-header">
+          <span class="case-tag">Conversational AI</span>
+          <h2>TruMark Financial GVA</h2>
+          <p>Three-bot system across public, authenticated, and mobile entry points — designed, built, and maintained by one person</p>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-value">22%</div>
+            <div class="case-metric-label">Contact center deflection</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-value">~350</div>
+            <div class="case-metric-label">Intent topics</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-value">2,500+</div>
+            <div class="case-metric-label">Conversation goals</div>
+          </div>
+        </div>
+        <div class="case-body">
+          <p>Three bots, three entry points, one consistent design philosophy. The <strong>public bot</strong> is a concierge — it tells members what's possible and hands them off when they log in, passing conversation context forward. The <strong>auth bot</strong> is the workhorse — it handles the full intent taxonomy, classifies member needs, and routes to the right deeplink or diagnostic information. The <strong>mobile bot</strong> runs the same logic against a different UI.</p>
+          <p>Every intent falls into one of three categories: <strong>task</strong> (classify and deeplink), <strong>diagnostic</strong> (classify and inform), or <strong>handoff</strong> (empathy and route to a human). The system knows which category it's in before it asks its first question. No dead ends — a representative is always reachable through natural language, from anywhere, without a button.</p>
+          <p>Currently mid-rebrand: auditing every response goal, button, card, and link across all three bots for brand compliance, while simultaneously authoring net-new coverage for recently launched products.</p>
+          <a class="case-link" href="/system-map.html">View system map ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Platforms owned</p>
+      <div class="platforms">
+        <div class="platform">
+          <p class="platform-name">Glia Virtual Assistant</p>
+          <p class="platform-desc">Conversational AI — full design, authoring, and maintenance ownership</p>
+        </div>
+        <div class="platform">
+          <p class="platform-name">Symitar Quest</p>
+          <p class="platform-desc">Core banking system — member data, account management</p>
+        </div>
+        <div class="platform">
+          <p class="platform-name">MeridianLink</p>
+          <p class="platform-desc">Loan origination and account opening</p>
+        </div>
+        <div class="platform">
+          <p class="platform-name">Fiserv Zelle</p>
+          <p class="platform-desc">P2P payment integration and member support</p>
+        </div>
+        <div class="platform">
+          <p class="platform-name">Callsign</p>
+          <p class="platform-desc">Digital identity and fraud intelligence</p>
+        </div>
+        <div class="platform">
+          <p class="platform-name">MANTL</p>
+          <p class="platform-desc">Digital account opening</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Background</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">2022–now</span>
+          <div class="timeline-content">
+            <p class="timeline-title">Digital Solutions Associate II, TruMark Financial</p>
+            <p class="timeline-desc">Second promotion. Full platform ownership across six fintech systems. GVA design and implementation lead.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2020–22</span>
+          <div class="timeline-content">
+            <p class="timeline-title">Digital Solutions, TruMark Financial</p>
+            <p class="timeline-desc">Joined during the shift to digital-first member services. Built the GVA from scratch.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2007–20</span>
+          <div class="timeline-content">
+            <p class="timeline-title">General Manager, various</p>
+            <p class="timeline-desc">13 years of P&L ownership and operations. Learned that every failure is a systems problem wearing a people costume.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · <a href="mailto:me@philipjrepko.com" style="color: var(--subtle);">me@philipjrepko.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

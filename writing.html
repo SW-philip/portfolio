@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing — Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+
+    .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
+
+    nav {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name { font-size: 15px; font-weight: 500; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-header {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .page-eyebrow {
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--subtle);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    section { padding: 64px 0; border-bottom: 1px solid var(--hl-med); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    /* BOOK FEATURE */
+    .book-feature {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .book-cover {
+      width: 140px;
+      aspect-ratio: 2/3;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .book-cover-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 14px;
+      text-align: center;
+      background: var(--overlay);
+    }
+
+    .book-cover-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .book-cover-author {
+      font-size: 11px;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+    }
+
+    .book-cover-rule {
+      width: 24px;
+      height: 1px;
+      background: var(--muted);
+      margin: 10px auto;
+    }
+
+    .book-info { flex: 1; }
+
+    .book-tag {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--gold);
+      background: var(--hl-low);
+      border: 1px solid var(--hl-med);
+      border-radius: 4px;
+      padding: 3px 8px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .book-title {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .book-author {
+      font-size: 14px;
+      color: var(--subtle);
+      margin-bottom: 16px;
+    }
+
+    .book-desc {
+      font-size: 15px;
+      color: var(--subtle);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .book-desc strong { color: var(--text); font-weight: 500; }
+
+    .book-desc em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .book-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
+      border: 1px solid var(--hl-med);
+      border-radius: 6px;
+      padding: 8px 14px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .book-link:hover {
+      border-color: var(--gold);
+      background: var(--hl-low);
+      text-decoration: none;
+    }
+
+    /* POETRY MONTH */
+    .poetry-month {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .poetry-month-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .poetry-month h3 {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .poetry-month p {
+      font-size: 14px;
+      color: var(--subtle);
+      line-height: 1.7;
+    }
+
+    .poetry-month a {
+      color: var(--foam);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+    }
+
+    .poetry-month a:hover { text-decoration-color: var(--foam); }
+
+    /* SITE CARD */
+    .site-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 24px;
+      transition: border-color 0.15s;
+    }
+
+    .site-card:hover { border-color: var(--muted); text-decoration: none; }
+
+    .site-card-name { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .site-card-desc { font-size: 13px; color: var(--subtle); }
+    .site-card-arrow { font-size: 18px; color: var(--muted); flex-shrink: 0; }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--hl-med);
+    }
+
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 520px) {
+      .book-feature { grid-template-columns: 1fr; }
+      .book-cover { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="/">Philip Repko</a>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">Writing</p>
+      <h1>Words run in the family.</h1>
+      <p>My dad just published his second book of poetry. It's April. Both of those things feel like they mean something.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Featured</p>
+      <div class="book-feature">
+        <div class="book-cover">
+          <div class="book-cover-inner">
+            <div class="book-cover-title">Homestretch</div>
+            <div class="book-cover-rule"></div>
+            <div class="book-cover-author">Phil Repko</div>
+          </div>
+        </div>
+        <div class="book-info">
+          <span class="book-tag">New release</span>
+          <h2 class="book-title">Homestretch</h2>
+          <p class="book-author">Phil Repko · 2025</p>
+          <p class="book-desc">My dad's second collection of poetry. He's been writing his whole life — <strong>this is proof that it compounds.</strong> The kind of book that earns its title. Read it slowly.</p>
+          <a class="book-link" href="https://www.amazon.com/Home-Stretch-Phil-Repko/dp/B0GWJB489K/" target="_blank" rel="noopener">Get it on Amazon ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Poetry month</p>
+      <div class="poetry-month">
+        <p class="poetry-month-label">April 2025</p>
+        <h3>For Better or Verse</h3>
+        <p>My dad and brother run a poetry site at <a href="http://forbetterorverse.com" target="_blank" rel="noopener">forbetterorverse.com</a> — new work going up all month. Worth a visit if you know what's good for you.</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · <a href="mailto:me@philipjrepko.com" style="color: var(--subtle);">me@philipjrepko.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
