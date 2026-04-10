@@ -187,7 +187,41 @@
   </div>
 </footer>
 
+<audio id="audio-main" preload="none"></audio>
+<audio id="audio-preview" preload="none"></audio>
+
 <script>
+  const State = {
+    stations:         [],
+    filtered:         [],
+    cursor:           0,
+    playing:          null,
+    nowPlaying:       '',
+    previewing:       false,
+    previewTimer:     null,
+    previewCountdown: 0,
+  };
+
+  const audioMain    = document.getElementById('audio-main');
+  const audioPreview = document.getElementById('audio-preview');
+
+  function fadeTo(audioEl, targetVol, durationMs) {
+    const steps = 20;
+    const interval = durationMs / steps;
+    const start = audioEl.volume;
+    const delta = (targetVol - start) / steps;
+    let step = 0;
+    const t = setInterval(() => {
+      step++;
+      audioEl.volume = Math.max(0, Math.min(1, start + delta * step));
+      if (step >= steps) clearInterval(t);
+    }, interval);
+  }
+
+  // Stubs — filled in by later tasks
+  function renderTUI() {}
+  function renderHeadUnit() {}
+
   const track   = document.getElementById('carousel-track');
   const dots    = document.querySelectorAll('.carousel-dot');
   const btnPrev = document.getElementById('btn-prev');
