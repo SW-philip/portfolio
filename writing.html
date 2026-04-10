@@ -35,6 +35,43 @@
 
     a { color: var(--text); text-decoration: none; }
 
+    /* ── TERMINAL NAV STYLES ── */
+    .nav-name {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-prompt {
+      color: var(--foam);
+      font-weight: 700;
+    }
+
+    .terminal-command {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
     .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
 
     nav {
@@ -95,56 +132,34 @@
     /* BOOK FEATURE */
     .book-feature {
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 32px;
+      /* Increase the first column to match your book width (240px) */
+      grid-template-columns: 240px 1fr;
+      gap: 40px; /* Increased gap slightly for better breathing room */
       align-items: start;
     }
 
     .book-cover {
-      width: 140px;
-      aspect-ratio: 2/3;
-      background: var(--surface);
-      border: 1px solid var(--hl-med);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%; /* Let the grid column control the width */
+      aspect-ratio: 2 / 3; /* Keeps the book shape consistent (240/360) */
       flex-shrink: 0;
       overflow: hidden;
+      border-radius: 6px;
+      background: var(--hl-med);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Slightly deeper shadow for pop */
     }
 
     .book-cover-inner {
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 14px;
-      text-align: center;
-      background: var(--overlay);
+      position: relative;
     }
 
-    .book-cover-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--gold);
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-
-    .book-cover-author {
-      font-size: 11px;
-      color: var(--subtle);
-      letter-spacing: 0.04em;
-    }
-
-    .book-cover-rule {
-      width: 24px;
-      height: 1px;
-      background: var(--muted);
-      margin: 10px auto;
+    .book-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* CRITICAL: Crops image to fill frame without distortion */
+      object-position: center; /* Centers the crop */
+      display: block;
     }
 
     .book-info { flex: 1; }
@@ -283,7 +298,11 @@
 
 <nav>
   <div class="container">
-    <a class="nav-name" href="/">Philip Repko</a>
+    <span class="nav-name">
+      <span class="terminal-prompt">writing@nix:~$</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
     <ul class="nav-links">
       <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
@@ -306,17 +325,28 @@
       <div class="book-feature">
         <div class="book-cover">
           <div class="book-cover-inner">
-            <div class="book-cover-title">Homestretch</div>
+            <!-- Image fills the frame -->
+            <img src="assets/homestretch-cover.jpg" alt="Cover of Homestretch by Phil Repko" class="book-cover-img">
+
+            <!-- Optional: Keep the rule line if you want a visual separator -->
             <div class="book-cover-rule"></div>
+
+            <!-- Author text overlay (optional, remove if image has it) -->
             <div class="book-cover-author">Phil Repko</div>
           </div>
         </div>
+
         <div class="book-info">
           <span class="book-tag">New release</span>
           <h2 class="book-title">Homestretch</h2>
           <p class="book-author">Phil Repko · 2025</p>
-          <p class="book-desc">My dad's second collection of poetry. He's been writing his whole life — <strong>this is proof that it compounds.</strong> The kind of book that earns its title. Read it slowly.</p>
-          <a class="book-link" href="https://www.amazon.com/Home-Stretch-Phil-Repko/dp/B0GWJB489K/" target="_blank" rel="noopener">Get it on Amazon ↗</a>
+          <p class="book-desc">
+            My dad's second collection of poetry. He's been writing his whole life —
+            <strong>this is proof that it compounds.</strong> The kind of book that earns its title. Read it slowly.
+          </p>
+          <a class="book-link" href="https://www.amazon.com/Home-Stretch-Phil-Repko/dp/B0GWJB489K/" target="_blank" rel="noopener">
+            Get it on Amazon ↗
+          </a>
         </div>
       </div>
     </section>

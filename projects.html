@@ -34,6 +34,44 @@
     }
 
     a { color: var(--text); text-decoration: none; }
+
+    /* ── TERMINAL NAV STYLES ── */
+    .nav-name {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-prompt {
+      color: var(--foam);
+      font-weight: 700;
+    }
+
+    .terminal-command {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
     .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
 
     nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
@@ -63,15 +101,33 @@
 
     .page-header p { font-size: 16px; color: var(--subtle); max-width: 500px; line-height: 1.7; }
 
-    section { padding: 64px 0; border-bottom: 1px solid var(--hl-med); }
-    section:last-of-type { border-bottom: none; }
+    section {
+      padding: 64px 0;
+      position: relative;
+    }
+
+    section::after {
+      content: "/* -------------------------------------------------- */";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      color: var(--hl-med);
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
 
     .section-label {
+      font-family: 'Courier New', monospace;
       font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 32px;
+    }
+
+    .section-label::before {
+      content: "// ";
+      color: var(--iris);
     }
 
     /* PROJECT CARD */
@@ -300,7 +356,11 @@
 
 <nav>
   <div class="container">
-    <a class="nav-name" href="/">Philip Repko</a>
+    <span class="nav-name">
+      <span class="terminal-prompt">projects@nix:~$</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
     <ul class="nav-links">
       <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
@@ -332,8 +392,9 @@
         </div>
         <div class="project-body">
           <p class="project-desc">
-            My Waybar setup isn't a status bar — it's a <strong>character</strong>. Every system state has a corresponding line: battery levels, network quality, CPU temperature, volume, weather, media. Each one has a rotating set of responses that share a consistent voice. Not helpful. Not informative. <em>Opinionated.</em>
+            My Waybar setup isn't a status bar — it's a <strong>character</strong>. Every system state has a corresponding line: battery levels, network quality, CPU temperature, volume, weather, media. Each one has a rotating set of responses that share a consistent voice. Not helpful, or even informative.
           </p>
+          <p class="project-desc"> <em>Only opinionated.</em> </p>
           <p class="project-desc">
             The snark JSON has grown to cover fourteen system states with eight to thirteen lines each. The CPU at critical temp: <strong>"The fans scream into the void."</strong> Ethernet connected: <strong>"Tethered to truth at 1Gbps."</strong> Fog outside: <strong>"The world is buffering."</strong> It's the same voice every time. It just happens to live in a status bar.
           </p>

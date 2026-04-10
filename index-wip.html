@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Philip Repko</title>
+  <title>Philip Repko · Digital Experience Systems Designer</title>
   <style>
     :root {
       --base: #232136;
@@ -12,7 +12,6 @@
       --muted: #6e6a86;
       --subtle: #908caa;
       --text: #e0def4;
-      --love: #eb6f92;
       --gold: #f6c177;
       --rose: #ea9a97;
       --pine: #3e8fb0;
@@ -24,42 +23,68 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--base);
       color: var(--text);
       line-height: 1.6;
-      font-size: 16px;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
-    a { color: var(--text); text-decoration: none; }
 
     .container {
-      max-width: 680px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 28px;
+      padding: 0 24px;
     }
 
-    nav {
-      padding: 28px 0;
-      border-bottom: 1px solid var(--hl-med);
+    /* ── SYSTEM SIDEBARS ── */
+    .sys-sidebar {
+      position: fixed;
+      bottom: 40px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      color: var(--muted);
+      z-index: 10;
+      pointer-events: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    nav .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .sidebar-left { left: 40px; }
+    .sidebar-right { right: 40px; text-align: right; }
 
+    .stat-line { margin-bottom: 4px; }
+    .stat-label { color: var(--pine); margin-right: 4px; }
+
+    /* ── TERMINAL ELEMENTS ── */
     .nav-name {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-      letter-spacing: -0.01em;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    .terminal-prompt { color: var(--foam); font-weight: bold; }
+    .terminal-command { color: var(--text); }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.2em;
+      background: var(--iris);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav { padding: 40px 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
 
     .nav-links {
       display: flex;
@@ -70,14 +95,44 @@
     .nav-links a {
       font-size: 14px;
       color: var(--subtle);
+      text-decoration: none;
       transition: color 0.15s;
     }
 
     .nav-links a:hover { color: var(--text); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       padding: 100px 0 88px;
+      position: relative;
+      animation: heroFadeIn 0.7s ease-out;
+    }
+
+    .hero-decor {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--iris);
+      margin-bottom: 36px;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: heroFadeIn 0.6s ease-out 0.05s both;
+      /* Placeholder color if no image src */
+      background: var(--overlay);
+    }
+
+    .hero-avatar:hover {
+      border-color: var(--gold);
+      transform: scale(1.05);
     }
 
     .hero-eyebrow {
@@ -86,6 +141,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 24px;
+      animation: heroFadeIn 0.6s ease-out 0.12s both;
     }
 
     .hero h1 {
@@ -93,14 +149,23 @@
       font-weight: 500;
       line-height: 1.15;
       letter-spacing: -0.03em;
-      color: var(--text);
       margin-bottom: 28px;
       max-width: 580px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--gold) 70%, var(--iris) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroFadeIn 0.6s ease-out 0.2s both;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(to right, var(--foam), var(--iris));
+      margin-top: 20px;
+      border-radius: 2px;
     }
 
     .hero-body {
@@ -109,6 +174,7 @@
       max-width: 520px;
       line-height: 1.7;
       margin-bottom: 56px;
+      animation: heroFadeIn 0.6s ease-out 0.3s both;
     }
 
     .hero-body strong {
@@ -116,11 +182,12 @@
       font-weight: 500;
     }
 
-    /* NAV CARDS */
+    /* ── NAV CARDS ── */
     .nav-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
+      animation: heroFadeIn 0.6s ease-out 0.4s both;
     }
 
     .nav-card {
@@ -129,6 +196,7 @@
       border: 1px solid var(--hl-med);
       border-radius: 10px;
       padding: 20px 22px;
+      text-decoration: none;
       transition: border-color 0.15s, background 0.15s;
       cursor: pointer;
     }
@@ -160,7 +228,6 @@
       line-height: 1.5;
     }
 
-    .nav-card.accent-iris { border-color: var(--hl-med); }
     .nav-card.accent-iris:hover { border-color: var(--iris); }
     .nav-card.accent-iris .nav-card-label { color: var(--iris); }
 
@@ -173,7 +240,7 @@
     .nav-card.accent-rose:hover { border-color: var(--rose); }
     .nav-card.accent-rose .nav-card-label { color: var(--rose); }
 
-    /* CURRENTLY */
+    /* ── CURRENTLY ── */
     .currently {
       padding: 64px 0;
       border-top: 1px solid var(--hl-med);
@@ -212,7 +279,7 @@
       border-radius: 50%;
       background: var(--pine);
       flex-shrink: 0;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .currently-text {
@@ -237,6 +304,7 @@
       text-decoration-color: var(--foam);
     }
 
+    /* ── FOOTER ── */
     footer {
       padding: 40px 0;
       border-top: 1px solid var(--hl-med);
@@ -247,17 +315,55 @@
       color: var(--muted);
     }
 
+    /* ── ANIMATIONS ── */
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .sys-sidebar { display: none; }
+    }
+
     @media (max-width: 520px) {
       .nav-cards { grid-template-columns: 1fr; }
       .hero { padding: 64px 0 56px; }
+      .hero-avatar { width: 100px; height: 100px; margin-bottom: 24px; }
+      .hero-decor { width: 140px; height: 140px; top: 30px; }
     }
   </style>
 </head>
 <body>
 
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--hl-med)" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+</svg>
+
+<aside class="sys-sidebar sidebar-left">
+  <div class="stat-line"><span class="stat-label">OS</span> NixOS 26.05</div>
+  <div class="stat-line"><span class="stat-label">WM</span> Niri</div>
+  <div class="stat-line"><span class="stat-label">LOC</span> 39.9526° N</div>
+</aside>
+
+<aside class="sys-sidebar sidebar-right">
+  <div class="stat-line"><span class="stat-label">STATUS</span> System Nominal</div>
+  <div class="stat-line"><span class="stat-label">UPTIME</span> 14d 02h 12m</div>
+  <div class="stat-line"><span class="stat-label">SHELL</span> zsh</div>
+</aside>
+
 <nav>
   <div class="container">
-    <span class="nav-name">Philip Repko</span>
+    <span class="nav-name">
+      <span class="terminal-prompt">root@nix:~$</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
     <ul class="nav-links">
       <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
@@ -270,32 +376,39 @@
   <div class="container">
 
     <div class="hero">
+      <!-- Replace src with your actual photo path -->
+      <img class="hero-avatar" src="assets/profile.jpg" alt="Philip Repko" />
+
       <p class="hero-eyebrow">Digital Experience Systems Designer</p>
-      <h1>I have a detailed answer for every <em>rhetorical</em> question.</h1>
+
+      <h1>Building systems that think,<br>so people don't have to.</h1>
+
       <p class="hero-body">
-        I design systems that talk to people. Not at them. I've spent four years building conversational AI at a credit union — <strong>end to end, no net</strong> — and before that, 13 years learning that every operational failure is a systems problem wearing a people costume.
+        I design and own <strong>conversational AI platforms</strong> at the intersection of fintech and human behavior —
+        turning contact center chaos into structured, measurable systems.
+        Former restaurateur. Current practitioner. Always building.
       </p>
 
       <div class="nav-cards">
         <a href="/work" class="nav-card accent-iris">
-          <p class="nav-card-label">Work</p>
-          <p class="nav-card-title">The professional case</p>
-          <p class="nav-card-desc">Conversational AI, Deflection, Containment, the whole thing.</p>
+          <p class="nav-card-label">Case Studies</p>
+          <p class="nav-card-title">Work</p>
+          <p class="nav-card-desc">AI implementations, platform ownership, and measurable outcomes.</p>
         </a>
         <a href="/writing" class="nav-card accent-gold">
-          <p class="nav-card-label">Writing</p>
-          <p class="nav-card-title">Fiction, poetry, family</p>
-          <p class="nav-card-desc">A novel in progress. but check out my dad's new book, Homestretch.</p>
+          <p class="nav-card-label">Words</p>
+          <p class="nav-card-title">Writing</p>
+          <p class="nav-card-desc">Fiction, poetry, and the occasional technical essay.</p>
         </a>
         <a href="/projects" class="nav-card accent-foam">
-          <p class="nav-card-label">Projects</p>
-          <p class="nav-card-title">Things I'm building</p>
-          <p class="nav-card-desc">flake.nix, sqlch, and whatever else I'm currently breaking on purpose.</p>
+          <p class="nav-card-label">Open Source</p>
+          <p class="nav-card-title">Projects</p>
+          <p class="nav-card-desc">CLI tools, NixOS configs, and things built for fun.</p>
         </a>
-        <a href="mailto:me@philipjrepko.com" class="nav-card accent-rose">
-          <p class="nav-card-label">Contact</p>
-          <p class="nav-card-title">Get in touch</p>
-          <p class="nav-card-desc">For work, consulting, or just to talk about the thing.</p>
+        <a href="mailto:philipjrepko@gmail.com" class="nav-card accent-rose">
+          <p class="nav-card-label">Get in Touch</p>
+          <p class="nav-card-title">Contact</p>
+          <p class="nav-card-desc">Open to the right vendor-side role. Let's talk.</p>
         </a>
       </div>
     </div>
@@ -305,19 +418,15 @@
       <div class="currently-items">
         <div class="currently-item">
           <div class="currently-dot" style="background: var(--iris);"></div>
-          <p class="currently-text">Auditing 2,500+ conversation goals for a <strong>full rebrand</p>
+          <p class="currently-text">Auditing 2,500+ conversation goals for a <strong>full rebrand</strong></p>
         </div>
         <div class="currently-item">
           <div class="currently-dot" style="background: var(--gold);"></div>
-          <p class="currently-text">Writing <strong>All These Perfect Floods</strong>, a novel about recursive memory and the stories we tell instead of the ones that actually happened</p>
+          <p class="currently-text">Building <strong><a href="https://github.com/SW-philip/nixos">phl</a></strong> — a custom shell with an opinionated narrator</p>
         </div>
         <div class="currently-item">
           <div class="currently-dot" style="background: var(--foam);"></div>
-          <p class="currently-text">Building <strong>My Toolbelt</strong></p>
-        </div>
-        <div class="currently-item">
-          <div class="currently-dot" style="background: var(--rose);"></div>
-          <p class="currently-text">Reading <strong>Homestretch</strong> by P.E.A.Repko — my dad's second collection of poetry, out now</p>
+          <p class="currently-text">Finishing <strong>All These Perfect Floods</strong>, a novel</p>
         </div>
       </div>
     </div>

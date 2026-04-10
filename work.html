@@ -36,6 +36,44 @@
 
     a { color: var(--text); text-decoration: none; }
 
+    /* ── TERMINAL NAV STYLES ── */
+    .nav-name {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-prompt {
+      color: var(--foam);
+      font-weight: 700;
+    }
+
+    .terminal-command {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
     .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
 
     nav {
@@ -288,7 +326,11 @@
 
 <nav>
   <div class="container">
-    <a class="nav-name" href="/">Philip Repko</a>
+    <span class="nav-name">
+      <span class="terminal-prompt">work@nix:~$</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
     <ul class="nav-links">
       <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
