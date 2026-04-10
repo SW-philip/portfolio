@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Repko — Digital Experience Systems Designer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --bg2: #f2f0eb;
+      --text: #1a1a18;
+      --text2: #5a5a56;
+      --text3: #9a9a94;
+      --border: rgba(0,0,0,0.1);
+      --border2: rgba(0,0,0,0.18);
+      --accent: #2a2a26;
+      --tag-bg: #eeecea;
+      --tag-text: #3a3a36;
+      --card-bg: #ffffff;
+      --link: #1a1a18;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16161400;
+        --bg2: #1e1e1c;
+        --text: #e8e8e2;
+        --text2: #a0a09a;
+        --text3: #606058;
+        --border: rgba(255,255,255,0.08);
+        --border2: rgba(255,255,255,0.14);
+        --accent: #e8e8e2;
+        --tag-bg: #252522;
+        --tag-text: #c0c0b8;
+        --card-bg: #1e1e1c;
+        --link: #e8e8e2;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      border-bottom: 0.5px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 96px 0 80px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .hero-label {
+      font-size: 13px;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    .hero-mission {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text3);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 80px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 13px;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    /* ABOUT */
+    .about-body {
+      font-size: 17px;
+      color: var(--text2);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    .about-body p + p {
+      margin-top: 20px;
+    }
+
+    .about-body strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* WORK */
+    .work-item {
+      padding: 32px 0;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .work-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .work-title {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .work-org {
+      font-size: 14px;
+      color: var(--text3);
+      white-space: nowrap;
+    }
+
+    .work-desc {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 16px;
+      max-width: 580px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.01em;
+    }
+
+    /* PORTFOLIO CASE STUDY */
+    .case-study {
+      background: var(--card-bg);
+      border: 0.5px solid var(--border2);
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+
+    .case-study-header {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .case-study-label {
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .case-study-title {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .case-study-sub {
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    .case-study-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric {
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    .case-study-body {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .case-study-body p + p {
+      margin-top: 14px;
+    }
+
+    .case-study-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      border: 0.5px solid var(--border2);
+      border-radius: 6px;
+      padding: 8px 16px;
+      transition: background 0.15s;
+    }
+
+    .case-study-link:hover {
+      background: var(--bg2);
+      text-decoration: none;
+    }
+
+    /* PRINCIPLES */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      gap: 1px;
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .principle {
+      padding: 28px 24px;
+      background: var(--card-bg);
+    }
+
+    .principle-number {
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .principle-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .principle-body {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* CONTACT */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .contact-row:last-child {
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .contact-label {
+      font-size: 13px;
+      color: var(--text3);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 0;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text3);
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 0 56px; }
+      .hero-stats { gap: 28px; }
+      .case-study-metrics { grid-template-columns: repeat(2, 1fr); }
+      .principles-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">Philip Repko</span>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#principles">Principles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <section class="hero">
+      <p class="hero-label">Digital Experience Systems Designer</p>
+      <h1>I am the detailed answer to every rhetorical question.</h1>
+      <p class="hero-mission">I design and create the systems that augment, or simply provide, our members' digital experience. End to end. Without a net.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">22%</span>
+          <span class="stat-label">Contact center deflection</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">2,500+</span>
+          <span class="stat-label">Conversation goals authored</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">6</span>
+          <span class="stat-label">Fintech platforms owned</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">4+</span>
+          <span class="stat-label">Years in digital banking</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <p class="section-label">About</p>
+      <div class="about-body">
+        <p>I came up through 13 years of restaurant management — which taught me that systems either serve people or they don't, and that the gap between the two is almost always a design problem, not a people problem.</p>
+        <p>I made a deliberate pivot into digital banking and have spent four years building the thing from the inside out. No CS degree. Two promotions. I own <strong>six fintech platforms</strong> at TruMark Financial, including a conversational AI implementation I designed, built, and maintain — end to end — across three distinct member-facing entry points.</p>
+        <p>I think in systems. I write the documentation after I've already internalized the architecture. I'm most useful in rooms where the answer isn't obvious yet.</p>
+      </div>
+    </section>
+
+    <section id="work">
+      <p class="section-label">Work</p>
+
+      <div class="work-item">
+        <div class="work-header">
+          <span class="work-title">Digital Solutions Associate II</span>
+          <span class="work-org">TruMark Financial Credit Union · 2020–present</span>
+        </div>
+        <p class="work-desc">Platform owner for Glia Virtual Assistant, Symitar Quest, MeridianLink, Fiserv Zelle, Callsign, and MANTL. Designed and deployed a three-bot conversational AI system covering ~350 member intent topics across public, authenticated, and mobile entry points. Reduced contact center volume by 22% through deliberate conversation design — not automation for automation's sake.</p>
+        <div class="tags">
+          <span class="tag">Conversational AI</span>
+          <span class="tag">Glia</span>
+          <span class="tag">Symitar Quest</span>
+          <span class="tag">MeridianLink</span>
+          <span class="tag">Zelle</span>
+          <span class="tag">Callsign</span>
+          <span class="tag">MANTL</span>
+          <span class="tag">Intent architecture</span>
+          <span class="tag">Digital banking</span>
+        </div>
+      </div>
+
+      <div class="case-study">
+        <div class="case-study-header">
+          <p class="case-study-label">Case study</p>
+          <h2 class="case-study-title">TruMark GVA — Conversational AI System</h2>
+          <p class="case-study-sub">Three-bot architecture across public, authenticated, and mobile entry points</p>
+        </div>
+
+        <div class="case-study-metrics">
+          <div class="metric">
+            <div class="metric-value">22%</div>
+            <div class="metric-label">Contact center deflection</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">~350</div>
+            <div class="metric-label">Intent topics covered</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">3</div>
+            <div class="metric-label">Distinct bot deployments</div>
+          </div>
+        </div>
+
+        <div class="case-study-body">
+          <p>Built from the ground up with no formal CS background and no vendor implementation support — just a clear philosophy: every conversation should be designed as if API integration is coming tomorrow, even when it isn't. Deeplinks stand in for API calls today. The conversational logic doesn't change when the integration arrives.</p>
+          <p>The system handles three categories of member intent: task intents (classify and deeplink), diagnostic intents (classify and inform), and handoff intents (empathy and route). Each category has a distinct conversational shape. No intent dead-ends — a representative is always reachable through natural language, not a button.</p>
+          <p>Currently mid-rebrand audit: personally reviewing 2,500+ conversation goals across all three bots for brand compliance, updating UI elements, and authoring net-new intent coverage for recently launched products.</p>
+        </div>
+
+        <a class="case-study-link" href="system-map.html">
+          View system map ↗
+        </a>
+      </div>
+
+      <div class="work-item" style="margin-top: 40px;">
+        <div class="work-header">
+          <span class="work-title">General Manager</span>
+          <span class="work-org">Various · 2007–2020</span>
+        </div>
+        <p class="work-desc">13 years running restaurant operations — P&L ownership, staff development, systems design under real-time pressure. The throughline: every operational failure is a systems problem wearing a people costume. That instinct followed me into fintech.</p>
+        <div class="tags">
+          <span class="tag">Operations</span>
+          <span class="tag">Systems thinking</span>
+          <span class="tag">P&L ownership</span>
+          <span class="tag">Team leadership</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles">
+      <p class="section-label">How I work</p>
+      <div class="principles-grid">
+        <div class="principle">
+          <p class="principle-number">01</p>
+          <p class="principle-title">Build for the integration you don't have yet</p>
+          <p class="principle-body">Every decision gets made as if the API is coming tomorrow. When it arrives, you swap one thing, not everything.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-number">02</p>
+          <p class="principle-title">Let the conversation resolve ambiguity</p>
+          <p class="principle-body">Don't ask for clarification upfront. Design the first pass to cover the most likely intent, then escalate if needed. Progressive disambiguation.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-number">03</p>
+          <p class="principle-title">Know when the answer is a human</p>
+          <p class="principle-body">A bot that recognizes its own ceiling is more valuable than one that tries to handle everything. Triage is a design decision.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-number">04</p>
+          <p class="principle-title">No dead ends</p>
+          <p class="principle-body">A member should always have a path forward. A representative is reachable from anywhere, through natural language, without a button.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="section-label">Contact</p>
+      <div class="contact-links">
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <a class="contact-value" href="mailto:philip@philipjrepko.com">philip@philipjrepko.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">LinkedIn</span>
+          <a class="contact-value" href="https://linkedin.com/in/philiprepko" target="_blank" rel="noopener">linkedin.com/in/philiprepko</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">GitHub</span>
+          <a class="contact-value" href="https://github.com/SW-philip" target="_blank" rel="noopener">github.com/SW-philip</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Location</span>
+          <span class="contact-value">Philadelphia area</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · philipjrepko.com</p>
+  </div>
+</footer>
+
+</body>
+</html>
