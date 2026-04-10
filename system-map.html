@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversational AI System Map — Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 28px; }
+
+    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
+    nav .inner { max-width: 800px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-name { font-size: 15px; font-weight: 500; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-header { padding: 64px 0 48px; border-bottom: 1px solid var(--hl-med); }
+
+    .page-eyebrow {
+      font-size: 13px;
+      color: var(--iris);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .page-header p { font-size: 15px; color: var(--subtle); max-width: 560px; line-height: 1.7; }
+
+    section { padding: 56px 0; border-bottom: 1px solid var(--hl-med); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--subtle);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .section-desc strong { color: var(--text); font-weight: 500; }
+
+    /* ENTRY POINTS */
+    .entry-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .entry-point {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .entry-point-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .entry-point-desc { font-size: 13px; color: var(--subtle); line-height: 1.5; }
+
+    .entry-arrow {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .entry-arrow::before, .entry-arrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--hl-med);
+    }
+
+    /* INTENT TYPES */
+    .intent-types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .intent-type {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .intent-type-header {
+      padding: 16px 18px 14px;
+      border-bottom: 1px solid var(--hl-med);
+    }
+
+    .intent-type-tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .tag-task { color: var(--foam); }
+    .tag-diagnostic { color: var(--gold); }
+    .tag-handoff { color: var(--rose); }
+
+    .intent-type-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .intent-type-pattern {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .intent-type-examples {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .intent-example {
+      font-size: 12px;
+      color: var(--subtle);
+      padding: 6px 10px;
+      background: var(--hl-low);
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+
+    /* PRINCIPLES */
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .principle {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .principle-num {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .principle-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+      color: var(--iris);
+    }
+
+    .principle-body { font-size: 13px; color: var(--subtle); line-height: 1.6; }
+
+    /* FLOW DIAGRAMS */
+    .flow-diagram {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .flow-diagram:last-child { margin-bottom: 0; }
+
+    .flow-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--hl-med);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .flow-tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--hl-med);
+      flex-shrink: 0;
+    }
+
+    .flow-title { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+    .flow-sub { font-size: 13px; color: var(--subtle); margin-left: auto; }
+
+    .flow-body { padding: 24px; }
+
+    /* NODES */
+    .flow-node {
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.4;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .node-member {
+      background: var(--hl-low);
+      border: 1px solid var(--hl-med);
+      color: var(--subtle);
+    }
+
+    .node-question {
+      background: var(--hl-low);
+      border: 1px solid var(--iris);
+      color: var(--text);
+    }
+
+    .node-question .node-label { color: var(--iris); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .node-deeplink {
+      background: var(--hl-low);
+      border: 1px solid var(--pine);
+    }
+
+    .node-deeplink .node-label { color: var(--foam); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .node-deeplink .node-text { color: var(--text); }
+
+    .node-info {
+      background: var(--hl-low);
+      border: 1px solid var(--gold);
+    }
+
+    .node-info .node-label { color: var(--gold); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .node-info .node-text { color: var(--text); }
+
+    .node-handoff {
+      background: var(--hl-low);
+      border: 1px solid var(--hl-med);
+      color: var(--subtle);
+      font-size: 12px;
+    }
+
+    /* FLOW LAYOUTS */
+    .flow-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .flow-center { display: flex; justify-content: center; margin-bottom: 8px; }
+
+    .flow-arrow-down {
+      display: flex;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .flow-branches {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .flow-branches-3 { grid-template-columns: repeat(3, 1fr); }
+    .flow-branches-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .branch { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+
+    .branch-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      padding: 0 4px;
+    }
+
+    .branch-arrow { color: var(--muted); font-size: 14px; line-height: 1; }
+
+    .flow-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--hl-low);
+      font-style: italic;
+    }
+
+    .branch .flow-node { width: 100%; }
+
+    /* LEGEND */
+    .legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--subtle); }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .dot-question { border: 1px solid var(--iris); background: var(--hl-low); }
+    .dot-deeplink { border: 1px solid var(--pine); background: var(--hl-low); }
+    .dot-info { border: 1px solid var(--gold); background: var(--hl-low); }
+    .dot-member { border: 1px solid var(--hl-med); background: var(--hl-low); }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--hl-med); }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 600px) {
+      .entry-points { grid-template-columns: 1fr; }
+      .intent-types { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: 1fr; }
+      .flow-branches-3 { grid-template-columns: 1fr; }
+      .flow-branches-2 { grid-template-columns: 1fr; }
+      .flow-sub { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="nav-name" href="/">Philip Repko</a>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">System map</p>
+      <h1>How I design conversational AI systems</h1>
+      <p>A framework for building member-facing virtual assistants — followed by two documented flows from a real implementation. The methodology generalizes. The examples are specific.</p>
+    </div>
+
+    <section>
+      <p class="section-label">Framework</p>
+      <h2 class="section-title">The three-entry architecture</h2>
+      <p class="section-desc">Member-facing conversational AI rarely lives in one place. A well-designed system accounts for <strong>where the member is</strong> when they reach out — what they know, what they can do, and what context the bot has access to.</p>
+
+      <div class="entry-points">
+        <div class="entry-point">
+          <p class="entry-point-name">Public</p>
+          <p class="entry-point-desc">Unauthenticated. The bot is a concierge — it shows what's possible and routes to login. Context passes forward when the member authenticates.</p>
+        </div>
+        <div class="entry-point">
+          <p class="entry-point-name">Authenticated</p>
+          <p class="entry-point-desc">Full capability. The bot knows the member is logged in and can classify intent, deliver targeted information, and deeplink to the right screen.</p>
+        </div>
+        <div class="entry-point">
+          <p class="entry-point-name">Mobile</p>
+          <p class="entry-point-desc">Same logic as authenticated, different destinations. Mobile apps expose different screens — the conversation is identical, the deeplinks are not.</p>
+        </div>
+      </div>
+
+      <div class="entry-arrow">context passes forward on authentication</div>
+
+      <h2 class="section-title">Three intent types</h2>
+      <p class="section-desc">Every member intent falls into one of three categories. The category determines the conversational shape — how many questions the bot asks, what it delivers, and whether a human is the right endpoint.</p>
+
+      <div class="intent-types">
+        <div class="intent-type">
+          <div class="intent-type-header">
+            <p class="intent-type-tag tag-task">Task</p>
+            <p class="intent-type-name">Classify → deeplink</p>
+            <p class="intent-type-pattern">classify → route</p>
+          </div>
+          <div class="intent-type-examples">
+            <div class="intent-example">Make a payment or transfer</div>
+            <div class="intent-example">Apply for a product</div>
+            <div class="intent-example">Enroll in a feature</div>
+          </div>
+        </div>
+        <div class="intent-type">
+          <div class="intent-type-header">
+            <p class="intent-type-tag tag-diagnostic">Diagnostic</p>
+            <p class="intent-type-name">Classify → inform</p>
+            <p class="intent-type-pattern">classify → answer</p>
+          </div>
+          <div class="intent-type-examples">
+            <div class="intent-example">Why did my transfer fail?</div>
+            <div class="intent-example">Why was I charged this fee?</div>
+            <div class="intent-example">Where is my deposit?</div>
+          </div>
+        </div>
+        <div class="intent-type">
+          <div class="intent-type-header">
+            <p class="intent-type-tag tag-handoff">Handoff</p>
+            <p class="intent-type-name">Empathy → route</p>
+            <p class="intent-type-pattern">acknowledge → human</p>
+          </div>
+          <div class="intent-type-examples">
+            <div class="intent-example">I want a fee refunded</div>
+            <div class="intent-example">Collections inquiry</div>
+            <div class="intent-example">Dispute a charge</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Principles</p>
+      <h2 class="section-title">What makes a system work</h2>
+      <p class="section-desc">These aren't values statements. They're design decisions that show up in every flow.</p>
+      <div class="principles">
+        <div class="principle">
+          <p class="principle-num">01</p>
+          <p class="principle-title">Build as if I'm the member</p>
+          <p class="principle-body">Every branch, every response, every question — written from the perspective of a member at 11pm who needs an actual answer. Not a script. Not a policy document.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-num">02</p>
+          <p class="principle-title">Progressive disambiguation</p>
+          <p class="principle-body">Don't ask for clarification upfront. Design the first pass to cover the most likely intent, then escalate if the member indicates it didn't solve the problem.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-num">03</p>
+          <p class="principle-title">No dead ends</p>
+          <p class="principle-body">A representative is always reachable — through natural language, from anywhere, without a button. "Speak to a representative" routes from every state in the system.</p>
+        </div>
+        <div class="principle">
+          <p class="principle-num">04</p>
+          <p class="principle-title">API-shaped from the start</p>
+          <p class="principle-body">Every deeplink is a placeholder for an API call. When integration arrives, you swap the destination — not the conversational logic. The skeleton doesn't change.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Example implementation — Graham & Grey FCU</p>
+      <h2 class="section-title">Two flows, two patterns</h2>
+      <p class="section-desc">The same methodology applied to two different intent types. Task and diagnostic — different shapes, same underlying principles.</p>
+
+      <div class="flow-diagram">
+        <div class="flow-header">
+          <span class="flow-tag tag-task">Task intent</span>
+          <span class="flow-title">Make a payment or transfer</span>
+          <span class="flow-sub">Authenticated bot</span>
+        </div>
+        <div class="flow-body">
+
+          <div class="flow-center">
+            <div class="flow-node node-member">Member: "I want to make a payment"</div>
+          </div>
+          <div class="flow-arrow-down">↓</div>
+
+          <div class="flow-center">
+            <div class="flow-node node-question">
+              <span class="node-label">Bot question</span>
+              <span>What type of payment? Internal · External · Loan payment</span>
+            </div>
+          </div>
+          <div class="flow-arrow-down">↓</div>
+
+          <div class="flow-branches flow-branches-3">
+            <div class="branch">
+              <span class="branch-label">Internal</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-deeplink" style="width:100%">
+                <span class="node-label">Deeplink</span>
+                <span class="node-text">Transfer between accounts</span>
+              </div>
+            </div>
+            <div class="branch">
+              <span class="branch-label">External</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-deeplink" style="width:100%">
+                <span class="node-label">Deeplink</span>
+                <span class="node-text">Pay loan or credit card</span>
+              </div>
+            </div>
+            <div class="branch">
+              <span class="branch-label">Loan payment</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-question" style="width:100%">
+                <span class="node-label">Bot question</span>
+                <span>How? Debit · Internal · External</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; margin-top: 8px;">
+            <div style="width: 33.3%; padding-left: 12px;">
+              <div class="flow-arrow-down">↓</div>
+              <div class="flow-branches flow-branches-3" style="gap:6px;">
+                <div class="branch">
+                  <div class="flow-node node-deeplink" style="width:100%; font-size:11px; padding: 6px 8px;">
+                    <span class="node-label">Deeplink</span>
+                    <span class="node-text">Debit card</span>
+                  </div>
+                </div>
+                <div class="branch">
+                  <div class="flow-node node-deeplink" style="width:100%; font-size:11px; padding: 6px 8px;">
+                    <span class="node-label">Deeplink</span>
+                    <span class="node-text">Internal</span>
+                  </div>
+                </div>
+                <div class="branch">
+                  <div class="flow-node node-deeplink" style="width:100%; font-size:11px; padding: 6px 8px;">
+                    <span class="node-label">Deeplink</span>
+                    <span class="node-text">External</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="flow-note">Deeplinks become API calls when integration is available. The conversational logic doesn't change.</p>
+
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot dot-member"></div>Member input</div>
+            <div class="legend-item"><div class="legend-dot dot-question"></div>Bot question</div>
+            <div class="legend-item"><div class="legend-dot dot-deeplink"></div>Deeplink destination</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-header">
+          <span class="flow-tag tag-diagnostic">Diagnostic intent</span>
+          <span class="flow-title">Why did my transfer fail?</span>
+          <span class="flow-sub">Authenticated bot</span>
+        </div>
+        <div class="flow-body">
+
+          <div class="flow-center">
+            <div class="flow-node node-member">Member: "My transfer didn't go through"</div>
+          </div>
+          <div class="flow-arrow-down">↓</div>
+
+          <div class="flow-center">
+            <div class="flow-node node-question">
+              <span class="node-label">Bot question</span>
+              <span>What type of transfer? Internal · External · Zelle</span>
+            </div>
+          </div>
+          <div class="flow-arrow-down">↓</div>
+
+          <div class="flow-branches flow-branches-3">
+            <div class="branch">
+              <span class="branch-label">Internal</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-question" style="width:100%">
+                <span class="node-label">Targeted question</span>
+                <span>Did you recently change that account type?</span>
+              </div>
+            </div>
+            <div class="branch">
+              <span class="branch-label">External</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-info" style="width:100%">
+                <span class="node-label">Expectation-setting</span>
+                <span class="node-text">Allow 3 business days from send date for Fed processing</span>
+              </div>
+            </div>
+            <div class="branch">
+              <span class="branch-label">Zelle</span>
+              <span class="branch-arrow">↓</span>
+              <div class="flow-node node-info" style="width:100%">
+                <span class="node-label">Triage list</span>
+                <span class="node-text">Same-day deposit? Sufficient funds? Recipient number? Phone active?</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-arrow-down" style="margin-top:8px;">↓</div>
+
+          <div class="flow-branches flow-branches-3">
+            <div class="branch">
+              <div class="flow-node node-info" style="width:100%">
+                <span class="node-label">Resolution</span>
+                <span class="node-text">Transfers route by account name — cancel and recreate with new name</span>
+              </div>
+            </div>
+            <div class="branch">
+              <div class="flow-node node-handoff" style="width:100%">
+                Still missing after 3 days? Say "speak to a representative"
+              </div>
+            </div>
+            <div class="branch">
+              <div class="flow-node node-handoff" style="width:100%">
+                A rep can explain more. Say "speak to a representative"
+              </div>
+            </div>
+          </div>
+
+          <p class="flow-note">Three branches, three different conversational strategies. Internal: targeted fix. External: expectation-setting. Zelle: triage and hand off.</p>
+
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot dot-member"></div>Member input</div>
+            <div class="legend-item"><div class="legend-dot dot-question"></div>Bot question</div>
+            <div class="legend-item"><div class="legend-dot dot-info"></div>Diagnostic / information</div>
+            <div class="legend-item"><div class="legend-dot dot-member"></div>Handoff</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · <a href="/" style="color: var(--subtle);">philipjrepko.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
