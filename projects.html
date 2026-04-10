@@ -35,7 +35,6 @@
 
     a { color: var(--text); text-decoration: none; }
 
-    /* ── TERMINAL NAV STYLES ── */
     .nav-name {
       font-family: 'Courier New', Courier, monospace;
       font-size: 20px;
@@ -47,15 +46,8 @@
       gap: 6px;
     }
 
-    .terminal-prompt {
-      color: var(--foam);
-      font-weight: 700;
-    }
-
-    .terminal-command {
-      color: var(--gold);
-      font-weight: 600;
-    }
+    .terminal-prompt { color: var(--foam); font-weight: 700; }
+    .terminal-command { color: var(--gold); font-weight: 600; }
 
     .cursor {
       display: inline-block;
@@ -72,11 +64,11 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
+
     .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
 
     nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
     nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .nav-name { font-size: 15px; font-weight: 500; }
     .nav-links { display: flex; gap: 24px; list-style: none; }
     .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
@@ -125,12 +117,8 @@
       margin-bottom: 32px;
     }
 
-    .section-label::before {
-      content: "// ";
-      color: var(--iris);
-    }
+    .section-label::before { content: "// "; color: var(--iris); }
 
-    /* PROJECT CARD */
     .project-card {
       background: var(--surface);
       border: 1px solid var(--hl-med);
@@ -168,13 +156,7 @@
     .tag-gold { color: var(--gold); }
     .tag-rose { color: var(--rose); }
 
-    .project-name {
-      font-size: 20px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
+    .project-name { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 6px; }
     .project-subtitle { font-size: 14px; color: var(--subtle); }
 
     .project-status {
@@ -192,17 +174,11 @@
 
     .project-body { padding: 24px 26px; }
 
-    .project-desc {
-      font-size: 15px;
-      color: var(--subtle);
-      line-height: 1.75;
-      margin-bottom: 20px;
-    }
-
+    .project-desc { font-size: 15px; color: var(--subtle); line-height: 1.75; margin-bottom: 20px; }
     .project-desc strong { color: var(--text); font-weight: 500; }
     .project-desc em { font-style: normal; color: var(--gold); }
 
-    /* SNARK DEMO */
+    /* SNARK GRID WITH LIGHTBOX */
     .snark-demo {
       background: var(--hl-low);
       border: 1px solid var(--hl-med);
@@ -223,6 +199,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
+      margin-bottom: 10px;
     }
 
     .snark-item {
@@ -232,31 +209,90 @@
       padding: 10px 12px;
       cursor: pointer;
       transition: border-color 0.15s;
+      position: relative;
     }
 
-    .snark-item:hover { border-color: var(--muted); }
+    .snark-item:hover { border-color: var(--iris); }
 
-    .snark-context {
-      font-size: 11px;
+    .snark-context { font-size: 11px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.04em; }
+    .snark-line { font-size: 13px; color: var(--text); line-height: 1.4; min-height: 36px; }
+
+    .snark-hint {
+      font-size: 10px;
       color: var(--muted);
-      margin-bottom: 4px;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .snark-item:hover .snark-hint { opacity: 1; }
+
+    /* SEE ALL BUTTON */
+    .see-all-btn {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 9px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--subtle);
+      border: 1px solid var(--hl-med);
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      cursor: pointer;
+      background: transparent;
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .see-all-btn:hover {
+      border-color: var(--iris);
+      color: var(--iris);
+      background: var(--hl-low);
+      text-decoration: none;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(22, 20, 36, 0.88);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      max-width: 520px;
+      width: 90%;
+      pointer-events: none;
+    }
+
+    .lightbox-img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--hl-med);
+      display: block;
+    }
+
+    .lightbox-caption {
+      font-size: 12px;
+      color: var(--subtle);
+      text-align: center;
+      margin-top: 12px;
       letter-spacing: 0.04em;
     }
 
-    .snark-line {
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.4;
-      min-height: 36px;
-    }
-
     /* CLOCK MODES */
-    .clock-modes {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
-    }
+    .clock-modes { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
 
     .clock-mode {
       background: var(--hl-low);
@@ -276,18 +312,10 @@
       flex-shrink: 0;
     }
 
-    .clock-mode-name {
-      font-size: 13px;
-      color: var(--subtle);
-    }
+    .clock-mode-name { font-size: 13px; color: var(--subtle); }
 
-    /* SQLCH */
-    .feature-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 20px;
-    }
+    /* FEATURE LIST */
+    .feature-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
 
     .feature-item {
       display: flex;
@@ -317,42 +345,29 @@
       border: 1px dashed var(--hl-med);
       border-radius: 12px;
       padding: 28px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
     }
 
-    .coming-soon-body { flex: 1; }
     .coming-soon-name { font-size: 17px; font-weight: 500; margin-bottom: 6px; letter-spacing: -0.01em; }
     .coming-soon-desc { font-size: 14px; color: var(--subtle); line-height: 1.6; }
     .coming-soon-desc strong { color: var(--text); font-weight: 500; }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      border: 1px solid var(--hl-med);
-      border-radius: 6px;
-      padding: 8px 14px;
-      transition: border-color 0.15s, background 0.15s;
-    }
-
-    .project-link:hover { background: var(--hl-low); text-decoration: none; }
-    .link-foam { color: var(--foam); }
-    .link-foam:hover { border-color: var(--foam); }
 
     footer { padding: 40px 0; border-top: 1px solid var(--hl-med); }
     footer p { font-size: 13px; color: var(--muted); }
 
     @media (max-width: 520px) {
       .snark-grid { grid-template-columns: 1fr; }
-      .clock-mode-display { min-width: 120px; }
+      .clock-mode-display { min-width: 100px; }
     }
   </style>
 </head>
 <body>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+</div>
 
 <nav>
   <div class="container">
@@ -360,7 +375,7 @@
       <span class="terminal-prompt">projects@nix:~$</span>
       <span class="terminal-command">Philip Repko</span>
       <span class="cursor"></span>
-    </span>
+    </a>
     <ul class="nav-links">
       <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
@@ -393,7 +408,7 @@
           <p class="project-desc">
             My Waybar setup isn't a status bar — it's a <strong>character</strong>. Every system state has a corresponding line: battery levels, network quality, CPU temperature, volume, weather, media. Each one has a rotating set of responses that share a consistent voice. Not helpful, or even informative.
           </p>
-          <p class="project-desc"> <em>Only opinionated.</em> </p>
+          <p class="project-desc"><em>Only opinionated.</em></p>
           <p class="project-desc">
             The snark JSON has grown to cover fourteen system states with eight to thirteen lines each. The CPU at critical temp: <strong>"The fans scream into the void."</strong> Ethernet connected: <strong>"Tethered to truth at 1Gbps."</strong> Fog outside: <strong>"The world is buffering."</strong> It's the same voice every time. It just happens to live in a status bar.
           </p>
@@ -401,31 +416,28 @@
           <div class="snark-demo">
             <p class="snark-demo-label">A few lines, by state</p>
             <div class="snark-grid">
-              <div class="snark-item">
+              <div class="snark-item" onclick="openLightbox('/assets/projects/images/battery.png', 'Battery module')">
                 <p class="snark-context">Battery critical</p>
                 <p class="snark-line">"One keystroke from the void."</p>
+                <p class="snark-hint">click to preview</p>
               </div>
-              <div class="snark-item">
+              <div class="snark-item" onclick="openLightbox('/assets/projects/images/vpn-off.png', 'Network — wired')">
                 <p class="snark-context">Ethernet connected</p>
                 <p class="snark-line">"Tethered to truth at 1Gbps."</p>
+                <p class="snark-hint">click to preview</p>
               </div>
-              <div class="snark-item">
+              <div class="snark-item" onclick="openLightbox('/assets/projects/images/weather-current.png', 'Weather — current conditions')">
                 <p class="snark-context">Weather: fog</p>
                 <p class="snark-line">"The world is buffering."</p>
+                <p class="snark-hint">click to preview</p>
               </div>
-              <div class="snark-item">
+              <div class="snark-item" onclick="openLightbox('/assets/projects/images/cpu-temp.png', 'CPU temperature')">
                 <p class="snark-context">CPU: critical temp</p>
                 <p class="snark-line">"The fans scream into the void."</p>
-              </div>
-              <div class="snark-item">
-                <p class="snark-context">Volume: max</p>
-                <p class="snark-line">"Somewhere, a dog is confused."</p>
-              </div>
-              <div class="snark-item">
-                <p class="snark-context">Weather: clear</p>
-                <p class="snark-line">"UV index: concerning. Vibes: immaculate."</p>
+                <p class="snark-hint">click to preview</p>
               </div>
             </div>
+            <a href="/waybar-demo.html" class="see-all-btn">See all modules ↗</a>
           </div>
         </div>
       </div>
@@ -444,23 +456,23 @@
             Five different ways to display the time, rotating or selectable. The interesting one: <strong>the caliper clock</strong>. Tick marks flank a labeled object. From midnight to noon, the objects grow — a seed, a stone, a chestnut, a book. From noon back to midnight, they shrink through a different set of objects entirely. The clock tells a story. It just happens to be accurate.
           </p>
           <div class="clock-modes">
-            <div class="clock-mode">
+            <div class="clock-mode" style="cursor:pointer" onclick="openLightbox('/assets/projects/images/clock-progress.png', 'Day progress')">
               <span class="clock-mode-display">▓▓▓░░░░░░░  34%  8:18 AM</span>
               <span class="clock-mode-name">Day progress — how far through the day you are</span>
             </div>
-            <div class="clock-mode">
+            <div class="clock-mode" style="cursor:pointer" onclick="openLightbox('/assets/projects/images/clock-natural.png', 'Natural time')">
               <span class="clock-mode-display">twenty past eight</span>
               <span class="clock-mode-name">Natural time — plain English, no numerals</span>
             </div>
-            <div class="clock-mode">
+            <div class="clock-mode" style="cursor:pointer" onclick="openLightbox('/assets/projects/images/clock-caliper.png', 'Caliper clock')">
               <span class="clock-mode-display">——| a chestnut |——  8:18</span>
               <span class="clock-mode-name">Caliper clock — an object growing and shrinking through the day</span>
             </div>
-            <div class="clock-mode">
+            <div class="clock-mode" style="cursor:pointer" onclick="openLightbox('/assets/projects/images/clock-moonPhase.png', 'Moon phase')">
               <span class="clock-mode-display">🌗  43% illuminated  21d to full</span>
               <span class="clock-mode-name">Moon — lunar phase and days to next event</span>
             </div>
-            <div class="clock-mode">
+            <div class="clock-mode" style="cursor:pointer" onclick="openLightbox('/assets/projects/images/clock-hex.png', 'Hexadecimal time')">
               <span class="clock-mode-display">{08}{13}{0B}</span>
               <span class="clock-mode-name">Hexadecimal time — because why not</span>
             </div>
@@ -508,7 +520,8 @@
             </div>
             <div class="feature-item">
               <div class="feature-dot"></div>
-              <p class="feature-text"><strong>Textual TUI</strong> — full terminal interface with station search, preview, and edit.
+              <p class="feature-text"><strong>Textual TUI</strong> — full terminal interface with station search, preview, and edit</p>
+            </div>
             <div class="feature-item">
               <div class="feature-dot"></div>
               <p class="feature-text"><strong>Waybar module</strong> — pipes now-playing into your status bar</p>
@@ -537,6 +550,22 @@
     <p>Philip Repko · <a href="mailto:me@philipjrepko.com" style="color: var(--subtle);">me@philipjrepko.com</a></p>
   </div>
 </footer>
+
+<script>
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
 </body>
 </html>

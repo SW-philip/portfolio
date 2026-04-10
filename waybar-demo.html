@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waybar Modules — Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }
+
+    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-name { font-size: 15px; font-weight: 500; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-header { padding: 56px 0 40px; border-bottom: 1px solid var(--hl-med); }
+
+    .page-eyebrow {
+      font-size: 13px;
+      color: var(--foam);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: var(--subtle);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .page-header p strong { color: var(--text); font-weight: 500; }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 28px 0 0;
+    }
+
+    .filter-tab {
+      font-size: 12px;
+      color: var(--subtle);
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 20px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+    }
+
+    .filter-tab:hover { border-color: var(--muted); color: var(--text); }
+    .filter-tab.active { background: var(--overlay); border-color: var(--iris); color: var(--iris); }
+
+    /* MODULE GRID */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      padding: 32px 0 64px;
+    }
+
+    .module-card {
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .module-card:hover {
+      border-color: var(--muted);
+      transform: translateY(-2px);
+    }
+
+    .module-card.hidden { display: none; }
+
+    .module-screenshot {
+      width: 100%;
+      background: var(--hl-low);
+      border-bottom: 1px solid var(--hl-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      overflow: hidden;
+    }
+
+    .module-screenshot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .module-info {
+      padding: 14px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .module-category {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .module-name {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .module-snark {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.5;
+      font-style: italic;
+      flex: 1;
+      min-height: 40px;
+      transition: color 0.2s;
+    }
+
+    .module-hint {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      padding-top: 8px;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .module-card:hover .module-hint { color: var(--subtle); }
+    .module-card:hover .module-snark { color: var(--text); }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--hl-med); }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 520px) {
+      .module-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="/" class="nav-name">
+      <span style="color: var(--iris); font-family: monospace;">root@nix:~$</span>
+      <span style="margin-left: 8px;">Philip Repko</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">Waybar · NixOS</p>
+      <h1>Every system state has a line.</h1>
+      <p>Twenty modules. One consistent voice. <strong>Click any card</strong> to cycle through what it actually says.</p>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filter('all', this)">All</button>
+        <button class="filter-tab" onclick="filter('clock', this)">Clocks</button>
+        <button class="filter-tab" onclick="filter('system', this)">System</button>
+        <button class="filter-tab" onclick="filter('network', this)">Network</button>
+        <button class="filter-tab" onclick="filter('weather', this)">Weather</button>
+        <button class="filter-tab" onclick="filter('control', this)">Controls</button>
+      </div>
+    </div>
+
+    <div class="module-grid" id="grid">
+
+      <div class="module-card" data-cat="clock" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/clock-progress.png" alt="Day progress clock"></div>
+        <div class="module-info">
+          <span class="module-category">Clock</span>
+          <span class="module-name">Day progress</span>
+          <span class="module-snark" data-pool='["How far through today you are. Uncomfortably precise."]'>How far through today you are. Uncomfortably precise.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="clock" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/clock-natural.png" alt="Natural time clock"></div>
+        <div class="module-info">
+          <span class="module-category">Clock</span>
+          <span class="module-name">Natural time</span>
+          <span class="module-snark" data-pool='["The time, in plain English. No numerals. No apologies."]'>The time, in plain English. No numerals. No apologies.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="clock" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/clock-caliper.png" alt="Caliper clock"></div>
+        <div class="module-info">
+          <span class="module-category">Clock</span>
+          <span class="module-name">Caliper clock</span>
+          <span class="module-snark" data-pool='["Objects grow from midnight to noon, then shrink back through a different set. A story that runs twice a day and never repeats."]'>Objects grow from midnight to noon, then shrink back through a different set. A story that runs twice a day and never repeats.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="clock" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/clock-moonPhase.png" alt="Moon phase clock"></div>
+        <div class="module-info">
+          <span class="module-category">Clock</span>
+          <span class="module-name">Moon phase</span>
+          <span class="module-snark" data-pool='["Lunar phase, illumination percentage, days to full and new moon. The sky has opinions."]'>Lunar phase, illumination percentage, days to full and new moon. The sky has opinions.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="clock" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/clock-hex.png" alt="Hexadecimal clock"></div>
+        <div class="module-info">
+          <span class="module-category">Clock</span>
+          <span class="module-name">Hexadecimal time</span>
+          <span class="module-snark" data-pool='["The time in hex. Because why not."]'>The time in hex. Because why not.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="system" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/battery.png" alt="Battery module"></div>
+        <div class="module-info">
+          <span class="module-category">System</span>
+          <span class="module-name">Battery</span>
+          <span class="module-snark" data-pool='["Freedom is overrated. The wall provides.","Plug me in, coward.","Running on fumes and prayers.","One keystroke from the void.","100% charged, still emotionally empty.","Getting juiced like a Capri Sun.","Battery cosplaying an hourglass.","The great escape of electrons is underway."]'>Freedom is overrated. The wall provides.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="system" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/cpu-temp.png" alt="CPU temperature"></div>
+        <div class="module-info">
+          <span class="module-category">System</span>
+          <span class="module-name">CPU temperature</span>
+          <span class="module-snark" data-pool='["Normal exertion.","Ice in the veins.","The silicon sweats.","The fans scream into the void.","Operating at cucumber temperature.","This is fine. (It is not fine.)","Something has gone cosmically wrong."]'>Normal exertion.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="system" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/idle-on.png" alt="Idle inhibitor on"></div>
+        <div class="module-info">
+          <span class="module-category">System</span>
+          <span class="module-name">Idle inhibitor</span>
+          <span class="module-snark" data-pool='["The screensaver lurks.","The screen stares into the void."]'>The screensaver lurks.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="control" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/power-balanced.png" alt="Power profile balanced"></div>
+        <div class="module-info">
+          <span class="module-category">Control</span>
+          <span class="module-name">Power profile</span>
+          <span class="module-snark" data-pool='["Adequate in all directions.","Maximum effort. Minimum wisdom.","Saving power. Not saving time."]'>Adequate in all directions.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="control" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/dnd.png" alt="Do not disturb"></div>
+        <div class="module-info">
+          <span class="module-category">Control</span>
+          <span class="module-name">Do not disturb</span>
+          <span class="module-snark" data-pool='["Silence enforced.","Notifications: gone. Peace: achieved."]'>Silence enforced.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="control" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/theme-swap.png" alt="Theme swap"></div>
+        <div class="module-info">
+          <span class="module-category">Control</span>
+          <span class="module-name">Theme toggle</span>
+          <span class="module-snark" data-pool='["Dark for the wise. Light for the brave."]'>Dark for the wise. Light for the brave.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="control" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/wleave.png" alt="Power menu"></div>
+        <div class="module-info">
+          <span class="module-category">Control</span>
+          <span class="module-name">Power menu</span>
+          <span class="module-snark" data-pool='["There is no undo for this."]'>There is no undo for this.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="network" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/vpn-off.png" alt="Network wired"></div>
+        <div class="module-info">
+          <span class="module-category">Network</span>
+          <span class="module-name">Network (wired)</span>
+          <span class="module-snark" data-pool='["Tethered to truth at 1Gbps.","Ethernet: because Wi-Fi is for the uncertain.","No interference. No excuses.","The cable does not lie."]'>Tethered to truth at 1Gbps.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="network" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/vpn-on.png" alt="VPN active"></div>
+        <div class="module-info">
+          <span class="module-category">Network</span>
+          <span class="module-name">VPN</span>
+          <span class="module-snark" data-pool='["Your traffic wears a disguise.","Anonymous-ish hero mode.","They can\'t see you. Probably.","Encrypted tunnel engaged. No promises.","You are a ghost. A slow ghost."]'>Your traffic wears a disguise.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="network" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/bluetooth.png" alt="Bluetooth"></div>
+        <div class="module-info">
+          <span class="module-category">Network</span>
+          <span class="module-name">Bluetooth</span>
+          <span class="module-snark" data-pool='["Connected. Audio sink active. The room knows."]'>Connected. Audio sink active. The room knows.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="weather" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/weather-current.png" alt="Current weather"></div>
+        <div class="module-info">
+          <span class="module-category">Weather</span>
+          <span class="module-name">Current conditions</span>
+          <span class="module-snark" data-pool='["UV index: concerning. Vibes: immaculate.","Peak visibility. No excuses.","Suspiciously pleasant.","Too bright to be cynical today.","Sky: ambiguous.","The sky is crying again.","The world is buffering.","Zeus has grievances.","Everything is cold and beautiful and wrong."]'>UV index: concerning. Vibes: immaculate.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="weather" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/weather-forecast.png" alt="Weather forecast"></div>
+        <div class="module-info">
+          <span class="module-category">Weather</span>
+          <span class="module-name">3-day forecast</span>
+          <span class="module-snark" data-pool='["Three days of meteorological inevitability, inline."]'>Three days of meteorological inevitability, inline.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · <a href="/projects" style="color: var(--subtle);">← back to projects</a></p>
+  </div>
+</footer>
+
+<script>
+  const indices = new Map();
+
+  function rotate(card) {
+    const snarkEl = card.querySelector('.module-snark');
+    const pool = JSON.parse(snarkEl.dataset.pool);
+    if (pool.length <= 1) return;
+    const current = indices.get(card) || 0;
+    const next = (current + 1) % pool.length;
+    indices.set(card, next);
+    snarkEl.style.opacity = '0';
+    setTimeout(() => {
+      snarkEl.textContent = pool[next];
+      snarkEl.style.opacity = '1';
+    }, 150);
+    snarkEl.style.transition = 'opacity 0.15s';
+  }
+
+  function filter(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.module-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
