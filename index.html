@@ -24,14 +24,10 @@
       color: var(--text);
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 40px 28px;
-    }
-
-    .center {
-      max-width: 520px;
-      width: 100%;
     }
 
     .who {
@@ -74,38 +70,80 @@
       color: var(--iris);
     }
 
-    .footer {
-      margin-top: 64px;
+    .dots {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 36px 40px 40px;
+    }
+
+    .card-nav {
+      border-top: 1px solid var(--hl-med);
+      padding: 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-nav a {
+      font-size: 14px;
+      color: var(--subtle);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .card-nav a:hover {
+      color: var(--text);
+    }
+
+    .card-footer {
+      margin-top: 20px;
+      max-width: 520px;
+      width: 100%;
       font-size: 13px;
       color: var(--muted);
     }
 
-    .footer a {
+    .card-footer a {
       color: var(--muted);
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: var(--hl-med);
     }
 
-    .footer a:hover { color: var(--subtle); }
-
-    .dots {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
+    .card-footer a:hover {
+      color: var(--subtle);
+      text-decoration-color: var(--subtle);
     }
   </style>
 </head>
 <body>
-  <div class="center">
-    <p class="who">Who is<span class="dots" id="dots"></span></p>
-    <h1 class="name">philip<span>j</span>repko.com</h1>
-    <div class="divider"></div>
-    <p class="answer">The answer will <em>neither surprise nor bore you.</em> It's coming though. Give it a minute.</p>
-    <div class="footer">
-      <a href="mailto:me@philipjrepko.com">me@philipjrepko.com</a>
+  <div class="card">
+    <div class="card-body">
+      <p class="who">Who is<span class="dots" id="dots"></span></p>
+      <h1 class="name">philip<span>j</span>repko.com</h1>
+      <div class="divider"></div>
+      <p class="answer">The answer will <em>neither surprise nor bore you.</em> It's coming though. Give it a minute.</p>
     </div>
+    <nav class="card-nav" aria-label="Site navigation">
+      <a href="/work">Work</a>
+      <a href="/writing">Writing</a>
+      <a href="/projects">Projects</a>
+    </nav>
   </div>
+  <footer class="card-footer"><a href="mailto:me@philipjrepko.com">me@philipjrepko.com</a></footer>
 
   <script>
     const el = document.getElementById('dots');
