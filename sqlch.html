@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sqlch — Philip Repko</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    .container { max-width: 680px; margin: 0 auto; padding: 0 28px; }
+
+    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-name { font-size: 15px; font-weight: 500; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-header { padding: 72px 0 56px; border-bottom: 1px solid var(--hl-med); }
+
+    .page-eyebrow {
+      font-size: 13px;
+      color: var(--foam);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .page-header p { font-size: 16px; color: var(--subtle); max-width: 500px; line-height: 1.7; }
+
+    footer { padding: 40px 0; border-top: 1px solid var(--hl-med); }
+    footer p { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="/">Philip Repko</a>
+    <ul class="nav-links">
+      <li><a href="/work">Work</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">Projects</p>
+      <h1>I built a radio daemon. Then I went too far.</h1>
+      <p>sqlch is a headless radio streaming daemon with a Unix socket interface, MPRIS support, and a Textual TUI. Below is a working demo — real stations, real audio, the preview feature and all.</p>
+    </div>
+
+    <!-- mockup: Task 2 -->
+
+    <!-- story: Task 9 -->
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · <a href="mailto:me@philipjrepko.com" style="color: var(--subtle);">me@philipjrepko.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
