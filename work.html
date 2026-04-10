@@ -326,13 +326,12 @@
 
 <nav>
   <div class="container">
-    <span class="nav-name">
+    <a href="/" class="nav-name">
       <span class="terminal-prompt">work@nix:~$</span>
       <span class="terminal-command">Philip Repko</span>
       <span class="cursor"></span>
     </span>
     <ul class="nav-links">
-      <li><a href="/work">Work</a></li>
       <li><a href="/writing">Writing</a></li>
       <li><a href="/projects">Projects</a></li>
     </ul>
@@ -380,9 +379,9 @@
           </div>
         </div>
         <div class="case-body">
-          <p>Three bots, three entry points, one consistent design philosophy. The <strong>public bot</strong> is a concierge — it tells members what's possible and hands them off when they log in, passing conversation context forward. The <strong>auth bot</strong> is the workhorse — it handles the full intent taxonomy, classifies member needs, and routes to the right deeplink or diagnostic information. The <strong>mobile bot</strong> runs the same logic against a different UI.</p>
-          <p>Every intent falls into one of three categories: <strong>task</strong> (classify and deeplink), <strong>diagnostic</strong> (classify and inform), or <strong>handoff</strong> (empathy and route to a human). The system knows which category it's in before it asks its first question. No dead ends — a representative is always reachable through natural language, from anywhere, without a button.</p>
-          <p>Currently mid-rebrand: auditing every response goal, button, card, and link across all three bots for brand compliance, while simultaneously authoring net-new coverage for recently launched products.</p>
+          <p>The public bot exists because members don't wait until they're logged in to have questions. It works with what it has — no account context, no member history — so it directs, explains, and gets out of the way. When the member logs in, it hands everything off and steps aside.</p>
+          <p>The authenticated bot is where the real work happens. It triages what the member actually needs, deduces which intent type they're in, and routes them to the right answer — a deeplink, a diagnostic explanation, or a human. It's designed to do the thing, not just describe the thing. The API integration isn't there yet, but the logic is already written for it. The mobile bot runs the same playbook against a completely different surface. Same conversation, different destinations.</p>
+          <p>Right now it's mid-rebrand — every response goal, button, card, and link across all three bots is getting reviewed for brand compliance, while new product coverage gets authored on top of that.</p>
           <a class="case-link" href="/system-map.html">View system map ↗</a>
         </div>
       </div>
