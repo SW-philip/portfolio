@@ -212,6 +212,11 @@
     @media (max-width: 520px) {
       .module-grid { grid-template-columns: 1fr; }
     }
+
+    /* Center lone card in last row (3-column layout) */
+    .module-grid > .module-card:last-child:nth-child(3n + 1) {
+      grid-column: 2 / 3;
+    }
   </style>
 </head>
 <body>
@@ -302,11 +307,31 @@
       </div>
 
       <div class="module-card" data-cat="system" onclick="rotate(this)">
-        <div class="module-screenshot"><img src="/assets/projects/images/waybar/battery.png" alt="Battery module"></div>
+        <div class="module-screenshot"><img src="/assets/projects/images/waybar/battery-discharging.png" alt="Battery discharging"></div>
         <div class="module-info">
           <span class="module-category">System</span>
-          <span class="module-name">Battery</span>
-          <span class="module-snark" data-pool='["Freedom is overrated. The wall provides.","Plug me in, coward.","Running on fumes and prayers.","One keystroke from the void.","100% charged, still emotionally empty.","Getting juiced like a Capri Sun.","Battery cosplaying an hourglass.","The great escape of electrons is underway."]'>Freedom is overrated. The wall provides.</span>
+          <span class="module-name">Battery (discharging)</span>
+          <span class="module-snark" data-pool='["The great escape of electrons is underway.","Plug me in, coward.","Running on fumes and prayers.","One keystroke from the void.","Battery cosplaying an hourglass."]'>The great escape of electrons is underway.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="system" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/waybar/battery-AC.png" alt="Battery AC power"></div>
+        <div class="module-info">
+          <span class="module-category">System</span>
+          <span class="module-name">Battery (AC power)</span>
+          <span class="module-snark" data-pool='["Freedom is overrated. The wall provides.","Battery? We don&apos;t do that here.","Plugged in since birth. No regrets.","Running on pure grid energy and spite.","Permanently plugged in. Commitment issues? Nah."]'>Freedom is overrated. The wall provides.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="system" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/waybar/battery-charging.png" alt="Battery charging"></div>
+        <div class="module-info">
+          <span class="module-category">System</span>
+          <span class="module-name">Battery (charging)</span>
+          <span class="module-snark" data-pool='["Getting juiced like a Capri Sun.","100% charged, still emotionally empty.","Freedom is overrated. The wall provides.","Power restored. Vulnerability acknowledged."]'>Getting juiced like a Capri Sun.</span>
           <span class="module-hint">click to cycle</span>
         </div>
       </div>
@@ -387,6 +412,16 @@
           <span class="module-category">Network</span>
           <span class="module-name">VPN</span>
           <span class="module-snark" data-pool='["Your traffic wears a disguise.","Anonymous-ish hero mode.","They can&apos;t see you. Probably.","Encrypted tunnel engaged. No promises.","You are a ghost. A slow ghost."]'>Your traffic wears a disguise.</span>
+          <span class="module-hint">click to cycle</span>
+        </div>
+      </div>
+
+      <div class="module-card" data-cat="network" onclick="rotate(this)">
+        <div class="module-screenshot"><img src="/assets/projects/images/waybar/vpn-off-wifi.png" alt="Wi-Fi, VPN off"></div>
+        <div class="module-info">
+          <span class="module-category">Network</span>
+          <span class="module-name">Wi-Fi (no VPN)</span>
+          <span class="module-snark" data-pool='["Wi-Fi: on. VPN: off. Dignity: negotiable.","Naked in the cloud. Morally ambiguous.","Broadcasting your business over 2.4GHz.","The router sees everything.","Connected. Exposed. Optimistic."]'>Wi-Fi: on. VPN: off. Dignity: negotiable.</span>
           <span class="module-hint">click to cycle</span>
         </div>
       </div>
