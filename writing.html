@@ -287,9 +287,127 @@
     footer .container { display: flex; justify-content: space-between; align-items: center; }
     footer p { font-size: 13px; color: var(--muted); }
 
+    /* ── POEM CAROUSEL ── */
+    .poem-stage-wrap {
+      margin: 40px -16px 24px;
+    }
+
+    .poem-stage {
+      position: relative;
+      height: 520px;
+      perspective: 900px;
+    }
+
+    .poem-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 460px;
+      height: 420px;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease;
+      will-change: transform, opacity;
+    }
+
+    .poem-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--iris);
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .poem-card-body {
+      font-size: 14px;
+      color: var(--subtle);
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .poem-card-body::-webkit-scrollbar { width: 3px; }
+    .poem-card-body::-webkit-scrollbar-track { background: transparent; }
+    .poem-card-body::-webkit-scrollbar-thumb { background: var(--hl-med); border-radius: 2px; }
+
+    .poem-stanza {
+      line-height: 1.9;
+      margin-bottom: 1.3em;
+    }
+
+    .poem-stanza:last-child { margin-bottom: 0; }
+
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .carousel-btn {
+      background: none;
+      border: 1px solid var(--hl-med);
+      border-radius: 6px;
+      color: var(--subtle);
+      font-size: 15px;
+      padding: 7px 18px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .carousel-btn:hover { border-color: var(--iris); color: var(--text); }
+
+    .carousel-dots { display: flex; gap: 8px; align-items: center; }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--hl-med);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s;
+    }
+
+    .carousel-dot.active { background: var(--iris); }
+
+    .poem-source-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .poem-source-link a {
+      color: var(--foam);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+      transition: text-decoration-color 0.15s;
+    }
+
+    .poem-source-link a:hover { text-decoration-color: var(--foam); }
+
     @media (max-width: 520px) {
       .book-feature { grid-template-columns: 1fr; }
       .book-cover { width: 120px; }
+      .poem-stage-wrap { margin-left: 0; margin-right: 0; }
+      .poem-stage { height: auto; min-height: 320px; perspective: none; }
+      .poem-card {
+        position: relative;
+        left: auto; top: auto;
+        width: 100%;
+        height: auto;
+        transform: none !important;
+        opacity: 1 !important;
+        z-index: 1 !important;
+        display: none;
+      }
+      .poem-card-body { max-height: none; }
+      .poem-card.mobile-active { display: block; }
     }
   </style>
 </head>
@@ -314,9 +432,76 @@
 
     <div class="page-header">
       <p class="page-eyebrow">Writing</p>
-      <h1>Words run in the family.</h1>
-      <p>It's April, and my dad just published his second book of poetry. Feels like that means something...</p>
+      <h1>I like language.</h1>
+      <p>In all of its iterations.</p>
     </div>
+
+    <section>
+      <p class="section-label">National Poetry Month</p>
+      <div class="poetry-month">
+        <p class="poetry-month-label">April 2026</p>
+        <h3>Quick History</h3>
+        <p>For the better part of this decade, and half of the last one, My father, brother, and I have participated in a sort of round robin poetry battle/contest for the month of April. I've selected a few I've written over the years and put them in the carousel below. Enjoy!</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Selected Works:</p>
+
+      <div class="poem-stage-wrap">
+        <div class="poem-stage" id="poemStage">
+
+          <div class="poem-card" data-index="2">
+            <p class="poem-card-title">Introduction (2021)</p>
+            <div class="poem-card-body">
+              <p class="poem-stanza">We thought about it once we<br>Saw a couple curious moments<br>Around a very specific date.<br>But first, we ate, and drank (well she<br>Did, but not much) and the more we<br>Thought, the more we thought it<br>Appropriate to at least take our<br>Newly shuffled deck, test, and check.</p>
+              <p class="poem-stanza">Then that next morning, I sat, oblivious,<br>Quiet while she, half-nervous/excited<br>Calibrated in the bath, and upon exiting<br>Dropped two sticks in my lap that, more<br>Powerful together, separately concluded<br>With you, and changed our tiny lives<br>Forever.</p>
+            </div>
+          </div>
+
+          <div class="poem-card" data-index="1">
+            <p class="poem-card-title">Pouring Sun (2024)</p>
+            <div class="poem-card-body">
+              <p class="poem-stanza">Through vitriol, though such a stupid word,<br>(Just say the puddled shit between your teeth)<br>And drool the septic hate until it bursts<br>The pipe of how we all communicate.<br>And pad the crumbling holes that were a wall<br>With cotton, or a cooked incendiary;<br>A mutual, codependent bleeding out.</p>
+              <p class="poem-stanza">Acidic liquid dribbles at my toes<br>And climbs helictic from my hands and on,<br>With vagrant hesitance beneath my eyes.<br>We pour the sun in cracks and hope we glow<br>In cataclysmic harmony when it ends.<br>Verity draws the Chekhov in this plot:<br>We're all some poor cunt's son until we're not.</p>
+            </div>
+          </div>
+
+          <div class="poem-card" data-index="3">
+            <p class="poem-card-title">Le Matin (2025)</p>
+            <div class="poem-card-body">
+              <p class="poem-stanza">It's not so different any other day, well<br>Anymore. I wake up early, get the dishes<br>Left from dinner last night where my daughter<br>Fought me over sweet potato fries. Then try to<br>Grind the coffee beans and quiet because<br>My son is sleeping lightly lately in the bassinet<br>Aside my wife, in bed, and it's for her. I shower<br>Pulling down the head and seeing faces drawn<br>In last nights bath of things I've long forgotten,<br>But am recently starting to picture again.</p>
+              <p class="poem-stanza">Then, usually, I'll eat breakfast, but it's harder now<br>Because the world is lead by troglodytes in<br>Borrowed skin and fucking wheat and bread, and I<br>Am gluten-free, and would like to stay not dead.<br>She'll stir, and it won't matter which i mention<br>As one begets the other begets the next<br>Part where I lay my head against my wife.<br>One simultaneous sigh, and I begin to sizzle<br>Bacon, maybe, eggs, but lately everyone craves<br>Pancakes (See?!). She'll ask if we are home today, and<br>In dismay, she'll tell us that she goes to school on<br>Tuesday, Wed. and Thursday. Then I'll make her<br>tie-dyed pancakes, or maybe I'll make Bluey.</p>
+              <p class="poem-stanza">I'll make my tea, and as i start to leave, she (trust me<br>It could be either) neither frowns or smiles, but asks<br>What Saturday means, and rather than make up<br>A tiger story or haunted tale, I say "My week is<br>Done, and I am yours".</p>
+              <p class="poem-stanza">Then I'll look for my shoes, and leave, and<br>Then forget that thing that I forgot, but really,<br>I can't stand to think of time where any of us<br>Aren't within a millimeters rule.</p>
+              <p class="poem-stanza">Then, as shes gotten fond of recently, she'll turn<br>To me and ask who I love more. And I will kiss her,<br>Kiss them both, on lips and head and say, assuredly,<br>"Imagine you're all swimming, and my love for you's the pool."</p>
+            </div>
+          </div>
+
+          <div class="poem-card" data-index="0">
+            <p class="poem-card-title">Through (2026)</p>
+            <div class="poem-card-body">
+              <p class="poem-stanza">Two trails converged on a grassy tract,<br>I glanced at both, with time to bide,<br>And seeing what each grossly lacked,<br>Was glad I'd entered through the side.</p>
+              <p class="poem-stanza">I only guess which way each lead,<br>From context, maps, and getting lost,<br>Such crucial things escaped my head;<br>A fog of warmth in a summer frost.</p>
+              <p class="poem-stanza">I don't think I've arrived alone,<br>There's footprints here that I don't know;<br>I feel as though my cover's blown.<br>There're beings hid beneath the snow.</p>
+              <p class="poem-stanza">If only I'd a horse, or sled,<br>Then maybe I'd decide much faster<br>I'll pace in circles here, instead,<br>Until I'm caked in coats of plaster.</p>
+              <p class="poem-stanza">Two trails converged on a grassy tract,<br>With time to bide, I glanced at both,<br>And ignoring what each option lacked,<br>pushed across it into undergrowth.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="carousel-nav">
+          <button class="carousel-btn" onclick="poemCarousel.rotate(-1)" aria-label="Previous poem">←</button>
+          <div class="carousel-dots" id="poemDots"></div>
+          <button class="carousel-btn" onclick="poemCarousel.rotate(1)" aria-label="Next poem">→</button>
+        </div>
+      </div>
+
+      <p class="poem-source-link">
+        <a href="https://forbetterorverse.com/index.php?s=pjr" target="_blank" rel="noopener">More on For Better or Verse ↗</a>
+      </p>
+    </section>
 
     <section>
       <p class="section-label">Featured</p>
@@ -344,15 +529,6 @@
       </div>
     </section>
 
-    <section>
-      <p class="section-label">Poetry month</p>
-      <div class="poetry-month">
-        <p class="poetry-month-label">April 2026</p>
-        <h3>For Better or Verse</h3>
-        <p>My dad and brother run a poetry site at <a href="http://forbetterorverse.com" target="_blank" rel="noopener">forbetterorverse.com</a> — We have a poem going up every day, all month. Take a look. (It's like 8 years of poetry, at least)</p>
-      </div>
-    </section>
-
   </div>
 </main>
 
@@ -362,6 +538,72 @@
     <p>© 2026 Philip Repko</p>
   </div>
 </footer>
+
+<script>
+const poemCarousel = (() => {
+  const stage = document.getElementById('poemStage');
+  if (!stage) return {};
+  const cards = Array.from(stage.querySelectorAll('.poem-card'));
+  const dotsWrap = document.getElementById('poemDots');
+  const n = cards.length;
+  let active = 0;
+
+  // 4 positions: front · right · back · left
+  // counterclockwise rotation: right card (pos 1) advances to front on rotate(1)
+  const pos = [
+    { x:    0, z:  160, scale: 1,    opacity: 1,    zi: 4 },  // front
+    { x:  140, z:  -20, scale: 1,    opacity: 0.62, zi: 2 },  // right
+    { x:    0, z: -160, scale: 0.68, opacity: 0.28, zi: 1 },  // back
+    { x: -140, z:  -20, scale: 1,    opacity: 0.62, zi: 2 },  // left
+  ];
+
+  // Build indicator dots
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Poem ' + (i + 1));
+    dot.onclick = () => goTo(i);
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    const dots = dotsWrap.querySelectorAll('.carousel-dot');
+    cards.forEach((card, i) => {
+      const rel = (i - active + n) % n;
+      const p = pos[rel];
+      card.style.transform = `translate(-50%, -50%) translateX(${p.x}px) translateZ(${p.z}px) scale(${p.scale})`;
+      card.style.opacity = p.opacity;
+      card.style.zIndex = p.zi;
+      card.style.cursor = (rel === 1 || rel === 3) ? 'pointer' : 'default';
+      card.classList.toggle('mobile-active', rel === 0);
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function goTo(i) {
+    active = ((i % n) + n) % n;
+    render();
+  }
+
+  // Clicking a side card brings it forward
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const rel = (i - active + n) % n;
+      if (rel === 1 || rel === 3) goTo(i);
+    });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') goTo(active + 1);
+    if (e.key === 'ArrowLeft')  goTo(active - 1);
+  });
+
+  render();
+
+  return { rotate: dir => goTo(active + dir) };
+})();
+</script>
 
 </body>
 </html>
