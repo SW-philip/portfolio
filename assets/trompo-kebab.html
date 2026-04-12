@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trompo Kebab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1c1410;
+    --surface: #26201a;
+    --surface2: #332b22;
+    --ink: #f0e8d8;
+    --dust: #7a6e60;
+    --char: #e8682a;   /* char orange */
+    --pineapple: #f0c040; /* pineapple yellow */
+    --shadow: #080604;
+  }
+
+  body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    gap: 60px;
+    flex-wrap: wrap;
+    padding: 40px;
+  }
+
+  .page-title {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 8px;
+    color: var(--dust);
+    white-space: nowrap;
+  }
+
+  /* === DEMO WRAPPER === */
+  .demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--dust);
+  }
+
+  /* === KEBAB WRAPPER === */
+  .kebab-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* === THE BUTTON === */
+  .kebab-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    background: var(--surface);
+    border: 2px solid var(--surface2);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .kebab-btn:hover {
+    border-color: var(--char);
+    background: var(--surface2);
+  }
+
+  /* === SPIT AXIS === */
+  /* The vertical rod everything rotates around */
+  .spit {
+    position: relative;
+    width: 3px;
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* The actual rod line — subtle, only visible on hover */
+  .spit::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--char), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .kebab-btn:hover .spit::before {
+    opacity: 0.5;
+  }
+
+  /* === THE DOTS === */
+  .dot-orbit {
+    position: relative;
+    width: 3px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: background 0.2s;
+    /* The dot will be translated by JS/CSS animation along the X axis
+       to simulate orbiting around the vertical spit */
+  }
+
+  .kebab-btn:hover .dot {
+    background: var(--char);
+  }
+
+  /*
+    TROMPO SPIN: the dot orbits the vertical axis.
+    At 0deg: dot is at front (full size, full opacity)
+    At 90deg: dot is at side (squished, side view = thin)
+    At 180deg: dot is at back (small, dim — behind the spit)
+    At 270deg: dot is at other side
+
+    We simulate 3D orbit with scaleX and translateX:
+    x = sin(angle) * radius
+    apparent_width = |cos(angle)|  (perspective squish)
+
+    Each dot starts at a different phase so they feel like
+    stacked layers of meat on the spit — not synchronized.
+  */
+
+  /* Dot 1: top — starts at front */
+  .kebab-btn:hover .dot-orbit:nth-child(1) .dot {
+    animation: orbit 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0s infinite;
+  }
+  /* Dot 2: middle — starts 120deg offset (staggered around the spit) */
+  .kebab-btn:hover .dot-orbit:nth-child(2) .dot {
+    animation: orbit 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) -0.47s infinite;
+  }
+  /* Dot 3: bottom — starts 240deg offset */
+  .kebab-btn:hover .dot-orbit:nth-child(3) .dot {
+    animation: orbit 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) -0.93s infinite;
+  }
+
+  /*
+    The orbit keyframes:
+    Radius of orbit = 7px (how far the dot swings left/right)
+    When dot is in front (0/360): translateX(0), full opacity, full size
+    When dot swings right (90deg): translateX(+7px), scaleX shrinks toward 0
+    When dot is in back (180deg): translateX(0), very dim, very small
+    When dot swings left (270deg): translateX(-7px), scaleX shrinks toward 0
+
+    Also: when behind the spit, z-index should be lower — we fake this
+    with opacity since CSS animations can't truly do z-index mid-animation.
+
+    A real trompo has slight wobble / drag at speed — we add a tiny
+    rotation on the dot itself as it sweeps to suggest mass.
+  */
+  @keyframes orbit {
+    0%   { transform: translateX(0px)   scale(1)      ; opacity: 1;    }
+    12%  { transform: translateX(5px)   scaleX(0.65)  ; opacity: 0.9;  }
+    25%  { transform: translateX(7px)   scaleX(0.15)  ; opacity: 0.6;  }
+    38%  { transform: translateX(5px)   scaleX(0.05)  ; opacity: 0.25; }
+    50%  { transform: translateX(0px)   scale(0.6)    ; opacity: 0.15; }
+    62%  { transform: translateX(-5px)  scaleX(0.05)  ; opacity: 0.25; }
+    75%  { transform: translateX(-7px)  scaleX(0.15)  ; opacity: 0.6;  }
+    88%  { transform: translateX(-5px)  scaleX(0.65)  ; opacity: 0.9;  }
+    100% { transform: translateX(0px)   scale(1)      ; opacity: 1;    }
+  }
+
+  /*
+    The WOBBLE on startup: when you first hover, the spit
+    doesn't instantly hit speed — it has mass. It lurches,
+    finds its rhythm. We do this by animating the whole button
+    container slightly on hover start.
+  */
+  .kebab-btn:hover {
+    animation: spit-startup 0.5s ease-out forwards;
+  }
+
+  @keyframes spit-startup {
+    0%  { transform: rotate(0deg); }
+    15% { transform: rotate(-1.5deg); }
+    35% { transform: rotate(0.8deg); }
+    55% { transform: rotate(-0.4deg); }
+    75% { transform: rotate(0.2deg); }
+    100%{ transform: rotate(0deg); }
+  }
+
+  /* === HEAT GLOW: the char warmth when spinning === */
+  .kebab-btn::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 6px;
+    background: radial-gradient(ellipse at center, var(--char) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .kebab-btn:hover::after {
+    opacity: 0.12;
+  }
+
+  /* === MENU === */
+  .menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: var(--surface);
+    border: 2px solid var(--surface2);
+    border-radius: 6px;
+    min-width: 180px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 32px var(--shadow), 0 2px 8px var(--shadow);
+    z-index: 100;
+  }
+
+  .menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+    cursor: pointer;
+    border-bottom: 1px solid var(--surface2);
+    opacity: 0;
+    transform: translateX(-10px);
+    user-select: none;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .menu.open .menu-item:nth-child(1) { animation: slide-in 0.25s ease-out 0.05s forwards; }
+  .menu.open .menu-item:nth-child(2) { animation: slide-in 0.25s ease-out 0.10s forwards; }
+  .menu.open .menu-item:nth-child(3) { animation: slide-in 0.25s ease-out 0.15s forwards; }
+  .menu.open .menu-item:nth-child(4) { animation: slide-in 0.25s ease-out 0.20s forwards; }
+  .menu.open .menu-item:nth-child(5) { animation: slide-in 0.25s ease-out 0.25s forwards; }
+
+  @keyframes slide-in {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .menu-item:hover { background: var(--surface2); color: var(--char); }
+  .menu-item:hover .item-icon { transform: scale(1.2); }
+
+  .item-icon {
+    font-size: 14px;
+    width: 18px;
+    text-align: center;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+  }
+
+  .item-danger { color: #d44; }
+  .item-danger:hover { background: var(--surface2); color: #f55; }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+  }
+  .overlay.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="page-title">TROMPO KEBAB</div>
+
+<div class="demo">
+  <div class="kebab-wrapper" id="wrapper1">
+    <button class="kebab-btn" onclick="toggleMenu('menu1','wrapper1')" aria-label="More options">
+      <div class="spit">
+        <div class="dot-orbit"><span class="dot"></span></div>
+        <div class="dot-orbit"><span class="dot"></span></div>
+        <div class="dot-orbit"><span class="dot"></span></div>
+      </div>
+    </button>
+    <div class="menu" id="menu1">
+      <div class="menu-item" onclick="pick('Edit')">
+        <span class="item-icon">✏️</span><span>Edit</span>
+      </div>
+      <div class="menu-item" onclick="pick('Duplicate')">
+        <span class="item-icon">📋</span><span>Duplicate</span>
+      </div>
+      <div class="menu-item" onclick="pick('Share')">
+        <span class="item-icon">🔗</span><span>Share</span>
+      </div>
+      <div class="menu-item" onclick="pick('Archive')">
+        <span class="item-icon">📦</span><span>Archive</span>
+      </div>
+      <div class="menu-item item-danger" onclick="pick('Delete')">
+        <span class="item-icon">🗑️</span><span>Delete</span>
+      </div>
+    </div>
+  </div>
+  <span class="label">hover to spin · click to open</span>
+</div>
+
+<div class="demo">
+  <div class="kebab-wrapper" id="wrapper2">
+    <button class="kebab-btn" onclick="toggleMenu('menu2','wrapper2')" aria-label="More options">
+      <div class="spit">
+        <div class="dot-orbit"><span class="dot"></span></div>
+        <div class="dot-orbit"><span class="dot"></span></div>
+        <div class="dot-orbit"><span class="dot"></span></div>
+      </div>
+    </button>
+    <div class="menu" id="menu2">
+      <div class="menu-item" onclick="pick('Settings')">
+        <span class="item-icon">⚙️</span><span>Settings</span>
+      </div>
+      <div class="menu-item" onclick="pick('Export')">
+        <span class="item-icon">📤</span><span>Export</span>
+      </div>
+      <div class="menu-item item-danger" onclick="pick('Nuke it')">
+        <span class="item-icon">💥</span><span>Nuke it</span>
+      </div>
+    </div>
+  </div>
+  <span class="label">second instance</span>
+</div>
+
+<script>
+  let activeMenu = null, activeWrapper = null;
+
+  function toggleMenu(menuId, wrapperId) {
+    const menu = document.getElementById(menuId);
+    const wrapper = document.getElementById(wrapperId);
+
+    if (activeMenu && activeMenu !== menu) {
+      activeMenu.classList.remove('open');
+    }
+
+    const opening = !menu.classList.contains('open');
+    menu.classList.toggle('open');
+
+    document.getElementById('overlay').classList.toggle('active', opening);
+    activeMenu = opening ? menu : null;
+    activeWrapper = opening ? wrapper : null;
+  }
+
+  function closeMenu() {
+    if (activeMenu) activeMenu.classList.remove('open');
+    activeMenu = null; activeWrapper = null;
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function pick(label) { console.log('Selected:', label); closeMenu(); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
+</body>
+</html>

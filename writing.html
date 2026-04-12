@@ -85,9 +85,94 @@
       align-items: center;
     }
 
-    .nav-links { display: flex; gap: 24px; list-style: none; }
-    .nav-links a { font-size: 14px; color: var(--subtle); transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text); }
+    /* === KEBAB NAV === */
+    .kebab-wrapper { position: relative; display: inline-block; }
+    .kebab-btn {
+      position: relative; width: 44px; height: 44px;
+      background: var(--surface); border: 2px solid var(--overlay);
+      border-radius: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .kebab-btn:hover {
+      border-color: #eea050; background: var(--overlay);
+      animation: spit-startup 0.5s ease-out forwards;
+    }
+    .spit {
+      position: relative; width: 3px; height: 28px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+    }
+    .spit::before {
+      content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%); width: 1px;
+      background: linear-gradient(to bottom, transparent, #eea050, transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .kebab-btn:hover .spit::before { opacity: 0.5; }
+    .dot-orbit {
+      position: relative; width: 3px; height: 5px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--text); position: absolute;
+      left: 50%; transform: translateX(-50%); transition: background 0.2s;
+    }
+    .kebab-btn:hover .dot { background: #eea050; }
+    .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
+    .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
+    .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
+    @keyframes orbit {
+      0%   { transform: translateX(0px)  scale(1);     opacity: 1;    }
+      12%  { transform: translateX(5px)  scaleX(0.65); opacity: 0.9;  }
+      25%  { transform: translateX(7px)  scaleX(0.15); opacity: 0.6;  }
+      38%  { transform: translateX(5px)  scaleX(0.05); opacity: 0.25; }
+      50%  { transform: translateX(0px)  scale(0.6);   opacity: 0.15; }
+      62%  { transform: translateX(-5px) scaleX(0.05); opacity: 0.25; }
+      75%  { transform: translateX(-7px) scaleX(0.15); opacity: 0.6;  }
+      88%  { transform: translateX(-5px) scaleX(0.65); opacity: 0.9;  }
+      100% { transform: translateX(0px)  scale(1);     opacity: 1;    }
+    }
+    @keyframes spit-startup {
+      0%  { transform: rotate(0deg); }
+      15% { transform: rotate(-1.5deg); }
+      35% { transform: rotate(0.8deg); }
+      55% { transform: rotate(-0.4deg); }
+      75% { transform: rotate(0.2deg); }
+      100%{ transform: rotate(0deg); }
+    }
+    .kebab-btn::after {
+      content: ''; position: absolute; inset: -1px; border-radius: 6px;
+      background: radial-gradient(ellipse at center, #eea050 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: -1;
+    }
+    .kebab-btn:hover::after { opacity: 0.12; }
+    .kebab-menu {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: var(--surface); border: 1px solid var(--overlay);
+      border-radius: 6px; min-width: 130px; overflow: hidden;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+    .kebab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .kebab-menu a {
+      display: block; padding: 10px 16px; font-size: 13px; letter-spacing: 0.5px;
+      color: var(--subtle); text-decoration: none;
+      border-bottom: 1px solid var(--overlay);
+      opacity: 0; transform: translateX(-10px);
+      transition: background 0.12s, color 0.12s;
+    }
+    .kebab-menu a:last-child { border-bottom: none; }
+    .kebab-menu.open a:nth-child(1) { animation: km-in 0.25s ease-out 0.05s forwards; }
+    .kebab-menu.open a:nth-child(2) { animation: km-in 0.25s ease-out 0.10s forwards; }
+    .kebab-menu.open a:nth-child(3) { animation: km-in 0.25s ease-out 0.15s forwards; }
+    @keyframes km-in { to { opacity: 1; transform: translateX(0); } }
+    .kebab-menu a:hover { background: var(--overlay); color: var(--text); }
+    .kebab-overlay { position: fixed; inset: 0; z-index: 50; display: none; }
+    .kebab-overlay.active { display: block; }
 
     .page-header {
       padding: 72px 0 56px;
@@ -413,6 +498,8 @@
 </head>
 <body>
 
+<div id="kebab-overlay" class="kebab-overlay"></div>
+
 <nav>
   <div class="container">
     <a href="/" class="nav-name">
@@ -420,15 +507,30 @@
       <span class="terminal-command">Philip Repko</span>
       <span class="cursor"></span>
     </span>
-    <ul class="nav-links">
-      <li><a href="/work">Work</a></li>
-      <li><a href="/projects">Projects</a></li>
-    </ul>
+    <div class="kebab-wrapper">
+      <button class="kebab-btn" onclick="toggleKebab()" aria-label="Navigation">
+        <div class="spit">
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+        </div>
+      </button>
+      <div class="kebab-menu" id="kebab-menu">
+        <a href="/work">Work</a>
+        <a href="/projects">Projects</a>
+      </div>
+    </div>
   </div>
 </nav>
 
 <main>
   <div class="container">
+
+    <div class="page-header">
+      <p class="page-eyebrow">Writing</p>
+      <h1>A family argument conducted entirely in verse.</h1>
+      <p>Every April, my dad, my brother, and I try to out-poem each other. We've been at it for most of two decades.</p>
+    </div>
 
     <section>
       <p class="section-label">National Poetry Month</p>
@@ -597,6 +699,27 @@ const poemCarousel = (() => {
 
   return { rotate: dir => goTo(active + dir) };
 })();
+</script>
+
+<script>
+  (function() {
+    var _km = null;
+    function toggleKebab() {
+      var m = document.getElementById('kebab-menu');
+      var ov = document.getElementById('kebab-overlay');
+      var opening = !m.classList.contains('open');
+      m.classList.toggle('open', opening);
+      ov.classList.toggle('active', opening);
+      _km = opening ? m : null;
+    }
+    function closeKebab() {
+      if (_km) { _km.classList.remove('open'); _km = null; }
+      document.getElementById('kebab-overlay').classList.remove('active');
+    }
+    window.toggleKebab = toggleKebab;
+    document.getElementById('kebab-overlay').addEventListener('click', closeKebab);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKebab(); });
+  })();
 </script>
 
 </body>
