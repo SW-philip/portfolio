@@ -91,6 +91,65 @@
       color: #9ccfd8;
       box-shadow: 0 24px 64px rgba(0,0,0,0.6);
     }
+    .sq-header {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      min-height: 100px;
+      flex-shrink: 0;
+    }
+    .sq-art {
+      width: 76px; height: 76px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #2a4a5a;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .sq-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .sq-station-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #e0def4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sq-freq {
+      font-size: 11px;
+      color: #4a7a8a;
+    }
+    .sq-track {
+      font-size: 12px;
+      color: #9ccfd8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity 0.3s;
+    }
+    .sq-artist {
+      font-size: 11px;
+      color: #6e8a96;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity 0.3s;
+    }
+    .sq-track.fading, .sq-artist.fading { opacity: 0; }
 
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
@@ -557,7 +616,15 @@
 
 <div class="sqlch-overlay" id="sqlch-overlay" onclick="handleSqlchOverlayClick(event)">
   <div class="sqlch-panel" id="sqlch-panel">
-    <!-- populated in subsequent tasks -->
+    <div class="sq-header">
+      <div class="sq-art">art</div>
+      <div class="sq-meta">
+        <div class="sq-station-name" id="sq-station-name">&#8212; &#8212;</div>
+        <div class="sq-freq" id="sq-freq"></div>
+        <div class="sq-track" id="sq-track">select a station</div>
+        <div class="sq-artist" id="sq-artist"></div>
+      </div>
+    </div>
   </div>
 </div>
 <audio id="sqlch-audio" crossorigin="anonymous"></audio>
