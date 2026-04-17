@@ -100,10 +100,6 @@
       display: flex; align-items: center; justify-content: center;
       outline: none; transition: border-color 0.2s, background 0.2s;
     }
-    .kebab-btn:hover {
-      border-color: #eea050; background: var(--overlay);
-      animation: spit-startup 0.5s ease-out forwards;
-    }
     .spit {
       position: relative; width: 3px; height: 28px;
       display: flex; flex-direction: column;
@@ -115,7 +111,6 @@
       background: linear-gradient(to bottom, transparent, #eea050, transparent);
       opacity: 0; transition: opacity 0.3s;
     }
-    .kebab-btn:hover .spit::before { opacity: 0.5; }
     .dot-orbit {
       position: relative; width: 3px; height: 5px;
       display: flex; align-items: center; justify-content: center;
@@ -125,10 +120,21 @@
       background: var(--text); position: absolute;
       left: 50%; transform: translateX(-50%); transition: background 0.2s;
     }
-    .kebab-btn:hover .dot { background: #eea050; }
-    .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
-    .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
-    .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
+    /* Hover animations — real pointer devices only; touch :hover is sticky so we skip it entirely */
+    @media (hover: hover) {
+      .kebab-btn:hover {
+        border-color: #eea050; background: var(--overlay);
+        animation: spit-startup 0.5s ease-out forwards;
+      }
+      .kebab-btn:hover .spit::before { opacity: 0.5; }
+      .kebab-btn:hover .dot { background: #eea050; }
+      .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
+      .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
+      .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
+      .kebab-btn:hover::after { opacity: 0.12; }
+    }
+    /* Stop orbit animation when menu is open (mouse users who open while hovering) */
+    .kebab-btn.open .dot-orbit .dot { animation: none; }
     @keyframes orbit {
       0%   { transform: translateX(0px)  scale(1);     opacity: 1;    }
       12%  { transform: translateX(5px)  scaleX(0.65); opacity: 0.9;  }
@@ -153,7 +159,6 @@
       background: radial-gradient(ellipse at center, #eea050 0%, transparent 70%);
       opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: -1;
     }
-    .kebab-btn:hover::after { opacity: 0.12; }
     .kebab-menu {
       position: absolute; top: calc(100% + 10px); right: 0;
       background: var(--surface); border: 1px solid var(--overlay);
@@ -533,15 +538,18 @@
   (function() {
     var _km = null;
     function toggleKebab() {
+      var btn = document.querySelector('.kebab-btn');
       var m = document.getElementById('kebab-menu');
       var ov = document.getElementById('kebab-overlay');
       var opening = !m.classList.contains('open');
+      btn.classList.toggle('open', opening);
       m.classList.toggle('open', opening);
       ov.classList.toggle('active', opening);
       _km = opening ? m : null;
     }
     function closeKebab() {
       if (_km) { _km.classList.remove('open'); _km = null; }
+      document.querySelector('.kebab-btn').classList.remove('open');
       document.getElementById('kebab-overlay').classList.remove('active');
     }
     window.toggleKebab = toggleKebab;
