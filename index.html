@@ -1091,6 +1091,30 @@
     var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
     sqSelectStation(visible[(idx - 1 + visible.length) % visible.length].id);
   }
+
+  function sqShowTrack(id) {
+    clearTimeout(sqTrackTimer);
+    var tracks = SQ_TRACKS[id];
+    if (!tracks || !tracks.length) return;
+    if (sqTrackIndex[id] === undefined) sqTrackIndex[id] = 0;
+
+    var t = tracks[sqTrackIndex[id]];
+    var trackEl  = document.getElementById('sq-track');
+    var artistEl = document.getElementById('sq-artist');
+
+    trackEl.classList.add('fading');
+    artistEl.classList.add('fading');
+
+    setTimeout(function() {
+      if (sqCurrentId !== id) return;
+      trackEl.textContent  = t.track;
+      artistEl.textContent = t.artist;
+      trackEl.classList.remove('fading');
+      artistEl.classList.remove('fading');
+      sqTrackIndex[id] = (sqTrackIndex[id] + 1) % tracks.length;
+      sqTrackTimer = setTimeout(function() { sqShowTrack(id); }, 30000);
+    }, 300);
+  }
 </script>
 
 </body>
