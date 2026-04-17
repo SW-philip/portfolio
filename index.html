@@ -229,6 +229,53 @@
     }
     .sq-transport-btn:hover { color: #9ccfd8; border-color: #2e6a7a; background: #172030; }
     .sq-transport-btn.play-btn { width: 48px; height: 48px; font-size: 18px; }
+    .sq-filter-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .sq-filter-input {
+      flex: 1;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #9ccfd8;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      padding: 5px 8px;
+      outline: none;
+      border-radius: 2px;
+    }
+    .sq-filter-input::placeholder { color: #2a4a5a; }
+    .sq-filter-input:focus { border-color: #2e6a7a; }
+    .sq-filter-icon { font-size: 13px; color: #2a4a5a; user-select: none; }
+    .sq-tabs {
+      display: flex;
+      border-bottom: 1px solid #1e3a4a;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .sq-tabs::-webkit-scrollbar { display: none; }
+    .sq-tab {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      color: #4a7a8a;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 10px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .sq-tab:hover { color: #9ccfd8; }
+    .sq-tab.active { color: #9ccfd8; border-bottom-color: #9ccfd8; }
 
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
@@ -725,6 +772,18 @@
       <button class="sq-transport-btn" title="Bookmark">&#9830;</button>
       <button class="sq-transport-btn" onclick="closeSqlch()" title="Collapse">&#9660;</button>
     </div>
+    <div class="sq-filter-row">
+      <input class="sq-filter-input" id="sq-filter" placeholder="filter..." oninput="sqFilter()" />
+      <span class="sq-filter-icon">&#127760;</span>
+      <button class="sq-ctrl-btn">+</button>
+    </div>
+    <div class="sq-tabs" id="sq-tabs">
+      <button class="sq-tab active" data-cat="ALL" onclick="sqSetTab(this)">ALL</button>
+      <button class="sq-tab" data-cat="Rock" onclick="sqSetTab(this)">Rock</button>
+      <button class="sq-tab" data-cat="Pop" onclick="sqSetTab(this)">Pop</button>
+      <button class="sq-tab" data-cat="Urban" onclick="sqSetTab(this)">Urban</button>
+      <button class="sq-tab" data-cat="Public" onclick="sqSetTab(this)">Public</button>
+    </div>
   </div>
 </div>
 <audio id="sqlch-audio" crossorigin="anonymous"></audio>
@@ -777,6 +836,21 @@
     audio.muted = !audio.muted;
     btn.classList.toggle('active', audio.muted);
   }
+
+  var sqActiveTab = 'ALL';
+  var sqFilterText = '';
+
+  function sqSetTab(btn) {
+    document.querySelectorAll('.sq-tab').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+    sqActiveTab = btn.dataset.cat;
+    sqRenderList();
+  }
+  function sqFilter() {
+    sqFilterText = document.getElementById('sq-filter').value.toLowerCase();
+    sqRenderList();
+  }
+  function sqRenderList() { /* implemented in Task 6 */ }
 </script>
 
 </body>
