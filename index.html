@@ -276,6 +276,39 @@
     }
     .sq-tab:hover { color: #9ccfd8; }
     .sq-tab.active { color: #9ccfd8; border-bottom-color: #9ccfd8; }
+    .sq-list {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: #1e3a4a transparent;
+    }
+    .sq-list::-webkit-scrollbar { width: 4px; }
+    .sq-list::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 2px; }
+    .sq-row {
+      display: flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-bottom: 1px solid #0d1a24;
+      cursor: pointer;
+      gap: 8px;
+      transition: background 0.1s;
+    }
+    .sq-row:hover { background: #111827; }
+    .sq-row.sq-active { background: #0a1a2a; }
+    .sq-row.sq-unavailable { opacity: 0.35; cursor: default; pointer-events: none; font-style: italic; }
+    .sq-row-name {
+      flex: 1;
+      font-size: 12px;
+      color: #9ccfd8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sq-row.sq-active .sq-row-name { color: #eea050; }
+    .sq-row-freq { font-size: 10px; color: #2a4a5a; min-width: 60px; text-align: right; }
+    .sq-row-cat  { font-size: 10px; color: #2a4a5a; min-width: 40px; text-align: right; letter-spacing: 0.5px; }
+    .sq-row-actions { font-size: 10px; color: #1e3a4a; display: flex; gap: 6px; }
 
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
@@ -784,6 +817,7 @@
       <button class="sq-tab" data-cat="Urban" onclick="sqSetTab(this)">Urban</button>
       <button class="sq-tab" data-cat="Public" onclick="sqSetTab(this)">Public</button>
     </div>
+    <div class="sq-list" id="sq-list"></div>
   </div>
 </div>
 <audio id="sqlch-audio" crossorigin="anonymous"></audio>
@@ -904,7 +938,60 @@
     sqFilterText = document.getElementById('sq-filter').value.toLowerCase();
     sqRenderList();
   }
-  function sqRenderList() { /* implemented in Task 6 */ }
+  var sqUnavailable = new Set();
+  var sqCurrentId = null;
+
+  function sqRenderList() {
+    var list = document.getElementById('sq-list');
+    list.textContent = '';
+
+    SQ_STATIONS.forEach(function(s) {
+      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return;
+      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return;
+
+      var row = document.createElement('div');
+      row.className = 'sq-row' +
+        (sqUnavailable.has(s.id) ? ' sq-unavailable' : '') +
+        (sqCurrentId === s.id    ? ' sq-active'      : '');
+
+      var name = document.createElement('span');
+      name.className = 'sq-row-name';
+      name.textContent = s.name;
+
+      var freq = document.createElement('span');
+      freq.className = 'sq-row-freq';
+      freq.textContent = s.freq;
+
+      var cat = document.createElement('span');
+      cat.className = 'sq-row-cat';
+      cat.textContent = s.cat;
+
+      var actions = document.createElement('span');
+      actions.className = 'sq-row-actions';
+      actions.textContent = '% \u00d7';
+
+      row.appendChild(name);
+      row.appendChild(freq);
+      row.appendChild(cat);
+      row.appendChild(actions);
+
+      row.addEventListener('click', (function(id) {
+        return function() { sqSelectStation(id); };
+      })(s.id));
+
+      list.appendChild(row);
+    });
+  }
+
+  function sqCheckHls() {
+    var audio = document.getElementById('sqlch-audio');
+    var canHls = audio.canPlayType('application/vnd.apple.mpegurl') !== '';
+    if (!canHls) {
+      SQ_STATIONS.forEach(function(s) {
+        if (s.hls) sqUnavailable.add(s.id);
+      });
+    }
+  }
 </script>
 
 </body>
