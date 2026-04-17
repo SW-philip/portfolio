@@ -61,6 +61,37 @@
     }
     .sqlch-trigger:hover { color: var(--subtle); }
 
+    /* SQLCH LIGHTBOX */
+    .sqlch-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .sqlch-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .sqlch-panel {
+      width: 474px;
+      max-height: min(90vh, 640px);
+      background: #0d1117;
+      border: 1px solid #1e3a4a;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      color: #9ccfd8;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
       font-family: 'Courier New', Courier, monospace;
@@ -524,6 +555,13 @@
   </div>
 </footer>
 
+<div class="sqlch-overlay" id="sqlch-overlay" onclick="handleSqlchOverlayClick(event)">
+  <div class="sqlch-panel" id="sqlch-panel">
+    <!-- populated in subsequent tasks -->
+  </div>
+</div>
+<audio id="sqlch-audio" crossorigin="anonymous"></audio>
+
 <script>
   (function() {
     var _km = null;
@@ -546,6 +584,22 @@
     document.getElementById('kebab-overlay').addEventListener('click', closeKebab);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKebab(); });
   })();
+
+  function openSqlch() {
+    document.getElementById('sqlch-overlay').classList.add('open');
+    sqCheckHls();
+    sqRenderList();
+  }
+  function closeSqlch() {
+    document.getElementById('sqlch-overlay').classList.remove('open');
+    sqStop();
+  }
+  function handleSqlchOverlayClick(e) {
+    if (e.target === document.getElementById('sqlch-overlay')) closeSqlch();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeSqlch();
+  });
 </script>
 
 </body>
