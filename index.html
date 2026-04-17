@@ -914,10 +914,15 @@
     document.getElementById('sq-mini').classList.remove('visible');
     sqCheckHls();
     sqRenderList();
+    // Fetch live now-playing on open and start 60s refresh poll
+    sqFetchLive();
+    clearInterval(sqLivePollTimer);
+    sqLivePollTimer = setInterval(sqFetchLive, 60000);
   }
   function collapseSqlch() {
     // Hide the overlay but keep audio running — state is preserved
     document.getElementById('sqlch-overlay').classList.remove('open');
+    clearInterval(sqLivePollTimer);
     sqUpdateMini();
   }
   function handleSqlchOverlayClick(e) {
@@ -1027,6 +1032,21 @@
   }
   var sqUnavailable = new Set();
   var sqCurrentId = null;
+  var sqLiveData = {};
+  var sqLivePollTimer = null;
+
+  function sqFetchLive() {
+    fetch('assets/now-playing.json?t=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(function(json) {
+        sqLiveData = json.stations || {};
+        // If a station is currently playing and we just got fresh data, refresh display
+        if (sqCurrentId && sqLiveData[sqCurrentId]) {
+          sqShowTrack(sqCurrentId);
+        }
+      })
+      .catch(function() { /* API unreachable — keep showing current data */ });
+  }
 
   function sqRenderList() {
     var list = document.getElementById('sq-list');
@@ -1184,11 +1204,21 @@
 
   function sqShowTrack(id) {
     clearTimeout(sqTrackTimer);
-    var tracks = SQ_TRACKS[id];
-    if (!tracks || !tracks.length) return;
-    if (sqTrackIndex[id] === undefined) sqTrackIndex[id] = 0;
 
-    var t = tracks[sqTrackIndex[id]];
+    // Prefer live API data; fall back to mock rotation
+    var live = sqLiveData[id];
+    var t;
+    var isLive = false;
+    if (live && (live.artist || live.track)) {
+      t = { artist: live.artist, track: live.track };
+      isLive = true;
+    } else {
+      var tracks = SQ_TRACKS[id];
+      if (!tracks || !tracks.length) return;
+      if (sqTrackIndex[id] === undefined) sqTrackIndex[id] = 0;
+      t = tracks[sqTrackIndex[id]];
+    }
+
     var trackEl  = document.getElementById('sq-track');
     var artistEl = document.getElementById('sq-artist');
 
@@ -1201,8 +1231,12 @@
       artistEl.textContent = t.artist;
       trackEl.classList.remove('fading');
       artistEl.classList.remove('fading');
-      sqTrackIndex[id] = (sqTrackIndex[id] + 1) % tracks.length;
+      if (!isLive) {
+        var tracks = SQ_TRACKS[id];
+        if (tracks) sqTrackIndex[id] = (sqTrackIndex[id] + 1) % tracks.length;
+      }
       sqUpdateMini();
+      // Live data: re-check at 30s in case the cron updated it; mock: rotate at 30s
       sqTrackTimer = setTimeout(function() { sqShowTrack(id); }, 30000);
     }, 300);
   }
