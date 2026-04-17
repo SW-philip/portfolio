@@ -38,24 +38,28 @@
       padding: 0 24px;
     }
 
-    /* ── SYSTEM SIDEBARS ── */
-    .sys-sidebar {
+    /* SQLCH TRIGGER */
+    .sqlch-trigger {
       position: fixed;
       bottom: 80px;
+      left: 40px;
       font-family: 'Courier New', Courier, monospace;
       font-size: 11px;
       color: var(--muted);
-      z-index: 10;
-      pointer-events: none;
       text-transform: uppercase;
       letter-spacing: 1px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      z-index: 10;
+      transition: color 0.2s;
+      display: none;
     }
-
-    .sidebar-left { left: 40px; }
-    .sidebar-right { right: 40px; text-align: right; }
-
-    .stat-line { margin-bottom: 4px; }
-    .stat-label { color: var(--pine); margin-right: 4px; }
+    @media (min-width: 1024px) {
+      .sqlch-trigger { display: block; }
+    }
+    .sqlch-trigger:hover { color: var(--subtle); }
 
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
@@ -406,10 +410,6 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .sys-sidebar { display: none; }
-    }
-
     @media (max-width: 520px) {
       .nav-cards { grid-template-columns: 1fr; }
       .hero { padding: 64px 0 56px; }
@@ -429,17 +429,7 @@
   <rect width="100%" height="100%" fill="url(#grid)"/>
 </svg>
 
-<aside class="sys-sidebar sidebar-left">
-  <div class="stat-line"><span class="stat-label">OS</span> NixOS 26.05</div>
-  <div class="stat-line"><span class="stat-label">WM</span> Niri</div>
-  <div class="stat-line"><span class="stat-label">LOC</span> 39.9526° N</div>
-</aside>
-
-<aside class="sys-sidebar sidebar-right">
-  <div class="stat-line"><span class="stat-label">STATUS</span> System Nominal</div>
-  <div class="stat-line"><span class="stat-label">UPTIME</span> 14d 02h 12m</div>
-  <div class="stat-line"><span class="stat-label">SHELL</span> zsh</div>
-</aside>
+<button class="sqlch-trigger" onclick="openSqlch()">sqlch</button>
 
 <div id="kebab-overlay" class="kebab-overlay"></div>
 
