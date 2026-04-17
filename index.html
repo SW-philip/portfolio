@@ -837,6 +837,60 @@
     btn.classList.toggle('active', audio.muted);
   }
 
+  const SQ_STATIONS = [
+    // Rock
+    { id:'wmmr', name:'(WMMR) MMR Rocks',         freq:'93.3 FM',  cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMMRFMAACIHR.aac' },
+    { id:'wmgk', name:'(WMGK) Classic Rock 102.9', freq:'102.9 FM', cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMGKFMAAC.aac' },
+    { id:'wrff', name:'(WRFF) Alt 104.5',           freq:'104.5 FM', cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc3401' },
+    { id:'wzzo', name:'(WZZO) Rock 95.1',           freq:'95.1 FM',  cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc1977' },
+    { id:'wrpr', name:'(WRPR) Real Punk Radio',     freq:'900 AM',   cat:'Rock',   url:'http://149.56.155.73:8080/stream' },
+    { id:'xfm',  name:'(XFM) Indie',                freq:'1060 AM',  cat:'Rock',   url:'http://kathy.torontocast.com:2690/stream' },
+    { id:'ynot', name:'(YNOT) Ynot Radio',          freq:'1490 AM',  cat:'Rock',   url:'https://das-edge15-live365-dal02.cdnstream.com/a54553' },
+    // Pop
+    { id:'wioq', name:'(WIOQ) Q102 Philly',         freq:'102.1 FM', cat:'Pop',    url:'https://stream.revma.ihrhls.com/zc1997/hls.m3u8', hls:true },
+    { id:'wbeb', name:'(WBEB) B101',                 freq:'101.1 FM', cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wbebfmaac-imc' },
+    { id:'wogl', name:'(WOGL) Big 98.1',             freq:'98.1 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-woglfmaac-imc' },
+    { id:'wben', name:'(WBEN) Ben FM',               freq:'95.7 FM',  cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WBENFMAAC.aac' },
+    { id:'wstw', name:'(WSTW) Delaware Valley',      freq:'93.7 FM',  cat:'Pop',    url:'https://ais-sa1.streamon.fm:443/7864_96k.aac' },
+    { id:'wtdy', name:'(WTDY) Hot AC 96.5',          freq:'96.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wtdyfmaac-imc' },
+    { id:'wpst', name:'(WPST) Top-40 94.5',          freq:'94.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/townsquare-wpstfmaac-ibc3' },
+    { id:'wlev', name:'(WLEV) AC 100.7',             freq:'100.7 FM', cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/wlevfm.mp3' },
+    // Urban
+    { id:'wusl', name:'(WUSL) Power 99',             freq:'98.9 FM',  cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc2009' },
+    { id:'wdas', name:'(WDAS) Urban 105.3',          freq:'105.3 FM', cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc1993' },
+    { id:'wrnb', name:'(WRNB) RnB and Hip Hop',      freq:'1060 AM',  cat:'Urban',  url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WRNBHD2.mp3' },
+    // Public
+    { id:'wxpn', name:'(WXPN) XPN Public Radio',     freq:'88.5 FM',  cat:'Public', url:'https://wxpnhi.xpn.org/xpnhi' },
+    { id:'xpon', name:'(WXPN) XPonential (HD2)',      freq:'88.1 FM',  cat:'Public', url:'https://wxpn.xpn.org/xpn2mp3hi' },
+    { id:'whyy', name:'(WHYY) NPR',                  freq:'90.9 FM',  cat:'Public', url:'http://whyy.streamguys1.com/whyy-mp3' },
+    { id:'wxvu', name:'(WXVU) Villanova Radio',       freq:'89.1 FM',  cat:'Public', url:'http://nap.casthost.net:8002/stream' },
+  ];
+
+  const SQ_TRACKS = {
+    wmmr: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'DEADLETTER', track:'The Snitching Hour' }],
+    wmgk: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'We Are Scientists', track:'Less From You' }],
+    wrff: [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'We Are Scientists', track:'Less From You' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wzzo: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
+    wrpr: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Dream Nails', track:'The Information' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
+    xfm:  [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'We Are Scientists', track:'Less From You' }],
+    ynot: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
+    wioq: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wbeb: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Courtney Barnett', track:'Mantis' }],
+    wogl: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'We Are Scientists', track:'Less From You' }],
+    wben: [{ artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Cub Sport', track:'Hands' }],
+    wstw: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wtdy: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Courtney Barnett', track:'Mantis' }],
+    wpst: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wlev: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'We Are Scientists', track:'Less From You' }],
+    wusl: [{ artist:'Unknown Artist', track:'Power 99 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
+    wdas: [{ artist:'Unknown Artist', track:'105.3 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
+    wrnb: [{ artist:'Unknown Artist', track:'RnB Live' }, { artist:'Unknown Artist', track:'Hip Hop Mix' }],
+    wxpn: [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Dream Nails', track:'The Information' }],
+    xpon: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'We Are Scientists', track:'Less From You' }],
+    whyy: [{ artist:'NPR', track:'Morning Edition' }, { artist:'NPR', track:'All Things Considered' }],
+    wxvu: [{ artist:'Dream Nails', track:'The Information' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'DEADLETTER', track:'The Snitching Hour' }],
+  };
+
   var sqActiveTab = 'ALL';
   var sqFilterText = '';
 
