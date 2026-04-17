@@ -150,6 +150,85 @@
       transition: opacity 0.3s;
     }
     .sq-track.fading, .sq-artist.fading { opacity: 0; }
+    .sq-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      flex-shrink: 0;
+    }
+    .sq-ctrl-btn {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #4a7a8a;
+      padding: 3px 7px;
+      cursor: pointer;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .sq-ctrl-btn:hover { color: #9ccfd8; border-color: #2e6a7a; }
+    .sq-ctrl-btn.active { color: #eea050; border-color: #eea050; }
+    .sq-signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+      margin: 0 4px;
+    }
+    .sq-signal-bar {
+      width: 3px;
+      background: #1e3a4a;
+      border-radius: 1px;
+      transition: background 0.3s;
+    }
+    .sq-signal-bar:nth-child(1) { height: 4px; }
+    .sq-signal-bar:nth-child(2) { height: 7px; }
+    .sq-signal-bar:nth-child(3) { height: 11px; }
+    .sq-signal-bar:nth-child(4) { height: 16px; }
+    .sqlch-overlay.playing .sq-signal-bar {
+      background: #9ccfd8;
+      animation: sq-pulse 0.8s ease-in-out infinite alternate;
+    }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(2) { animation-delay: 0.1s; }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(3) { animation-delay: 0.25s; }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(4) { animation-delay: 0.4s; }
+    @keyframes sq-pulse {
+      from { opacity: 0.4; transform: scaleY(0.6); transform-origin: bottom; }
+      to   { opacity: 1;   transform: scaleY(1);   transform-origin: bottom; }
+    }
+    .sq-transport {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      flex-shrink: 0;
+    }
+    .sq-transport-btn {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #4a7a8a;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .sq-transport-btn:hover { color: #9ccfd8; border-color: #2e6a7a; background: #172030; }
+    .sq-transport-btn.play-btn { width: 48px; height: 48px; font-size: 18px; }
 
     /* ── TERMINAL ELEMENTS ── */
     .nav-name {
@@ -625,6 +704,27 @@
         <div class="sq-artist" id="sq-artist"></div>
       </div>
     </div>
+    <div class="sq-controls">
+      <button class="sq-ctrl-btn" id="sq-mono" onclick="sqToggle('sq-mono')">MONO</button>
+      <button class="sq-ctrl-btn active" id="sq-st" onclick="sqToggle('sq-st')">ST</button>
+      <div class="sq-signal">
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+      </div>
+      <button class="sq-ctrl-btn" id="sq-loud" onclick="sqToggle('sq-loud')">LOUD</button>
+      <button class="sq-ctrl-btn" id="sq-mute" onclick="sqMute()">MUTE</button>
+    </div>
+    <div class="sq-transport">
+      <button class="sq-transport-btn" title="Favorite">&#9673;</button>
+      <button class="sq-transport-btn" onclick="sqPrev()" title="Previous">&#9198;</button>
+      <button class="sq-transport-btn play-btn" id="sq-play" onclick="sqPlayPause()" title="Play/Pause">&#9654;</button>
+      <button class="sq-transport-btn" onclick="sqStop()" title="Stop">&#9209;</button>
+      <button class="sq-transport-btn" onclick="sqNext()" title="Next">&#9197;</button>
+      <button class="sq-transport-btn" title="Bookmark">&#9830;</button>
+      <button class="sq-transport-btn" onclick="closeSqlch()" title="Collapse">&#9660;</button>
+    </div>
   </div>
 </div>
 <audio id="sqlch-audio" crossorigin="anonymous"></audio>
@@ -667,6 +767,16 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeSqlch();
   });
+
+  function sqToggle(id) {
+    document.getElementById(id).classList.toggle('active');
+  }
+  function sqMute() {
+    var audio = document.getElementById('sqlch-audio');
+    var btn = document.getElementById('sq-mute');
+    audio.muted = !audio.muted;
+    btn.classList.toggle('active', audio.muted);
+  }
 </script>
 
 </body>
