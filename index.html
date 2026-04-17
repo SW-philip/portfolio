@@ -982,28 +982,34 @@
   ];
 
   const SQ_TRACKS = {
-    wmmr: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'DEADLETTER', track:'The Snitching Hour' }],
-    wmgk: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'We Are Scientists', track:'Less From You' }],
-    wrff: [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'We Are Scientists', track:'Less From You' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
-    wzzo: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
-    wrpr: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Dream Nails', track:'The Information' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
-    xfm:  [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'We Are Scientists', track:'Less From You' }],
-    ynot: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }],
-    wioq: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
-    wbeb: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Courtney Barnett', track:'Mantis' }],
-    wogl: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'We Are Scientists', track:'Less From You' }],
-    wben: [{ artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Cub Sport', track:'Hands' }],
-    wstw: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
-    wtdy: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Courtney Barnett', track:'Mantis' }],
-    wpst: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
-    wlev: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Cub Sport', track:'Hands' }, { artist:'We Are Scientists', track:'Less From You' }],
-    wusl: [{ artist:'Unknown Artist', track:'Power 99 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
-    wdas: [{ artist:'Unknown Artist', track:'105.3 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
-    wrnb: [{ artist:'Unknown Artist', track:'RnB Live' }, { artist:'Unknown Artist', track:'Hip Hop Mix' }],
-    wxpn: [{ artist:'Courtney Barnett', track:'Mantis' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Dream Nails', track:'The Information' }],
-    xpon: [{ artist:'Hazel English', track:'Jesse' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'We Are Scientists', track:'Less From You' }],
-    whyy: [{ artist:'NPR', track:'Morning Edition' }, { artist:'NPR', track:'All Things Considered' }],
-    wxvu: [{ artist:'Dream Nails', track:'The Information' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'DEADLETTER', track:'The Snitching Hour' }],
+    // Rock — hard/classic rock feel
+    wmmr: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Marcy Playground', track:'Sex & Candy' }, { artist:'ZZ Top', track:'Legs' }],
+    wmgk: [{ artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'ZZ Top', track:'Legs' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }],
+    wzzo: [{ artist:'Nirvana', track:'Lounge Act' }, { artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }, { artist:'Marcy Playground', track:'Sex & Candy' }],
+    ynot: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'ZZ Top', track:'Legs' }],
+    // Alt / indie rock
+    wrff: [{ artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'Geese', track:'Cobra' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }],
+    xfm:  [{ artist:'Talking Heads', track:'The Girl Wants to Be with the Girls' }, { artist:'We Are Scientists', track:'Less From You' }, { artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Modest Mouse', track:'Look How Far...' }],
+    // Punk
+    wrpr: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Dave Hause', track:'Look Alive' }, { artist:'Remember Sports', track:'Across The Line' }],
+    // Pop / Hot AC — each station gets a distinct starting rotation
+    wioq: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }],
+    wbeb: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Ringside', track:'Struggle' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wogl: [{ artist:'Luna', track:'Bewitched' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Ringside', track:'Struggle' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }],
+    wben: [{ artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
+    wstw: [{ artist:'Ringside', track:'Struggle' }, { artist:'Luna', track:'Bewitched' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
+    wtdy: [{ artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Rosa Walton', track:'Sorry Anyway' }],
+    wpst: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Cub Sport', track:'Hands' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
+    wlev: [{ artist:'Luna', track:'Bewitched' }, { artist:'Andy Snitzer', track:"Don't Wanna Stop" }, { artist:'Ringside', track:'Struggle' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
+    // Urban
+    wusl: [{ artist:'Beastie Boys', track:'Egg Raid On Mojo' }, { artist:'Unknown Artist', track:'Power 99 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
+    wdas: [{ artist:'Unknown Artist', track:'105.3 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
+    wrnb: [{ artist:'Unknown Artist', track:'RnB Live' }, { artist:'Unknown Artist', track:'Hip Hop Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
+    // Public
+    wxpn: [{ artist:'Ratboys', track:'The World, So Madly' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'They Might Be Giants', track:'Wu-Tang' }, { artist:'Stephie Coplan & the Pedestrians', track:'Caroline' }],
+    xpon: [{ artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }, { artist:'Geese', track:'Cobra' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Ratboys', track:'The World, So Madly' }],
+    whyy: [{ artist:'NPR', track:'Morning Edition' }, { artist:'NPR', track:'All Things Considered' }, { artist:'NPR', track:'Fresh Air' }, { artist:'NPR', track:'Weekend Edition' }],
+    wxvu: [{ artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Ratboys', track:'The World, So Madly' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Dave Hause', track:'Look Alive' }],
   };
 
   var sqActiveTab = 'ALL';
