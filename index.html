@@ -992,6 +992,105 @@
       });
     }
   }
+
+  var sqTrackIndex = {};
+  var sqTrackTimer = null;
+  var sqErrorTimeout = null;
+
+  function sqSelectStation(id) {
+    var station = SQ_STATIONS.find(function(s) { return s.id === id; });
+    if (!station || sqUnavailable.has(id)) return;
+
+    sqCurrentId = id;
+    sqRenderList();
+
+    document.getElementById('sq-station-name').textContent = station.name;
+    document.getElementById('sq-freq').textContent = station.freq;
+
+    var audio = document.getElementById('sqlch-audio');
+    clearTimeout(sqErrorTimeout);
+    audio.pause();
+    audio.src = station.url;
+
+    audio.onerror = function() {
+      clearTimeout(sqErrorTimeout);
+      sqMarkUnavailable(id);
+    };
+    audio.oncanplay = function() {
+      clearTimeout(sqErrorTimeout);
+    };
+
+    audio.play().catch(function() { sqMarkUnavailable(id); });
+
+    sqErrorTimeout = setTimeout(function() {
+      if (audio.readyState < 3) sqMarkUnavailable(id);
+    }, 4000);
+
+    document.getElementById('sq-play').textContent = '\u23f8';
+    document.getElementById('sqlch-overlay').classList.add('playing');
+
+    sqShowTrack(id);
+  }
+
+  function sqMarkUnavailable(id) {
+    sqUnavailable.add(id);
+    if (sqCurrentId === id) sqNext();
+    sqRenderList();
+  }
+
+  function sqPlayPause() {
+    var audio = document.getElementById('sqlch-audio');
+    var btn = document.getElementById('sq-play');
+    if (!sqCurrentId) return;
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '\u23f8';
+      document.getElementById('sqlch-overlay').classList.add('playing');
+    } else {
+      audio.pause();
+      btn.textContent = '\u25b6';
+      document.getElementById('sqlch-overlay').classList.remove('playing');
+    }
+  }
+
+  function sqStop() {
+    clearTimeout(sqErrorTimeout);
+    clearTimeout(sqTrackTimer);
+    var audio = document.getElementById('sqlch-audio');
+    audio.pause();
+    audio.src = '';
+    sqCurrentId = null;
+    document.getElementById('sq-play').textContent = '\u25b6';
+    document.getElementById('sq-station-name').textContent = '\u2014 \u2014';
+    document.getElementById('sq-freq').textContent = '';
+    document.getElementById('sq-track').textContent = 'select a station';
+    document.getElementById('sq-artist').textContent = '';
+    document.getElementById('sqlch-overlay').classList.remove('playing');
+    sqRenderList();
+  }
+
+  function sqVisibleStations() {
+    return SQ_STATIONS.filter(function(s) {
+      if (sqUnavailable.has(s.id)) return false;
+      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return false;
+      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return false;
+      return true;
+    });
+  }
+
+  function sqNext() {
+    var visible = sqVisibleStations();
+    if (!visible.length) return;
+    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
+    sqSelectStation(visible[(idx + 1) % visible.length].id);
+  }
+
+  function sqPrev() {
+    var visible = sqVisibleStations();
+    if (!visible.length) return;
+    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
+    sqSelectStation(visible[(idx - 1 + visible.length) % visible.length].id);
+  }
 </script>
 
 </body>
