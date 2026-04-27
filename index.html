@@ -3,1243 +3,930 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Philip Repko · Digital Experience Systems Designer</title>
+  <title>Philip Repko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --base: #232136;
-      --surface: #2a273f;
-      --overlay: #393552;
-      --muted: #6e6a86;
-      --subtle: #908caa;
-      --text: #e0def4;
-      --gold: #f6c177;
-      --rose: #ea9a97;
-      --pine: #3e8fb0;
-      --foam: #9ccfd8;
-      --iris: #c4a7e7;
-      --hl-low: #2a283e;
-      --hl-med: #44415a;
-    }
-
+    /* ── Page shell ───────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--base);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* SQLCH TRIGGER */
-    .sqlch-trigger {
-      position: fixed;
-      bottom: 80px;
-      left: 40px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      z-index: 10;
-      transition: color 0.2s;
-      display: none;
-    }
-    @media (min-width: 1024px) {
-      .sqlch-trigger { display: block; }
-    }
-    .sqlch-trigger:hover { color: var(--subtle); }
-
-    /* SQLCH MINI PLAYER */
-    .sq-mini {
-      position: fixed;
-      bottom: 20px;
-      left: 40px;
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: #0d1117;
-      border: 1px solid #1e3a4a;
-      border-radius: 24px;
-      padding: 8px 14px 8px 12px;
-      z-index: 201;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      max-width: 320px;
-    }
-    .sq-mini:hover { border-color: #2e6a7a; }
-    .sq-mini.visible { display: flex; }
-    .sq-mini-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      min-width: 0;
-      flex: 1;
-    }
-    .sq-mini-station {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 10px;
-      color: #eea050;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      letter-spacing: 0.5px;
-    }
-    .sq-mini-track {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 10px;
-      color: #4a7a8a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .sq-mini-btn {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 12px;
-      background: none;
-      border: none;
-      color: #4a7a8a;
-      cursor: pointer;
-      padding: 2px 4px;
-      flex-shrink: 0;
-      transition: color 0.15s;
-    }
-    .sq-mini-btn:hover { color: #9ccfd8; }
-
-    /* SQLCH LIGHTBOX */
-    .sqlch-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .sqlch-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .sqlch-panel {
-      width: 474px;
-      max-height: min(90vh, 640px);
-      background: #0d1117;
-      border: 1px solid #1e3a4a;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      font-family: 'Courier New', Courier, monospace;
-      color: #9ccfd8;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
-    }
-    .sq-header {
-      display: flex;
-      gap: 12px;
-      padding: 12px;
-      background: #0a0e14;
-      border-bottom: 1px solid #1e3a4a;
-      min-height: 100px;
-      flex-shrink: 0;
-    }
-    .sq-art {
-      width: 76px; height: 76px;
-      background: #111827;
-      border: 1px solid #1e3a4a;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: #2a4a5a;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .sq-meta {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      overflow: hidden;
-      min-width: 0;
-    }
-    .sq-station-name {
-      font-size: 14px;
-      font-weight: bold;
+      background: #0a0b0e;
       color: #e0def4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .sq-freq {
-      font-size: 11px;
-      color: #4a7a8a;
-    }
-    .sq-track {
-      font-size: 12px;
-      color: #9ccfd8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: opacity 0.3s;
-    }
-    .sq-artist {
-      font-size: 11px;
-      color: #6e8a96;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: opacity 0.3s;
-    }
-    .sq-track.fading, .sq-artist.fading { opacity: 0; }
-    .sq-controls {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
-      background: #0a0e14;
-      border-bottom: 1px solid #1e3a4a;
-      flex-shrink: 0;
     }
-    .sq-ctrl-btn {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 10px;
-      background: #111827;
-      border: 1px solid #1e3a4a;
-      color: #4a7a8a;
-      padding: 3px 7px;
-      cursor: pointer;
-      border-radius: 2px;
-      letter-spacing: 0.5px;
-      transition: color 0.15s, border-color 0.15s;
-      user-select: none;
-    }
-    .sq-ctrl-btn:hover { color: #9ccfd8; border-color: #2e6a7a; }
-    .sq-ctrl-btn.active { color: #eea050; border-color: #eea050; }
-    .sq-signal {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 16px;
-      margin: 0 4px;
-    }
-    .sq-signal-bar {
-      width: 3px;
-      background: #1e3a4a;
-      border-radius: 1px;
-      transition: background 0.3s;
-    }
-    .sq-signal-bar:nth-child(1) { height: 4px; }
-    .sq-signal-bar:nth-child(2) { height: 7px; }
-    .sq-signal-bar:nth-child(3) { height: 11px; }
-    .sq-signal-bar:nth-child(4) { height: 16px; }
-    .sqlch-overlay.playing .sq-signal-bar {
-      background: #9ccfd8;
-      animation: sq-pulse 0.8s ease-in-out infinite alternate;
-    }
-    .sqlch-overlay.playing .sq-signal-bar:nth-child(2) { animation-delay: 0.1s; }
-    .sqlch-overlay.playing .sq-signal-bar:nth-child(3) { animation-delay: 0.25s; }
-    .sqlch-overlay.playing .sq-signal-bar:nth-child(4) { animation-delay: 0.4s; }
-    @keyframes sq-pulse {
-      from { opacity: 0.4; transform: scaleY(0.6); transform-origin: bottom; }
-      to   { opacity: 1;   transform: scaleY(1);   transform-origin: bottom; }
-    }
-    .sq-transport {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 12px;
-      background: #0a0e14;
-      border-bottom: 1px solid #1e3a4a;
-      flex-shrink: 0;
-    }
-    .sq-transport-btn {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 16px;
-      background: #111827;
-      border: 1px solid #1e3a4a;
-      color: #4a7a8a;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.15s, border-color 0.15s, background 0.15s;
-      user-select: none;
-    }
-    .sq-transport-btn:hover { color: #9ccfd8; border-color: #2e6a7a; background: #172030; }
-    .sq-transport-btn.play-btn { width: 48px; height: 48px; font-size: 18px; }
-    .sq-filter-row {
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      background: #0a0e14;
-      border-bottom: 1px solid #1e3a4a;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .sq-filter-input {
-      flex: 1;
-      background: #111827;
-      border: 1px solid #1e3a4a;
-      color: #9ccfd8;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 12px;
-      padding: 5px 8px;
-      outline: none;
-      border-radius: 2px;
-    }
-    .sq-filter-input::placeholder { color: #2a4a5a; }
-    .sq-filter-input:focus { border-color: #2e6a7a; }
-    .sq-filter-icon { font-size: 13px; color: #2a4a5a; user-select: none; }
-    .sq-tabs {
-      display: flex;
-      border-bottom: 1px solid #1e3a4a;
-      overflow-x: auto;
-      scrollbar-width: none;
-      flex-shrink: 0;
-    }
-    .sq-tabs::-webkit-scrollbar { display: none; }
-    .sq-tab {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 10px;
-      color: #4a7a8a;
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      padding: 6px 10px;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      transition: color 0.15s;
-    }
-    .sq-tab:hover { color: #9ccfd8; }
-    .sq-tab.active { color: #9ccfd8; border-bottom-color: #9ccfd8; }
-    .sq-list {
-      flex: 1;
-      overflow-y: auto;
-      min-height: 0;
-      scrollbar-width: thin;
-      scrollbar-color: #1e3a4a transparent;
-    }
-    .sq-list::-webkit-scrollbar { width: 4px; }
-    .sq-list::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 2px; }
-    .sq-row {
-      display: flex;
-      align-items: center;
-      padding: 7px 12px;
-      border-bottom: 1px solid #0d1a24;
-      cursor: pointer;
-      gap: 8px;
-      transition: background 0.1s;
-    }
-    .sq-row:hover { background: #111827; }
-    .sq-row.sq-active { background: #0a1a2a; }
-    .sq-row.sq-unavailable { opacity: 0.35; cursor: default; pointer-events: none; font-style: italic; }
-    .sq-row-name {
-      flex: 1;
-      font-size: 12px;
-      color: #9ccfd8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .sq-row.sq-active .sq-row-name { color: #eea050; }
-    .sq-row-freq { font-size: 10px; color: #2a4a5a; min-width: 60px; text-align: right; }
-    .sq-row-cat  { font-size: 10px; color: #2a4a5a; min-width: 40px; text-align: right; letter-spacing: 0.5px; }
-    .sq-row-actions { font-size: 10px; color: #1e3a4a; display: flex; gap: 6px; }
 
-    /* ── TERMINAL ELEMENTS ── */
-    .nav-name {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 20px;
+    a { color: inherit; text-decoration: none; }
+
+    .page-header {
+      padding: 44px 24px 20px;
+      text-align: center;
+    }
+
+    .nav-brand {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 18px;
       font-weight: 500;
-      color: var(--text);
-      letter-spacing: -0.01em;
       display: flex;
       align-items: center;
       gap: 6px;
+      justify-content: center;
+      margin-bottom: 10px;
     }
-    .terminal-prompt { color: var(--foam); font-weight: 700; }
-    .terminal-command { color: var(--gold); font-weight: 600; }
+
+    .terminal-prompt  { color: #9ccfd8; font-weight: 700; }
+    .terminal-command { color: #f6c177; font-weight: 600; }
 
     .cursor {
       display: inline-block;
-      width: 8px;
-      height: 1.1em;
-      background: var(--iris);
-      margin-left: 2px;
-      vertical-align: text-bottom;
+      width: 8px; height: 1.05em;
+      background: #c4a7e7;
       animation: blink 1s step-end infinite;
-      border-radius: 2px;
+      border-radius: 1px;
+      vertical-align: text-bottom;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .tagline {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #44415a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    /* ── NAV ── */
-    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .app-wrap {
+      padding: 24px 24px 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
 
-    /* === KEBAB NAV === */
-    .kebab-wrapper { position: relative; display: inline-block; }
-    .kebab-btn {
-      position: relative; width: 44px; height: 44px;
-      background: var(--surface); border: 2px solid var(--overlay);
-      border-radius: 6px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      outline: none; transition: border-color 0.2s, background 0.2s;
-    }
-    .spit {
-      position: relative; width: 3px; height: 28px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: space-between;
-    }
-    .spit::before {
-      content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
-      transform: translateX(-50%); width: 1px;
-      background: linear-gradient(to bottom, transparent, #eea050, transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .dot-orbit {
-      position: relative; width: 3px; height: 5px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--text); position: absolute;
-      left: 50%; transform: translateX(-50%); transition: background 0.2s;
-    }
-    /* Hover animations — real pointer devices only; touch :hover is sticky so we skip it entirely */
-    @media (hover: hover) {
-      .kebab-btn:hover {
-        border-color: #eea050; background: var(--overlay);
-        animation: spit-startup 0.5s ease-out forwards;
-      }
-      .kebab-btn:hover .spit::before { opacity: 0.5; }
-      .kebab-btn:hover .dot { background: #eea050; }
-      .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
-      .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
-      .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
-      .kebab-btn:hover::after { opacity: 0.12; }
-    }
-    /* Stop orbit animation when menu is open (mouse users who open while hovering) */
-    .kebab-btn.open .dot-orbit .dot { animation: none; }
-    @keyframes orbit {
-      0%   { transform: translateX(0px)  scale(1);     opacity: 1;    }
-      12%  { transform: translateX(5px)  scaleX(0.65); opacity: 0.9;  }
-      25%  { transform: translateX(7px)  scaleX(0.15); opacity: 0.6;  }
-      38%  { transform: translateX(5px)  scaleX(0.05); opacity: 0.25; }
-      50%  { transform: translateX(0px)  scale(0.6);   opacity: 0.15; }
-      62%  { transform: translateX(-5px) scaleX(0.05); opacity: 0.25; }
-      75%  { transform: translateX(-7px) scaleX(0.15); opacity: 0.6;  }
-      88%  { transform: translateX(-5px) scaleX(0.65); opacity: 0.9;  }
-      100% { transform: translateX(0px)  scale(1);     opacity: 1;    }
-    }
-    @keyframes spit-startup {
-      0%  { transform: rotate(0deg); }
-      15% { transform: rotate(-1.5deg); }
-      35% { transform: rotate(0.8deg); }
-      55% { transform: rotate(-0.4deg); }
-      75% { transform: rotate(0.2deg); }
-      100%{ transform: rotate(0deg); }
-    }
-    .kebab-btn::after {
-      content: ''; position: absolute; inset: -1px; border-radius: 6px;
-      background: radial-gradient(ellipse at center, #eea050 0%, transparent 70%);
-      opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: -1;
-    }
-    .kebab-menu {
-      position: absolute; top: calc(100% + 10px); right: 0;
-      background: var(--surface); border: 1px solid var(--overlay);
-      border-radius: 6px; min-width: 130px; overflow: hidden;
-      opacity: 0; pointer-events: none; transform: translateY(-8px);
-      transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 100;
-    }
-    .kebab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .kebab-menu a {
-      display: block; padding: 10px 16px; font-size: 13px; letter-spacing: 0.5px;
-      color: var(--subtle); text-decoration: none;
-      border-bottom: 1px solid var(--overlay);
-      opacity: 0; transform: translateX(-10px);
-      transition: background 0.12s, color 0.12s;
-    }
-    .kebab-menu a:last-child { border-bottom: none; }
-    .kebab-menu.open a:nth-child(1) { animation: km-in 0.25s ease-out 0.05s forwards; }
-    .kebab-menu.open a:nth-child(2) { animation: km-in 0.25s ease-out 0.10s forwards; }
-    .kebab-menu.open a:nth-child(3) { animation: km-in 0.25s ease-out 0.15s forwards; }
-    @keyframes km-in { to { opacity: 1; transform: translateX(0); } }
-    .kebab-menu a:hover { background: var(--overlay); color: var(--text); }
-    .kebab-overlay { position: fixed; inset: 0; z-index: 50; display: none; }
-    .kebab-overlay.active { display: block; }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 40px 0 88px;
+    .ynot-promo {
+      max-width: 420px;
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
+      border-top: 1px solid #444;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #ffb84a;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      animation: fade-up 0.4s ease;
       position: relative;
-      animation: heroFadeIn 0.7s ease-out;
     }
 
-    .hero-decor {
+    .ynot-promo a {
+      display: inline-block;
+      margin-top: 6px;
+      color: #ffb84a;
+      border-bottom: 1px solid rgba(255,184,74,0.35);
+      padding-bottom: 1px;
+      font-weight: 600;
+      transition: border-color 0.15s;
+    }
+    .ynot-promo a:hover { border-bottom-color: #ffb84a; }
+
+    .ynot-dismiss {
       position: absolute;
-      top: 40px;
-      right: 0;
-      width: 200px;
-      height: 200px;
-      pointer-events: none;
-    }
-
-    .hero-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--iris);
-      margin-bottom: 36px;
-      transition: border-color 0.3s, transform 0.3s;
-      animation: heroFadeIn 0.6s ease-out 0.05s both;
-      /* Placeholder color if no image src */
-      background: var(--overlay);
-    }
-
-    .hero-avatar:hover {
-      border-color: var(--gold);
-      transform: scale(1.05);
-    }
-
-    .hero-eyebrow {
-      font-size: 13px;
-      color: var(--iris);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      animation: heroFadeIn 0.6s ease-out 0.12s both;
-    }
-
-    .hero h1 {
-      font-size: clamp(28px, 5vw, 44px);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 28px;
-      max-width: 580px;
-      background: linear-gradient(135deg, var(--text) 40%, var(--gold) 70%, var(--iris) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: heroFadeIn 0.6s ease-out 0.2s both;
-    }
-
-    .hero h1::after {
-      content: '';
-      display: block;
-      width: 56px;
-      height: 3px;
-      background: linear-gradient(to right, var(--foam), var(--iris));
-      margin-top: 20px;
-      border-radius: 2px;
-    }
-
-    .hero-body {
-      font-size: 17px;
-      color: var(--subtle);
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 56px;
-      animation: heroFadeIn 0.6s ease-out 0.3s both;
-    }
-
-    .hero-body strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* ── NAV CARDS ── */
-    .nav-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      animation: heroFadeIn 0.6s ease-out 0.4s both;
-    }
-
-    .nav-card {
-      display: block;
-      background: var(--surface);
-      border: 1px solid var(--hl-med);
-      border-radius: 10px;
-      padding: 15px 15px;
-      text-decoration: none;
-      transition: border-color 0.15s, background 0.15s;
+      top: 10px; right: 12px;
+      background: none;
+      border: none;
+      color: #3a3a3a;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 14px;
       cursor: pointer;
+      line-height: 1;
+    }
+    .ynot-dismiss:hover { color: #6e6a86; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: none; }
     }
 
-    .nav-card:hover {
-      border-color: var(--muted);
-      background: var(--overlay);
-    }
-
-    .nav-card-label {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .nav-card-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 6px;
-      letter-spacing: -0.01em;
-    }
-
-    .nav-card-desc {
-      font-size: 13px;
-      color: var(--subtle);
-      line-height: 1.5;
-    }
-
-    .nav-card.accent-iris:hover { border-color: var(--iris); }
-    .nav-card.accent-iris .nav-card-label { color: var(--iris); }
-
-    .nav-card.accent-gold:hover { border-color: var(--gold); }
-    .nav-card.accent-gold .nav-card-label { color: var(--gold); }
-
-    .nav-card.accent-foam:hover { border-color: var(--foam); }
-    .nav-card.accent-foam .nav-card-label { color: var(--foam); }
-
-    .nav-card.accent-rose:hover { border-color: var(--rose); }
-    .nav-card.accent-rose .nav-card-label { color: var(--rose); }
-
-    /* ── CURRENTLY ── */
-    .currently {
-      padding: 30px 0;
-      border-top: 1px solid var(--hl-med);
-      margin-top: 80px;
-    }
-
-    .currently-label {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .currently-items {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .currently-item {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      padding: 14px 0;
-      border-top: 1px solid var(--hl-low);
-    }
-
-    .currently-item:last-child {
-      border-bottom: 1px solid var(--hl-low);
-    }
-
-    .currently-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--pine);
-      flex-shrink: 0;
-      margin-top: 8px;
-    }
-
-    .currently-text {
-      font-size: 15px;
-      color: var(--subtle);
-      line-height: 1.5;
-    }
-
-    .currently-text strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .currently-text a {
-      color: var(--foam);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--hl-med);
-    }
-
-    .currently-text a:hover {
-      text-decoration-color: var(--foam);
-    }
-
-    /* ── FOOTER ── */
     footer {
-      padding: 40px 0;
-      border-top: 1px solid var(--hl-med);
+      margin-top: auto;
+      padding: 28px 24px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #2a2a3a;
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+    footer a { color: #3a3a4a; transition: color 0.15s; }
+    footer a:hover { color: #6e6a86; }
+
+    /* ── Chassis CSS ──────────────────────────────────────────────────────────── */
+    :root {
+      --acc-lcd:     #5bc8ff;
+      --acc-lcd-d:   #2a7ab5;
+      --acc-lcd-2:   #3a8ab8;
+      --acc-lcd-3:   #4a9ac8;
+      --acc-lcd-dim: #1a4a6a;
+      --st-green: #2ecc44;
+      --st-loud:  #f0a020;
+      --st-mute:  #e05555;
+      --mono: "IBM Plex Mono", "JetBrains Mono", "Courier New", monospace;
+      --sans: "IBM Plex Sans", system-ui, sans-serif;
     }
 
-    footer p {
-      font-size: 13px;
-      color: var(--muted);
+    .chassis.acc-amber { --acc-lcd: #ffb84a; --acc-lcd-d: #b57a20; --acc-lcd-2: #c88a30; --acc-lcd-3: #e0a048; --acc-lcd-dim: #6a4a1a; }
+
+    .chassis {
+      background:
+        radial-gradient(ellipse 80% 25% at 50% 0%, rgba(30,60,110,0.22) 0%, transparent 100%),
+        #0d0d0d;
+      border: 1px solid #222;
+      border-top: 1px solid #444;
+      border-left: 1px solid #444;
+      border-radius: 7px;
+      outline: 1px solid #111;
+      outline-offset: -3px;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.9),
+        0 0 0 2px #181818,
+        0 0 0 3px rgba(80,80,80,0.15),
+        0 10px 40px rgba(0,0,0,0.95),
+        0 0 100px rgba(0,15,50,0.35);
+      color: var(--acc-lcd);
+      font-family: var(--mono);
+      padding: 4px;
+      user-select: none;
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .now-playing {
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px),
+        linear-gradient(127deg, transparent 38%, rgba(255,255,255,0.022) 39%, transparent 40%),
+        linear-gradient(53deg,  transparent 58%, rgba(255,255,255,0.014) 59%, transparent 60%),
+        linear-gradient(161deg, transparent 72%, rgba(255,255,255,0.018) 73%, transparent 74%);
+      background-color: #050810;
+      border-radius: 4px 4px 0 0;
+      padding: 10px 12px;
+      border-bottom: 1px solid #0a1628;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.85), inset 0 -1px 3px rgba(0,0,0,0.5);
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 520px) {
-      .nav-cards { grid-template-columns: 1fr; }
-      .hero { padding: 64px 0 56px; }
-      .hero-avatar { width: 100px; height: 100px; margin-bottom: 24px; }
-      .hero-decor { width: 140px; height: 140px; top: 30px; }
+    .np-row { display: flex; gap: 10px; align-items: stretch; }
+
+    .art-panel {
+      width: 84px; height: 84px;
+      border-radius: 6px;
+      padding: 2px;
+      box-shadow:
+        0 0 18px color-mix(in oklab, var(--acc-lcd) 40%, transparent),
+        0 0 40px color-mix(in oklab, var(--acc-lcd) 22%, transparent),
+        0 4px 24px rgba(0,0,0,0.75);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
+    .art-panel img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+    .art-panel .art-placeholder {
+      width: 100%; height: 100%; border-radius: 4px;
+      background: repeating-linear-gradient(45deg,
+        color-mix(in oklab, var(--acc-lcd) 14%, #050810) 0 6px,
+        color-mix(in oklab, var(--acc-lcd) 6%,  #050810) 6px 12px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      color: var(--acc-lcd-dim);
+      text-transform: uppercase;
+    }
+
+    .info-panel {
+      flex: 1;
+      background: #0c1422;
+      border-radius: 6px;
+      padding: 4px 8px;
+      border: 1px solid rgba(20,42,72,0.55);
+      border-top: 1px solid color-mix(in oklab, var(--acc-lcd) 7%, transparent);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.55);
+      display: flex; flex-direction: column; gap: 0;
+      min-width: 0;
+    }
+
+    .display-bar {
+      background: #040810;
+      border-radius: 3px;
+      margin-top: 3px;
+      padding: 3px 7px;
+      border: 1px solid #0a1520;
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.75);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .station-name { font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: var(--acc-lcd); text-shadow: 0 0 8px color-mix(in oklab, var(--acc-lcd) 50%, transparent); }
+    .track-info   { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--acc-lcd-d); }
+    .meta-album   { font-family: var(--mono); font-size: 10px; font-weight: 600; color: color-mix(in oklab, var(--acc-lcd) 45%, #0a1422); letter-spacing: 0.04em; margin-top: 3px; padding-left: 2px; }
+    .meta-sub     { font-family: var(--mono); font-size: 9px; color: color-mix(in oklab, var(--acc-lcd) 28%, #0a1422); letter-spacing: 0.03em; padding-left: 2px; }
+
+    .indicator-panel {
+      background: #040810;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,30,60,0.25) 3px, rgba(0,30,60,0.25) 4px);
+      border-radius: 2px;
+      margin: 4px 12px 2px;
+      padding: 5px 8px;
+      border: 1px solid #0a1520;
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.75);
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .orbit-grid { display: grid; grid-template-columns: repeat(3, 8px); grid-template-rows: repeat(3, 8px); gap: 2px; flex-shrink: 0; }
+    .orbit-cell { display: flex; align-items: center; justify-content: center; }
+    .orbit-center { width: 6px; height: 6px; border-radius: 2px; background: color-mix(in oklab, var(--acc-lcd) 50%, #000); opacity: 0.45; }
+    .orbit-dot { width: 4px; height: 4px; border-radius: 2px; background: var(--acc-lcd); opacity: 0.12; color: var(--acc-lcd); }
+
+    .playing .orbit-center { animation: orbit-center-pulse 2.4s ease-in-out infinite; opacity: 1; }
+    .playing .orbit-dot.dn { animation: orbit-n 1.2s linear infinite 0.0s; }
+    .playing .orbit-dot.de { animation: orbit-e 1.2s linear infinite 0.3s; }
+    .playing .orbit-dot.ds { animation: orbit-s 1.2s linear infinite 0.6s; }
+    .playing .orbit-dot.dw { animation: orbit-w 1.2s linear infinite 0.9s; }
+
+    @keyframes orbit-center-pulse { 0%,100%{opacity:.55} 50%{opacity:1} }
+    @keyframes orbit-n { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:0 -5px 6px currentColor} 40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-e { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:5px 0 6px currentColor}  40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-s { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:0 5px 6px currentColor}  40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-w { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:-5px 0 6px currentColor} 40%{opacity:.4} 100%{opacity:.12} }
+
+    .sig-strip { display: flex; gap: 2px; align-items: flex-end; height: 18px; flex: 1; min-width: 0; }
+    .sig-bar { width: 3px; border-radius: 1px 1px 0 0; background: linear-gradient(180deg, var(--acc-lcd) 0%, color-mix(in oklab, var(--acc-lcd) 30%, #000) 100%); opacity: 0.28; }
+    .sig-bar:nth-child(1){height:4px} .sig-bar:nth-child(2){height:7px} .sig-bar:nth-child(3){height:11px}
+    .sig-bar:nth-child(4){height:15px} .sig-bar:nth-child(5){height:17px} .sig-bar:nth-child(6){height:14px}
+    .sig-bar:nth-child(7){height:10px} .sig-bar:nth-child(8){height:6px} .sig-bar:nth-child(9){height:4px}
+
+    .playing .sig-bar { animation: sigpulse .9s ease-in-out infinite; }
+    .playing .sig-bar:nth-child(1){animation-duration:.83s;animation-delay:0s}
+    .playing .sig-bar:nth-child(2){animation-duration:1.12s;animation-delay:.2s}
+    .playing .sig-bar:nth-child(3){animation-duration:.77s;animation-delay:.08s}
+    .playing .sig-bar:nth-child(4){animation-duration:.95s;animation-delay:.35s}
+    .playing .sig-bar:nth-child(5){animation-duration:.68s;animation-delay:.12s}
+    .playing .sig-bar:nth-child(6){animation-duration:1.08s;animation-delay:.28s}
+    .playing .sig-bar:nth-child(7){animation-duration:.88s;animation-delay:.05s}
+    .playing .sig-bar:nth-child(8){animation-duration:.72s;animation-delay:.42s}
+    .playing .sig-bar:nth-child(9){animation-duration:1.00s;animation-delay:.17s}
+    @keyframes sigpulse { 0%,100%{opacity:.14} 45%{opacity:.85} }
+
+    .radio-btn { font-family: var(--mono); font-size: 9px; letter-spacing: 0.10em; color: #1a3a50; background: linear-gradient(180deg, #0c1825 0%, #070d16 100%); border: 1px solid #0e1e2e; border-top: 1px solid #182d40; border-radius: 2px; padding: 2px 7px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.7); }
+    .radio-btn.lit       { color: var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 35%, #0c1825); text-shadow: 0 0 7px color-mix(in oklab, var(--acc-lcd) 80%, transparent); }
+    .radio-btn.st-ind.lit   { color: var(--st-green); border-color: #1a4a22; text-shadow: 0 0 8px var(--st-green); }
+    .radio-btn.loud-ind.lit { color: var(--st-loud);  border-color: #4a3010; text-shadow: 0 0 8px var(--st-loud); }
+    .radio-btn.mute-ind.lit { color: var(--st-mute);  border-color: #4a1515; text-shadow: 0 0 8px var(--st-mute); }
+
+    .controls { margin: 8px 10px 10px; background: #0c1422; border-radius: 6px; border: 1px solid rgba(20,42,72,0.55); padding: 5px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; box-shadow: inset 0 1px 6px rgba(0,0,0,0.5); }
+
+    .ctl-btn { background: linear-gradient(180deg, #222 0%, #141414 60%, #1a1a1a 100%); color: color-mix(in oklab, var(--acc-lcd) 80%, #fff); border: 1px solid #2a2a2a; border-top: 1px solid #3a3a3a; border-radius: 4px; padding: 6px 0; font-family: var(--mono); font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.07); text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 50%, transparent); cursor: pointer; transition: all 0.1s; }
+    .ctl-btn:hover { background: linear-gradient(180deg, #1a2a3a 0%, #0f1e2e 100%); border-color: color-mix(in oklab, var(--acc-lcd) 40%, #2a2a2a); color: var(--acc-lcd); text-shadow: 0 0 10px color-mix(in oklab, var(--acc-lcd) 90%, transparent); }
+    .ctl-btn:active { background: #070f1a; box-shadow: inset 0 2px 5px rgba(0,0,0,0.85); }
+    .ctl-btn.lit { color: var(--acc-lcd); text-shadow: 0 0 10px var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 40%, #2a2a2a); }
+
+    .seam-wrap { margin: 0 4px; }
+    .seam        { height: 1px; background: linear-gradient(to right, transparent 0%, #2a2a2a 15%, #555 50%, #2a2a2a 85%, transparent 100%); }
+    .seam-shadow { height: 1px; background: linear-gradient(to right, transparent 0%, #0a0a0a 15%, #111 50%, #0a0a0a 85%, transparent 100%); }
+
+    .mfr-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px 4px; }
+    .mfr-badge { font-family: var(--mono); font-size: 7px; letter-spacing: 0.20em; color: #3a3a3a; text-shadow: 0 1px 0 rgba(80,80,80,0.3); }
+
+    .module { background: radial-gradient(ellipse 80% 15% at 50% 0%, rgba(30,60,110,0.15) 0%, transparent 100%), #0d0d0d; border: 1px solid #222; border-top: 1px solid #444; border-left: 1px solid #444; border-radius: 6px; outline: 1px solid #111; outline-offset: -3px; box-shadow: 0 0 0 1px rgba(0,0,0,0.9), 0 0 0 2px #181818, 0 6px 24px rgba(0,0,0,0.85); padding: 4px; font-family: var(--mono); }
+
+    .module-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px 5px; background: #040810; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,30,60,0.2) 3px, rgba(0,30,60,0.2) 4px); border-radius: 4px 4px 0 0; border-bottom: 1px solid #0a1628; }
+    .module-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--acc-lcd-d); text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 40%, transparent); }
+    .module-dots { display: flex; gap: 5px; }
+    .module-dot { width: 10px; height: 10px; border-radius: 50%; background: #0a1520; border: 1px solid #1a2a3a; cursor: pointer; }
+    .module-dot.min   { background: #1a3a2a; border-color: #2a5a3a; }
+    .module-dot.fold  { background: #3a2a1a; border-color: #5a3a2a; }
+    .module-dot.close { background: #3a1a1a; border-color: #5a2a2a; }
+
+    .module-body { background: #050810; border-radius: 0 0 4px 4px; padding: 6px; }
+
+    .group-bar { display: flex; gap: 2px; background: #050b14; background-image: repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0,20,45,0.18) 5px, rgba(0,20,45,0.18) 6px); border: 1px solid #0a1520; border-radius: 4px; padding: 3px 4px; margin-bottom: 4px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.8); }
+    .group-tab { background: transparent; color: #1a4060; border: 1px solid transparent; border-bottom: 2px solid transparent; border-radius: 2px 2px 0 0; padding: 2px 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; cursor: pointer; flex: 1; }
+    .group-tab:hover { color: var(--acc-lcd-3); background: color-mix(in oklab, var(--acc-lcd) 4%, transparent); }
+    .group-tab.active { color: var(--acc-lcd); background: color-mix(in oklab, var(--acc-lcd) 6%, transparent); border-color: color-mix(in oklab, var(--acc-lcd) 12%, transparent); border-bottom-color: color-mix(in oklab, var(--acc-lcd) 70%, transparent); text-shadow: 0 0 5px color-mix(in oklab, var(--acc-lcd) 65%, transparent); }
+
+    .toolbar { display: flex; gap: 4px; align-items: center; background: #080808; padding: 4px 6px; border-radius: 3px; margin-bottom: 4px; }
+    .toolbar .search { flex: 1; background: #0a0f18; color: var(--acc-lcd-3); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 7px; font-family: var(--mono); font-size: 11px; outline: none; }
+    .toolbar .search:focus { border-color: color-mix(in oklab, var(--acc-lcd) 35%, #1a2a3a); color: var(--acc-lcd); }
+    .toolbar .tb-btn { background: #0f0f0f; color: var(--acc-lcd-2); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+    .toolbar .tb-btn:hover { background: #0f1e2e; color: var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 40%, transparent); }
+
+    .station-list { padding: 2px 4px; max-height: 240px; overflow-y: auto; }
+    .station-list::-webkit-scrollbar { width: 6px; }
+    .station-list::-webkit-scrollbar-track { background: #040810; }
+    .station-list::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 3px; }
+
+    .station-row { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 3px; color: var(--acc-lcd-d); font-size: 11px; cursor: pointer; border-left: 2px solid transparent; }
+    .station-row:hover { background: color-mix(in oklab, var(--acc-lcd) 10%, transparent); color: var(--acc-lcd-3); }
+    .station-row.active { background: linear-gradient(90deg, color-mix(in oklab, var(--acc-lcd) 24%, transparent) 0%, color-mix(in oklab, var(--acc-lcd) 10%, transparent) 100%); color: var(--acc-lcd); text-shadow: 0 0 8px color-mix(in oklab, var(--acc-lcd) 60%, transparent); border-left-color: color-mix(in oklab, var(--acc-lcd) 60%, transparent); box-shadow: inset 2px 0 8px color-mix(in oklab, var(--acc-lcd) 8%, transparent); }
+    .station-row .name { flex: 1; font-family: var(--sans); font-size: 13px; font-weight: 600; }
+    .station-row .name .sub { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .08em; opacity: .65; margin-top: 1px; }
+
+    .freq-badge { font-family: var(--mono); font-size: 9px; color: var(--acc-lcd-3); padding: 2px 6px; background: rgba(0,20,45,0.7); border: 1px solid color-mix(in oklab, var(--acc-lcd) 12%, transparent); border-radius: 2px; text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 45%, transparent); }
+    .group-badge { font-family: var(--mono); font-size: 9px; color: var(--st-green); padding: 2px 5px; background: rgba(0,20,10,0.7); border: 1px solid rgba(91,200,91,0.18); border-radius: 2px; }
+
+    .collapsed-bar { padding: 6px 8px; background: rgba(0,8,18,0.8); border-top: 1px solid #0a1628; display: flex; align-items: center; gap: 4px; }
+    .quick-nav, .quick-num, .group-label-btn, .mode-toggle { font-family: var(--mono); background: #080f18; border: 1px solid #0f1e2e; border-top: 1px solid #152535; border-radius: 3px; color: var(--acc-lcd-dim); cursor: pointer; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+    .quick-nav        { min-width: 22px; height: 26px; font-size: 10px; }
+    .quick-num        { min-width: 34px; height: 26px; font-size: 13px; font-weight: 700; color: color-mix(in oklab, var(--acc-lcd) 35%, #111); }
+    .quick-num.active { color: var(--acc-lcd); text-shadow: 0 0 10px color-mix(in oklab, var(--acc-lcd) 90%, transparent); border-color: color-mix(in oklab, var(--acc-lcd) 35%, transparent); background: #0d1a28; }
+    .quick-num:disabled { opacity: 0.35; cursor: default; }
+    .group-label-btn  { min-width: 52px; height: 26px; font-size: 8px; letter-spacing: 0.18em; color: var(--acc-lcd-d); background: #040810; text-shadow: 0 0 5px color-mix(in oklab, var(--acc-lcd) 45%, transparent); }
+    .mode-toggle      { width: 34px; height: 26px; font-size: 16px; color: var(--acc-lcd); text-shadow: 0 0 8px var(--acc-lcd); background: linear-gradient(180deg, #222 0%, #141414 100%); border: 1px solid #2a2a2a; }
+
+    .discover-results { display: flex; flex-direction: column; max-height: 240px; overflow-y: auto; }
+    .discover-results::-webkit-scrollbar { width: 6px; }
+    .discover-results::-webkit-scrollbar-track { background: #040810; }
+    .discover-results::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 3px; }
+    .discover-result  { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-bottom: 1px solid #0d1a2a; }
+    .discover-result .info { flex: 1; min-width: 0; }
+    .discover-name { font-family: var(--mono); font-size: 11px; color: var(--acc-lcd-2); font-weight: 700; }
+    .discover-meta { font-family: var(--mono); font-size: 10px; color: var(--acc-lcd-dim); }
+    .discover-add  { background: transparent; color: var(--st-green); border: 1px solid #1a3a2a; border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
+    .discover-add:hover  { background: rgba(30,120,60,0.18); border-color: #2a7a4a; }
+    .discover-add.added  { color: #4ae888; border-color: #2a7a4a; }
+
+    .placeholder-block { font-family: var(--mono); font-size: 10px; color: var(--acc-lcd-dim); padding: 20px; text-align: center; background: repeating-linear-gradient(45deg, color-mix(in oklab, var(--acc-lcd) 6%, #050810) 0 6px, color-mix(in oklab, var(--acc-lcd) 2%, #050810) 6px 12px); border: 1px solid #0a1520; border-radius: 3px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .inline-form { background: #06090f; padding: 8px 10px; border-top: 1px solid #0e2540; border-bottom: 1px solid #0e2540; display: grid; gap: 4px; }
+    .inline-form label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--acc-lcd-d); text-transform: uppercase; }
+    .inline-form .row  { display: flex; gap: 5px; align-items: center; }
+    .inline-form input { flex: 1; background: #070f1c; color: var(--acc-lcd-3); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 7px; font-family: var(--mono); font-size: 11px; outline: none; }
+    .inline-form input:focus { border-color: color-mix(in oklab, var(--acc-lcd) 35%, transparent); color: var(--acc-lcd); }
+    .inline-form .actions { display: flex; gap: 5px; justify-content: flex-end; }
+    .inline-form button { background: #0f1e2e; color: var(--acc-lcd-2); border: 1px solid #1a3a5a; border-radius: 3px; padding: 3px 10px; font-family: var(--mono); font-size: 10px; cursor: pointer; }
+    .inline-form button:hover { background: #1a3a5a; color: var(--acc-lcd); }
+    .inline-form button.cancel:hover { background: #2a1010; color: #e86060; border-color: #6a2020; }
+
+    .meta-console { background: #040810; border: 1px solid #0a1520; border-radius: 3px; padding: 5px 8px; font-family: var(--mono); font-size: 9px; line-height: 1.55; letter-spacing: 0.04em; box-shadow: inset 0 1px 5px rgba(0,0,0,0.75); max-height: 180px; overflow-y: auto; }
+    .meta-row { display: flex; gap: 6px; }
+    .meta-row .k { color: var(--acc-lcd-d); min-width: 72px; }
+    .meta-row .v { color: var(--acc-lcd-3); }
+    .meta-row .src { color: var(--st-green); }
   </style>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
 
-<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;">
-  <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--hl-med)" stroke-width="0.5" opacity="0.3"/>
-    </pattern>
-  </defs>
-  <rect width="100%" height="100%" fill="url(#grid)"/>
-</svg>
-
-<button class="sqlch-trigger" onclick="openSqlch()">sqlch</button>
-
-<div id="kebab-overlay" class="kebab-overlay"></div>
-
-<nav>
-  <div class="container">
-    <span class="nav-name">
-      <span class="terminal-prompt">root@nix:~$</span>
-      <span class="terminal-command">Philip Repko</span>
-      <span class="cursor"></span>
-    </span>
-    <div class="kebab-wrapper">
-      <button class="kebab-btn" onclick="toggleKebab()" aria-label="Navigation">
-        <div class="spit">
-          <div class="dot-orbit"><span class="dot"></span></div>
-          <div class="dot-orbit"><span class="dot"></span></div>
-          <div class="dot-orbit"><span class="dot"></span></div>
-        </div>
-      </button>
-      <div class="kebab-menu" id="kebab-menu">
-        <a href="/work">Work</a>
-        <a href="/writing">Writing</a>
-        <a href="/projects">Projects</a>
-      </div>
-    </div>
+<header class="page-header">
+  <div class="nav-brand">
+    <span class="terminal-prompt">sqlch@nix:~$</span>
+    <span class="terminal-command">Philip Repko</span>
+    <span class="cursor"></span>
   </div>
-</nav>
+  <p class="tagline">portfolio under reconstruction · the daemon keeps you company</p>
+</header>
 
-<main>
-  <div class="container">
-
-    <div class="hero">
-      <!-- Replace src with your actual photo path -->
-      <img class="hero-avatar" src="assets/profile.jpg" alt="Philip Repko" />
-
-      <p class="hero-eyebrow">Digital Experience Systems Designer</p>
-
-      <h1>Building systems that think,<br>and also kind of judge you...</h1>
-
-      <p class="hero-body">
-        I design and own <strong>conversational AI platforms</strong> where fintech and human behavior converge —
-        turning contact center chaos into something members can actually use.
-      </p>
-
-      <div class="nav-cards">
-        <a href="/work" class="nav-card accent-iris">
-          <p class="nav-card-label">Case Studies</p>
-          <p class="nav-card-title">Work</p>
-          <p class="nav-card-desc">The conversational AI system — how it should work, and how I know.</p>
-        </a>
-        <a href="/writing" class="nav-card accent-gold">
-          <p class="nav-card-label">Words</p>
-          <p class="nav-card-title">Writing</p>
-          <p class="nav-card-desc">Fiction, poetry, and sometimes gibberish.</p>
-        </a>
-        <a href="/projects" class="nav-card accent-foam">
-          <p class="nav-card-label">Open Source</p>
-          <p class="nav-card-title">Projects</p>
-          <p class="nav-card-desc">CLI tools, NixOS configs, and things built for fun.</p>
-        </a>
-        <a href="mailto:me@philipjrepko.com" class="nav-card accent-rose">
-          <p class="nav-card-label">Contact</p>
-          <p class="nav-card-title">Does this sound remotely interesting?</p>
-          <p class="nav-card-desc">Let's talk.</p>
-        </a>
-      </div>
-    </div>
-
-    <div class="currently">
-      <p class="currently-label">Currently</p>
-      <div class="currently-items">
-        <div class="currently-item">
-          <div class="currently-dot" style="background: var(--iris);"></div>
-          <p class="currently-text">Auditing 2,500+ conversation goals for a <strong>full rebrand</strong></p>
-        </div>
-        <div class="currently-item">
-          <div class="currently-dot" style="background: var(--gold);"></div>
-          <p class="currently-text">Building <strong><a href="https://github.com/SW-philip/nixos">phl</a></strong> — a custom shell with an opinionated narrator</p>
-        </div>
-        <div class="currently-item">
-          <div class="currently-dot" style="background: var(--foam);"></div>
-          <p class="currently-text">Finishing <strong>All These Perfect Floods</strong>, a novel</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</main>
+<div class="app-wrap">
+  <div id="app-root"></div>
+</div>
 
 <footer>
-  <div class="container">
-    <p>Philip Repko · Philadelphia · philipjrepko.com </p>
-  </div>
+  <a href="mailto:me@philipjrepko.com">me@philipjrepko.com</a>
+  &nbsp;·&nbsp; back when it's done
 </footer>
 
-<div class="sqlch-overlay" id="sqlch-overlay" onclick="handleSqlchOverlayClick(event)">
-  <div class="sqlch-panel" id="sqlch-panel">
-    <div class="sq-header">
-      <div class="sq-art">art</div>
-      <div class="sq-meta">
-        <div class="sq-station-name" id="sq-station-name">&#8212; &#8212;</div>
-        <div class="sq-freq" id="sq-freq"></div>
-        <div class="sq-track" id="sq-track">select a station</div>
-        <div class="sq-artist" id="sq-artist"></div>
-      </div>
-    </div>
-    <div class="sq-controls">
-      <button class="sq-ctrl-btn" id="sq-mono" onclick="sqToggle('sq-mono')">MONO</button>
-      <button class="sq-ctrl-btn active" id="sq-st" onclick="sqToggle('sq-st')">ST</button>
-      <div class="sq-signal">
-        <div class="sq-signal-bar"></div>
-        <div class="sq-signal-bar"></div>
-        <div class="sq-signal-bar"></div>
-        <div class="sq-signal-bar"></div>
-      </div>
-      <button class="sq-ctrl-btn" id="sq-loud" onclick="sqToggle('sq-loud')">LOUD</button>
-      <button class="sq-ctrl-btn" id="sq-mute" onclick="sqMute()">MUTE</button>
-    </div>
-    <div class="sq-transport">
-      <button class="sq-transport-btn" title="Favorite">&#9673;</button>
-      <button class="sq-transport-btn" onclick="sqPrev()" title="Previous">&#9198;</button>
-      <button class="sq-transport-btn play-btn" id="sq-play" onclick="sqPlayPause()" title="Play/Pause">&#9654;</button>
-      <button class="sq-transport-btn" onclick="sqStop()" title="Stop">&#9209;</button>
-      <button class="sq-transport-btn" onclick="sqNext()" title="Next">&#9197;</button>
-      <button class="sq-transport-btn" title="Bookmark">&#9830;</button>
-      <button class="sq-transport-btn" onclick="collapseSqlch()" title="Collapse">&#9660;</button>
-    </div>
-    <div class="sq-filter-row">
-      <input class="sq-filter-input" id="sq-filter" placeholder="filter..." oninput="sqFilter()" />
-      <span class="sq-filter-icon">&#127760;</span>
-      <button class="sq-ctrl-btn">+</button>
-    </div>
-    <div class="sq-tabs" id="sq-tabs">
-      <button class="sq-tab active" data-cat="ALL" onclick="sqSetTab(this)">ALL</button>
-      <button class="sq-tab" data-cat="Rock" onclick="sqSetTab(this)">Rock</button>
-      <button class="sq-tab" data-cat="Pop" onclick="sqSetTab(this)">Pop</button>
-      <button class="sq-tab" data-cat="Urban" onclick="sqSetTab(this)">Urban</button>
-      <button class="sq-tab" data-cat="Public" onclick="sqSetTab(this)">Public</button>
-    </div>
-    <div class="sq-list" id="sq-list"></div>
-  </div>
-</div>
-<div class="sq-mini" id="sq-mini" onclick="openSqlch()">
-  <div class="sq-mini-info">
-    <div class="sq-mini-station" id="sq-mini-station"></div>
-    <div class="sq-mini-track" id="sq-mini-track"></div>
-  </div>
-  <button class="sq-mini-btn" id="sq-mini-play" onclick="event.stopPropagation(); sqPlayPause()">&#9654;</button>
-  <button class="sq-mini-btn" onclick="event.stopPropagation(); sqStop()" title="Stop">&#215;</button>
-</div>
-<audio id="sqlch-audio" crossorigin="anonymous"></audio>
-
+<!-- ── Station data ────────────────────────────────────────────────────────────── -->
 <script>
-  (function() {
-    var _km = null;
-    function toggleKebab() {
-      var btn = document.querySelector('.kebab-btn');
-      var m = document.getElementById('kebab-menu');
-      var ov = document.getElementById('kebab-overlay');
-      var opening = !m.classList.contains('open');
-      btn.classList.toggle('open', opening);
-      m.classList.toggle('open', opening);
-      ov.classList.toggle('active', opening);
-      _km = opening ? m : null;
+window.SQLCH_STATIONS = [
+  { id: "wxpn-885-philadelphia-pa", name: "WXPN",        subtitle: "88.5 Philadelphia",          frequency: "88.5 FM",  group: "FM1", url: "https://wxpn.xpn.org/xpnmain" },
+  { id: "wxpn-hd2-xponential",      name: "XPONential",  subtitle: "88.1 HD2",                   frequency: "88.1 FM",  group: "FM1", url: "https://wxpn.xpn.org/xponential" },
+  { id: "whyy",                     name: "WHYY",         subtitle: "90.9 Philadelphia",          frequency: "90.9 FM",  group: "FM1", url: "https://streams.whyy.org/whyy" },
+  { id: "wrti",                     name: "WRTI",         subtitle: "Temple · Jazz + Classical",  frequency: "90.1 FM",  group: "FM1", url: "https://wrti-prod.streamguys1.com/wrti-mp3" },
+  { id: "ynot-radio-philly",        name: "YNOT Radio",   subtitle: "Independent · Philadelphia", frequency: "100.3",    group: "FM2", url: "https://das-edge15-live365-dal02.cdnstream.com/a54553" },
+  { id: "wmmr",                     name: "WMMR",         subtitle: "93.3 Rock",                  frequency: "93.3 FM",  group: "FM2", url: "" },
+  { id: "wxtu",                     name: "WXTU",         subtitle: "92.5 Country",               frequency: "92.5 FM",  group: "FM2", url: "" },
+  { id: "wmgk",                     name: "WMGK",         subtitle: "102.9 Classic Rock",         frequency: "102.9 FM", group: "FM2", url: "" },
+  { id: "kyw",                      name: "KYW",          subtitle: "1060 News",                  frequency: "1060 AM",  group: "AM1", url: "" },
+  { id: "wpht",                     name: "WPHT",         subtitle: "1210 Talk",                  frequency: "1210 AM",  group: "AM1", url: "" },
+  { id: "wurd",                     name: "WURD",         subtitle: "900 Talk",                   frequency: "900 AM",   group: "AM1", url: "" },
+  { id: "radio-paradise-main",      name: "Radio Paradise", subtitle: "Main Mix",                 frequency: "INT·01",   group: "INT1", url: "https://stream.radioparadise.com/mp3-192" },
+  { id: "kexp-905",                 name: "KEXP",         subtitle: "Seattle · 90.3",             frequency: "INT·02",   group: "INT1", url: "https://kexp.streamguys1.com/kexp160.aac" },
+  { id: "nts-1",                    name: "NTS 1",        subtitle: "London",                     frequency: "INT·03",   group: "INT1", url: "https://stream-relay-geo.ntslive.net/stream" },
+  { id: "rinse-fm",                 name: "Rinse FM",     subtitle: "London · 106.8",             frequency: "INT·04",   group: "INT1", url: "https://stream.rinse.fm/rinse_fm.aac" },
+  { id: "dublab",                   name: "dublab",       subtitle: "Los Angeles",                frequency: "INT·05",   group: "INT1", url: "" },
+];
+
+window.SQLCH_GROUPS = ["FM1", "FM2", "AM1", "INT1"];
+
+window.SQLCH_NOW_PLAYING = {
+  "wxpn-885-philadelphia-pa": { artist: "Big Thief",         track: "Change",                album: "Dragon New Warm Mountain I Believe in You", year: "2022", genre: "Indie Folk",       cover: null, bitrate: 128, channels: 2 },
+  "wxpn-hd2-xponential":      { artist: "Yo La Tengo",       track: "Sinatra Drive Breakdown", album: "This Stupid World",                      year: "2023", genre: "Indie Rock",       cover: null, bitrate: 96,  channels: 2 },
+  "ynot-radio-philly":        { artist: "The War on Drugs",  track: "Under the Pressure",    album: "Lost in the Dream",                        year: "2014", genre: "Indie Rock",       cover: null, bitrate: 128, channels: 2 },
+  "radio-paradise-main":      { artist: "Phoebe Bridgers",   track: "Kyoto",                 album: "Copycat Killer",                           year: "2020", genre: "Chamber Pop",      cover: null, bitrate: 192, channels: 2 },
+  "kexp-905":                 { artist: "Wednesday",         track: "Chosen to Deserve",     album: "Rat Saw God",                              year: "2023", genre: "Country Shoegaze", cover: null, bitrate: 160, channels: 2 },
+  "nts-1":                    { artist: "Floating Points",   track: "Key103",                album: "Cascade",                                  year: "2024", genre: "Electronic",       cover: null, bitrate: 128, channels: 2 },
+};
+
+window.SQLCH_DISCOVER = {
+  "punk":    [ { name: "Rock Antenne - Punk Rock", country: "Germany", codec: "MP3", bitrate: 128 }, { name: "punk irratia", country: "Spain", codec: "MP3", bitrate: 192 }, { name: "REAL PUNK RADIO", country: "USA", codec: "MP3", bitrate: 128 }, { name: "Radio Caprice — Post-Punk", country: "Russia", codec: "AAC+", bitrate: 320 }, { name: "PunkRockRadio.ca", country: "Canada", codec: "MP3", bitrate: 192 } ],
+  "jazz":    [ { name: "WRTI Jazz", country: "USA", codec: "MP3", bitrate: 128 }, { name: "SomaFM — Sonic Universe", country: "USA", codec: "AAC", bitrate: 128 }, { name: "Radio Swiss Jazz", country: "Switzerland", codec: "MP3", bitrate: 128 }, { name: "TSF Jazz", country: "France", codec: "MP3", bitrate: 128 } ],
+  "ambient": [ { name: "SomaFM — Drone Zone", country: "USA", codec: "AAC", bitrate: 128 }, { name: "SomaFM — Deep Space One", country: "USA", codec: "AAC", bitrate: 128 }, { name: "Radio Caprice — Ambient", country: "Russia", codec: "AAC+", bitrate: 320 }, { name: "Hearts of Space", country: "USA", codec: "MP3", bitrate: 128 } ],
+  "indie":   [ { name: "KEXP 90.3", country: "USA", codec: "AAC", bitrate: 160 }, { name: "WXPN 88.5", country: "USA", codec: "MP3", bitrate: 128 }, { name: "NTS Radio 1", country: "UK", codec: "MP3", bitrate: 128 }, { name: "dublab", country: "USA", codec: "MP3", bitrate: 128 } ],
+};
+</script>
+
+<!-- ── Metadata parser ─────────────────────────────────────────────────────────── -->
+<script>
+(function () {
+  const LIVE_RE = /(?:[\s\-]+|\()(live|bootleg|demo|acoustic|session|rehearsal|rare|outtake|alternate|unreleased|b-side|soundboard)\b/i;
+
+  function stripLiveQualifier(track) {
+    if (!track) return { base: track, qualifier: null };
+    const m = track.match(LIVE_RE);
+    if (!m) return { base: track, qualifier: null };
+    const base = track.slice(0, m.index).replace(/[\s\-\(\[]+$/, "").trim();
+    return { base: base || track, qualifier: m[1].toLowerCase() };
+  }
+
+  function splitIcy(raw) {
+    if (!raw) return [null, null];
+    if (raw.includes(" - ")) { const [a, t] = raw.split(" - ", 2); return [a.trim() || null, t.trim() || null]; }
+    if (raw.includes("-"))   { const idx = raw.indexOf("-"); return [raw.slice(0, idx).trim() || null, raw.slice(idx + 1).trim() || null]; }
+    return [null, raw.trim() || null];
+  }
+
+  function norm(s) { return (s || "").toLowerCase().trim().replace(/\s+/g, " "); }
+
+  function enrichLookup(cache, artist, track) {
+    if (!cache || !artist || !track) return null;
+    const entry = cache[`${norm(artist)}::${norm(track)}`];
+    if (entry && entry.cover) return entry;
+    const { base, qualifier } = stripLiveQualifier(track);
+    if (qualifier && base !== track) {
+      const studio = cache[`${norm(artist)}::${norm(base)}`];
+      if (studio && studio.cover) return studio;
     }
-    function closeKebab() {
-      if (_km) { _km.classList.remove('open'); _km = null; }
-      document.querySelector('.kebab-btn').classList.remove('open');
-      document.getElementById('kebab-overlay').classList.remove('active');
+    return entry || null;
+  }
+
+  function parseNowPlaying({ mpris, mpv, enriched, station } = {}) {
+    const sources = [];
+    let artist = null, track = null;
+
+    const md = (mpv && mpv.metadata) || {};
+    const mdArtist = (md.artist || md.Artist || "").trim();
+    const mdTitle  = (md.title  || md.Title  || "").trim();
+    if (mdArtist && mdTitle) { artist = mdArtist; track = mdTitle; sources.push("mpv.metadata.artist+title"); }
+
+    if (!artist || !track) {
+      const raw = (md["icy-title"] || md.title || "").trim();
+      if (raw) {
+        const [a, t] = splitIcy(raw);
+        if (a && t) { artist = a; track = t; sources.push("mpv.metadata.icy-title"); }
+        else if (t) { track = t; sources.push("mpv.metadata.icy-title(title-only)"); }
+      }
     }
-    window.toggleKebab = toggleKebab;
-    document.getElementById('kebab-overlay').addEventListener('click', closeKebab);
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKebab(); });
-  })();
 
-  function openSqlch() {
-    document.getElementById('sqlch-overlay').classList.add('open');
-    document.getElementById('sq-mini').classList.remove('visible');
-    sqCheckHls();
-    sqRenderList();
-    // Fetch live now-playing on open and start 60s refresh poll
-    sqFetchLive();
-    clearInterval(sqLivePollTimer);
-    sqLivePollTimer = setInterval(sqFetchLive, 60000);
-  }
-  function collapseSqlch() {
-    // Hide the overlay but keep audio running — state is preserved
-    document.getElementById('sqlch-overlay').classList.remove('open');
-    clearInterval(sqLivePollTimer);
-    sqUpdateMini();
-  }
-  function handleSqlchOverlayClick(e) {
-    if (e.target === document.getElementById('sqlch-overlay')) collapseSqlch();
-  }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') collapseSqlch();
-  });
-  function sqUpdateMini() {
-    var mini = document.getElementById('sq-mini');
-    var audio = document.getElementById('sqlch-audio');
-    if (!sqCurrentId) {
-      mini.classList.remove('visible');
-      return;
+    if (!artist || !track) {
+      if (mpris && (mpris.artist || mpris.title)) {
+        if (!artist && mpris.artist) artist = mpris.artist;
+        if (!track  && mpris.title)  track  = mpris.title;
+        sources.push("mpris.playerctl");
+      }
     }
-    mini.classList.add('visible');
-    document.getElementById('sq-mini-station').textContent =
-      document.getElementById('sq-station-name').textContent;
-    document.getElementById('sq-mini-track').textContent =
-      document.getElementById('sq-track').textContent;
-    document.getElementById('sq-mini-play').textContent =
-      audio.paused ? '\u25b6' : '\u23f8';
+
+    const icyGenre = (md["icy-genre"] || md.genre || "").trim() || null;
+    if (icyGenre) sources.push("mpv.icy-genre");
+
+    let album = null, year = null, genre = null, cover = null;
+    const e = enrichLookup(enriched, artist, track);
+    if (e) { album = e.album || null; year = e.year != null ? String(e.year) : null; genre = (e.genres && e.genres[0]) || null; cover = e.cover || null; sources.push("sqlch.enriched.json"); }
+    if (!genre && icyGenre) genre = icyGenre;
+
+    return {
+      station:   station ? (station.name || station.id) : null,
+      frequency: station ? (station.frequency || null) : null,
+      artist, track, album, year, genre, cover,
+      bitrate:   (mpv && (mpv.bitrate || md["icy-br"])) || null,
+      channels:  (mpv && mpv.channels) || null,
+      qualifier: track ? stripLiveQualifier(track).qualifier : null,
+      sources,
+    };
   }
 
-  function sqToggle(id) {
-    document.getElementById(id).classList.toggle('active');
+  window.SqlchMeta = { parseNowPlaying, stripLiveQualifier, splitIcy };
+})();
+</script>
+
+<!-- ── Components + App ───────────────────────────────────────────────────────── -->
+<script type="text/babel">
+const { useState, useMemo, useEffect, useRef } = React;
+
+// ── Tiny pieces ───────────────────────────────────────────────────────────────
+function Orbit({ playing }) {
+  return (
+    <div className={`orbit-grid ${playing ? "playing" : ""}`}>
+      <div className="orbit-cell" /><div className="orbit-cell"><span className="orbit-dot dn" /></div><div className="orbit-cell" />
+      <div className="orbit-cell"><span className="orbit-dot dw" /></div><div className="orbit-cell"><span className="orbit-center" /></div><div className="orbit-cell"><span className="orbit-dot de" /></div>
+      <div className="orbit-cell" /><div className="orbit-cell"><span className="orbit-dot ds" /></div><div className="orbit-cell" />
+    </div>
+  );
+}
+
+function SignalBars({ playing }) {
+  return (
+    <div className={`sig-strip ${playing ? "playing" : ""}`}>
+      {Array.from({ length: 9 }).map((_, i) => <div key={i} className="sig-bar" />)}
+    </div>
+  );
+}
+
+// ── NowPlaying display ────────────────────────────────────────────────────────
+function NowPlayingDisplay({ np, playing, paused }) {
+  const on = playing && !paused;
+  const sub = [np.year, np.genre, np.bitrate ? `${np.bitrate}k` : null, np.channels === 1 ? "MONO" : null].filter(Boolean).join("  ·  ");
+  return (
+    <div className={`now-playing ${on ? "playing" : ""}`}>
+      <div className="np-row">
+        <div className="art-panel">
+          {np.cover ? <img src={np.cover} alt="" /> : <div className="art-placeholder">[ NO ART ]</div>}
+        </div>
+        <div className="info-panel">
+          <div className="display-bar station-name">{np.station || "— — —"}</div>
+          <div className="display-bar track-info">
+            {np.artist && np.track
+              ? <>{np.qualifier ? <span style={{opacity:.6}}>[{np.qualifier}] </span> : null}{np.artist} — {np.track}</>
+              : "— awaiting stream metadata —"}
+          </div>
+          <div className="meta-album">{np.album || ""}</div>
+          <div className="meta-sub">{sub}</div>
+        </div>
+      </div>
+      <div className="indicator-panel">
+        <Orbit playing={on} />
+        <SignalBars playing={on} />
+        <div className={`radio-btn st-ind   ${on ? "lit" : ""}`}>ST</div>
+        <div className={`radio-btn mono-ind ${on && np.channels === 1 ? "lit" : ""}`}>MONO</div>
+        <div className="radio-btn loud-ind lit">LOUD</div>
+        <div className="radio-btn mute-ind">MUTE</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Transport ─────────────────────────────────────────────────────────────────
+function TransportBar({ playing, paused, onPlayPause, onStop, onPrev, onNext, onCollapse }) {
+  return (
+    <div className="controls">
+      <button className="ctl-btn" onClick={onPrev}>⏮</button>
+      <button className={`ctl-btn ${playing && !paused ? "lit" : ""}`} onClick={onPlayPause}>
+        {paused || !playing ? "▶" : "⏸"}
+      </button>
+      <button className="ctl-btn" onClick={onStop}>■</button>
+      <button className="ctl-btn" onClick={onNext}>⏭</button>
+      <button className="ctl-btn" onClick={onCollapse}>◩</button>
+    </div>
+  );
+}
+
+// ── Collapsed quick-pick ──────────────────────────────────────────────────────
+function CollapsedBar({ stations, currentId, group, onPickNum, onPrevGroup, onNextGroup, onExpand }) {
+  const inGroup = stations.filter(s => s.group === group);
+  return (
+    <div className="collapsed-bar">
+      <button className="quick-nav" onClick={onPrevGroup}>◀</button>
+      <button className="group-label-btn">{group}</button>
+      {Array.from({ length: 5 }).map((_, i) => {
+        const st = inGroup[i];
+        return (
+          <button key={i} className={`quick-num ${st && st.id === currentId ? "active" : ""}`}
+            disabled={!st} onClick={() => st && onPickNum(st.id)}
+            title={st ? `${st.name} — ${st.frequency}` : ""}>
+            {i + 1}
+          </button>
+        );
+      })}
+      <button className="quick-nav" onClick={onNextGroup}>▶</button>
+      <button className="mode-toggle" onClick={onExpand}>◐</button>
+    </div>
+  );
+}
+
+// ── Library ───────────────────────────────────────────────────────────────────
+function LibraryModule({ stations, currentId, group, onPick, onGroupChange, onAddStation }) {
+  const [search, setSearch]   = useState("");
+  const [adding, setAdding]   = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newUrl, setNewUrl]   = useState("");
+
+  const filtered = stations
+    .filter(s => s.group === group)
+    .filter(s => !search || (s.name + " " + (s.subtitle || "")).toLowerCase().includes(search.toLowerCase()));
+
+  function doAdd() {
+    if (!newName || !newUrl) return;
+    onAddStation({ name: newName, url: newUrl });
+    setNewName(""); setNewUrl(""); setAdding(false);
   }
-  function sqMute() {
-    var audio = document.getElementById('sqlch-audio');
-    var btn = document.getElementById('sq-mute');
-    audio.muted = !audio.muted;
-    btn.classList.toggle('active', audio.muted);
+
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ LIBRARY</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="group-bar">
+          {window.SQLCH_GROUPS.map(g => (
+            <button key={g} className={`group-tab ${g === group ? "active" : ""}`} onClick={() => onGroupChange(g)}>{g}</button>
+          ))}
+        </div>
+        <div className="toolbar">
+          <input className="search" placeholder="filter library…" value={search} onChange={e => setSearch(e.target.value)} />
+          <button className="tb-btn" onClick={() => setAdding(a => !a)}>＋</button>
+        </div>
+        {adding && (
+          <div className="inline-form">
+            <label>add station</label>
+            <div className="row"><input placeholder="name" value={newName} onChange={e => setNewName(e.target.value)} /></div>
+            <div className="row"><input placeholder="stream url" value={newUrl} onChange={e => setNewUrl(e.target.value)} /></div>
+            <div className="actions">
+              <button className="cancel" onClick={() => setAdding(false)}>cancel</button>
+              <button onClick={doAdd}>save</button>
+            </div>
+          </div>
+        )}
+        <div className="station-list">
+          {filtered.length === 0
+            ? <div className="placeholder-block">[ no stations in {group} ]</div>
+            : filtered.map(st => (
+              <div key={st.id} className={`station-row ${st.id === currentId ? "active" : ""}`} onClick={() => onPick(st.id)}>
+                <div className="freq-badge">{st.frequency}</div>
+                <div className="name">{st.name}<span className="sub">{st.subtitle}</span></div>
+                <div className="group-badge">{st.group}</div>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Discover ──────────────────────────────────────────────────────────────────
+function DiscoverModule({ onAddToLibrary }) {
+  const [query, setQuery]       = useState("indie");
+  const [results, setResults]   = useState(window.SQLCH_DISCOVER["indie"] || []);
+  const [added, setAdded]       = useState(new Set());
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    if (!query) { setResults([]); return; }
+    setSearching(true);
+    const t = setTimeout(() => {
+      setResults(window.SQLCH_DISCOVER[query.trim().toLowerCase()] || []);
+      setSearching(false);
+    }, 400);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  function addOne(r) {
+    onAddToLibrary && onAddToLibrary({ name: r.name, url: "" });
+    setAdded(prev => { const n = new Set(prev); n.add(r.name); return n; });
   }
 
-  const SQ_STATIONS = [
-    // Rock
-    { id:'wmmr', name:'(WMMR) MMR Rocks',         freq:'93.3 FM',  cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMMRFMAACIHR.aac' },
-    { id:'wmgk', name:'(WMGK) Classic Rock 102.9', freq:'102.9 FM', cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMGKFMAAC.aac' },
-    { id:'wrff', name:'(WRFF) Alt 104.5',           freq:'104.5 FM', cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc3401' },
-    { id:'wzzo', name:'(WZZO) Rock 95.1',           freq:'95.1 FM',  cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc1977' },
-    { id:'wrpr', name:'(WRPR) Real Punk Radio',     freq:'900 AM',   cat:'Rock',   url:'http://149.56.155.73:8080/stream' },
-    { id:'xfm',  name:'(XFM) Indie',                freq:'1060 AM',  cat:'Rock',   url:'http://kathy.torontocast.com:2690/stream' },
-    { id:'ynot', name:'(YNOT) Ynot Radio',          freq:'1490 AM',  cat:'Rock',   url:'https://das-edge15-live365-dal02.cdnstream.com/a54553' },
-    // Pop
-    { id:'wioq', name:'(WIOQ) Q102 Philly',         freq:'102.1 FM', cat:'Pop',    url:'https://stream.revma.ihrhls.com/zc1997/hls.m3u8', hls:true },
-    { id:'wbeb', name:'(WBEB) B101',                 freq:'101.1 FM', cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wbebfmaac-imc' },
-    { id:'wogl', name:'(WOGL) Big 98.1',             freq:'98.1 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-woglfmaac-imc' },
-    { id:'wben', name:'(WBEN) Ben FM',               freq:'95.7 FM',  cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WBENFMAAC.aac' },
-    { id:'wstw', name:'(WSTW) Delaware Valley',      freq:'93.7 FM',  cat:'Pop',    url:'https://ais-sa1.streamon.fm:443/7864_96k.aac' },
-    { id:'wtdy', name:'(WTDY) Hot AC 96.5',          freq:'96.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wtdyfmaac-imc' },
-    { id:'wpst', name:'(WPST) Top-40 94.5',          freq:'94.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/townsquare-wpstfmaac-ibc3' },
-    { id:'wlev', name:'(WLEV) AC 100.7',             freq:'100.7 FM', cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/wlevfm.mp3' },
-    // Urban
-    { id:'wusl', name:'(WUSL) Power 99',             freq:'98.9 FM',  cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc2009' },
-    { id:'wdas', name:'(WDAS) Urban 105.3',          freq:'105.3 FM', cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc1993' },
-    { id:'wrnb', name:'(WRNB) RnB and Hip Hop',      freq:'1060 AM',  cat:'Urban',  url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WRNBHD2.mp3' },
-    // Public
-    { id:'wxpn', name:'(WXPN) XPN Public Radio',     freq:'88.5 FM',  cat:'Public', url:'https://wxpnhi.xpn.org/xpnhi' },
-    { id:'xpon', name:'(WXPN) XPonential (HD2)',      freq:'88.1 FM',  cat:'Public', url:'https://wxpn.xpn.org/xpn2mp3hi' },
-    { id:'whyy', name:'(WHYY) NPR',                  freq:'90.9 FM',  cat:'Public', url:'http://whyy.streamguys1.com/whyy-mp3' },
-    { id:'wxvu', name:'(WXVU) Villanova Radio',       freq:'89.1 FM',  cat:'Public', url:'http://nap.casthost.net:8002/stream' },
-  ];
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ DISCOVER · RADIOBROWSER</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="toolbar">
+          <input className="search" placeholder="genre / tag (punk · jazz · ambient · indie)" value={query} onChange={e => setQuery(e.target.value)} />
+          <button className="tb-btn">⌕</button>
+        </div>
+        <div style={{fontFamily:"var(--mono)",fontSize:10,color:"var(--acc-lcd-dim)",padding:"4px 2px"}}>
+          {searching ? "searching…" : results.length > 0 ? `results: ${results.length}` : "— no results —"}
+        </div>
+        <div className="discover-results">
+          {results.length === 0 && !searching
+            ? <div className="placeholder-block">[ search term placeholder ]</div>
+            : results.map((r, i) => (
+              <div key={i} className="discover-result">
+                <div className="info">
+                  <div className="discover-name">{r.name}</div>
+                  <div className="discover-meta">{r.country} · {r.codec} {r.bitrate}k</div>
+                </div>
+                <button className={`discover-add ${added.has(r.name) ? "added" : ""}`} onClick={() => addOne(r)}>
+                  {added.has(r.name) ? "✓ added" : "+ add"}
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-  const SQ_TRACKS = {
-    // Rock — hard/classic rock feel
-    wmmr: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Marcy Playground', track:'Sex & Candy' }, { artist:'ZZ Top', track:'Legs' }],
-    wmgk: [{ artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'ZZ Top', track:'Legs' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }],
-    wzzo: [{ artist:'Nirvana', track:'Lounge Act' }, { artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }, { artist:'Marcy Playground', track:'Sex & Candy' }],
-    ynot: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'ZZ Top', track:'Legs' }],
-    // Alt / indie rock
-    wrff: [{ artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'Geese', track:'Cobra' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }],
-    xfm:  [{ artist:'Talking Heads', track:'The Girl Wants to Be with the Girls' }, { artist:'We Are Scientists', track:'Less From You' }, { artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Modest Mouse', track:'Look How Far...' }],
-    // Punk
-    wrpr: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Dave Hause', track:'Look Alive' }, { artist:'Remember Sports', track:'Across The Line' }],
-    // Pop / Hot AC — each station gets a distinct starting rotation
-    wioq: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }],
-    wbeb: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Ringside', track:'Struggle' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
-    wogl: [{ artist:'Luna', track:'Bewitched' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Ringside', track:'Struggle' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }],
-    wben: [{ artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
-    wstw: [{ artist:'Ringside', track:'Struggle' }, { artist:'Luna', track:'Bewitched' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
-    wtdy: [{ artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Rosa Walton', track:'Sorry Anyway' }],
-    wpst: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Cub Sport', track:'Hands' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
-    wlev: [{ artist:'Luna', track:'Bewitched' }, { artist:'Andy Snitzer', track:"Don't Wanna Stop" }, { artist:'Ringside', track:'Struggle' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
-    // Urban
-    wusl: [{ artist:'Beastie Boys', track:'Egg Raid On Mojo' }, { artist:'Unknown Artist', track:'Power 99 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
-    wdas: [{ artist:'Unknown Artist', track:'105.3 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
-    wrnb: [{ artist:'Unknown Artist', track:'RnB Live' }, { artist:'Unknown Artist', track:'Hip Hop Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
-    // Public
-    wxpn: [{ artist:'Ratboys', track:'The World, So Madly' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'They Might Be Giants', track:'Wu-Tang' }, { artist:'Stephie Coplan & the Pedestrians', track:'Caroline' }],
-    xpon: [{ artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }, { artist:'Geese', track:'Cobra' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Ratboys', track:'The World, So Madly' }],
-    whyy: [{ artist:'NPR', track:'Morning Edition' }, { artist:'NPR', track:'All Things Considered' }, { artist:'NPR', track:'Fresh Air' }, { artist:'NPR', track:'Weekend Edition' }],
-    wxvu: [{ artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Ratboys', track:'The World, So Madly' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Dave Hause', track:'Look Alive' }],
-  };
+// ── Metadata console ──────────────────────────────────────────────────────────
+function MetaConsole({ np }) {
+  const rows = [
+    { k: "station",   v: np.station },
+    { k: "freq",      v: np.frequency },
+    { k: "artist",    v: np.artist },
+    { k: "track",     v: np.track },
+    np.qualifier ? { k: "qualifier", v: `[${np.qualifier}]` } : null,
+    { k: "album",     v: np.album },
+    { k: "year",      v: np.year },
+    { k: "genre",     v: np.genre },
+    { k: "bitrate",   v: np.bitrate ? `${np.bitrate}k` : null },
+    { k: "channels",  v: np.channels === 1 ? "mono" : np.channels === 2 ? "stereo" : np.channels },
+    { k: "cover",     v: np.cover ? "cached" : "—" },
+  ].filter(Boolean);
 
-  var sqActiveTab = 'ALL';
-  var sqFilterText = '';
+  const sources = (np.sources || []).join("  ·  ") || "(none)";
 
-  function sqSetTab(btn) {
-    document.querySelectorAll('.sq-tab').forEach(function(t) { t.classList.remove('active'); });
-    btn.classList.add('active');
-    sqActiveTab = btn.dataset.cat;
-    sqRenderList();
-  }
-  function sqFilter() {
-    sqFilterText = document.getElementById('sq-filter').value.toLowerCase();
-    sqRenderList();
-  }
-  var sqUnavailable = new Set();
-  var sqCurrentId = null;
-  var sqLiveData = {};
-  var sqLivePollTimer = null;
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ METADATA CONSOLE · MPRIS + ICY</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="meta-console">
+          {rows.map(({ k, v }) => (
+            <div key={k} className="meta-row">
+              <span className="k">{k}</span>
+              <span className="v">{v != null ? String(v) : "—"}</span>
+            </div>
+          ))}
+          <div className="meta-row">
+            <span className="src">sources</span>
+            <span className="v" style={{color:"var(--acc-lcd-dim)"}}>{sources}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-  function sqFetchLive() {
-    fetch('assets/now-playing.json?t=' + Date.now())
-      .then(function(r) { return r.json(); })
-      .then(function(json) {
-        sqLiveData = json.stations || {};
-        // If a station is currently playing and we just got fresh data, refresh display
-        if (sqCurrentId && sqLiveData[sqCurrentId]) {
-          sqShowTrack(sqCurrentId);
-        }
-      })
-      .catch(function() { /* API unreachable — keep showing current data */ });
-  }
+// ── Main unit ─────────────────────────────────────────────────────────────────
+function Unit() {
+  const [currentId, setCurrentId] = useState("wxpn-885-philadelphia-pa");
+  const [group, setGroup]         = useState("FM1");
+  const [collapsed, setCollapsed] = useState(false);
+  const [stations, setStations]   = useState(window.SQLCH_STATIONS);
+  const [playState, setPlayState] = useState("idle"); // idle | playing | paused
+  const [ynotPromo, setYnotPromo] = useState(false);
+  const audioRef  = useRef(null);
+  const ynotTimer = useRef(null);
 
-  function sqRenderList() {
-    var list = document.getElementById('sq-list');
-    list.textContent = '';
+  const playing = playState === "playing";
+  const paused  = playState === "paused";
 
-    SQ_STATIONS.forEach(function(s) {
-      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return;
-      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return;
-
-      var row = document.createElement('div');
-      row.className = 'sq-row' +
-        (sqUnavailable.has(s.id) ? ' sq-unavailable' : '') +
-        (sqCurrentId === s.id    ? ' sq-active'      : '');
-
-      var name = document.createElement('span');
-      name.className = 'sq-row-name';
-      name.textContent = s.name;
-
-      var freq = document.createElement('span');
-      freq.className = 'sq-row-freq';
-      freq.textContent = s.freq;
-
-      var cat = document.createElement('span');
-      cat.className = 'sq-row-cat';
-      cat.textContent = s.cat;
-
-      var actions = document.createElement('span');
-      actions.className = 'sq-row-actions';
-      actions.textContent = '% \u00d7';
-
-      row.appendChild(name);
-      row.appendChild(freq);
-      row.appendChild(cat);
-      row.appendChild(actions);
-
-      row.addEventListener('click', (function(id) {
-        return function() { sqSelectStation(id); };
-      })(s.id));
-
-      list.appendChild(row);
+  const enriched = useMemo(() => {
+    const cache = {};
+    Object.values(window.SQLCH_NOW_PLAYING).forEach(np => {
+      cache[`${np.artist.toLowerCase()}::${np.track.toLowerCase()}`] = {
+        album: np.album, year: np.year, genres: np.genre ? [np.genre] : [], cover: np.cover,
+      };
     });
-  }
+    return cache;
+  }, []);
 
-  function sqCheckHls() {
-    var audio = document.getElementById('sqlch-audio');
-    var canHls = audio.canPlayType('application/vnd.apple.mpegurl') !== '';
-    if (!canHls) {
-      SQ_STATIONS.forEach(function(s) {
-        if (s.hls) sqUnavailable.add(s.id);
-      });
+  const np = useMemo(() => {
+    const station = stations.find(s => s.id === currentId);
+    if (!station || playState === "idle") {
+      return window.SqlchMeta.parseNowPlaying({ mpris: null, mpv: null, enriched, station: null });
     }
-  }
+    const seed = window.SQLCH_NOW_PLAYING[currentId] || null;
+    if (!seed) {
+      return window.SqlchMeta.parseNowPlaying({ mpris: null, mpv: { metadata: {}, bitrate: null, channels: null }, enriched, station });
+    }
+    return window.SqlchMeta.parseNowPlaying({
+      mpris: { artist: seed.artist, title: seed.track },
+      mpv: { metadata: { "icy-title": `${seed.artist} - ${seed.track}`, "icy-genre": seed.genre, "icy-br": seed.bitrate }, bitrate: seed.bitrate, channels: seed.channels },
+      enriched,
+      station,
+    });
+  }, [currentId, playState, enriched]);
 
-  var sqTrackIndex = {};
-  var sqTrackTimer = null;
-  var sqErrorTimeout = null;
-
-  function sqSelectStation(id) {
-    var station = SQ_STATIONS.find(function(s) { return s.id === id; });
-    if (!station || sqUnavailable.has(id)) return;
-
-    sqCurrentId = id;
-    sqRenderList();
-
-    document.getElementById('sq-station-name').textContent = station.name;
-    document.getElementById('sq-freq').textContent = station.freq;
-
-    var audio = document.getElementById('sqlch-audio');
-    clearTimeout(sqErrorTimeout);
-    audio.pause();
-    audio.src = station.url;
-
-    audio.onerror = function() {
-      clearTimeout(sqErrorTimeout);
-      sqMarkUnavailable(id);
-    };
-    audio.oncanplay = function() {
-      clearTimeout(sqErrorTimeout);
-    };
-
-    audio.play().catch(function() { sqMarkUnavailable(id); });
-
-    sqErrorTimeout = setTimeout(function() {
-      if (audio.readyState < 3) sqMarkUnavailable(id);
-    }, 4000);
-
-    document.getElementById('sq-play').textContent = '\u23f8';
-    document.getElementById('sqlch-overlay').classList.add('playing');
-
-    sqShowTrack(id);
-    sqUpdateMini();
-  }
-
-  function sqMarkUnavailable(id) {
-    sqUnavailable.add(id);
-    if (sqCurrentId === id) sqNext();
-    sqRenderList();
-  }
-
-  function sqPlayPause() {
-    var audio = document.getElementById('sqlch-audio');
-    var btn = document.getElementById('sq-play');
-    if (!sqCurrentId) return;
-    if (audio.paused) {
-      audio.play();
-      btn.textContent = '\u23f8';
-      document.getElementById('sqlch-overlay').classList.add('playing');
+  // Audio wiring
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      const station = stations.find(s => s.id === currentId);
+      const url = station?.url || "";
+      if (url) {
+        if (audio.src !== url) audio.src = url;
+        audio.play().catch(() => {});
+      }
+    } else if (paused) {
+      audio.pause();
     } else {
       audio.pause();
-      btn.textContent = '\u25b6';
-      document.getElementById('sqlch-overlay').classList.remove('playing');
+      if (audio.src) { audio.removeAttribute("src"); audio.load(); }
     }
-    sqUpdateMini();
-  }
+  }, [playState, currentId]);
 
-  function sqStop() {
-    clearTimeout(sqErrorTimeout);
-    clearTimeout(sqTrackTimer);
-    var audio = document.getElementById('sqlch-audio');
-    audio.pause();
-    audio.src = '';
-    sqCurrentId = null;
-    document.getElementById('sq-play').textContent = '\u25b6';
-    document.getElementById('sq-station-name').textContent = '\u2014 \u2014';
-    document.getElementById('sq-freq').textContent = '';
-    document.getElementById('sq-track').textContent = 'select a station';
-    document.getElementById('sq-artist').textContent = '';
-    document.getElementById('sqlch-overlay').classList.remove('playing');
-    document.getElementById('sq-mini').classList.remove('visible');
-    sqRenderList();
-  }
-
-  function sqVisibleStations() {
-    return SQ_STATIONS.filter(function(s) {
-      if (sqUnavailable.has(s.id)) return false;
-      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return false;
-      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return false;
-      return true;
-    });
-  }
-
-  function sqNext() {
-    var visible = sqVisibleStations();
-    if (!visible.length) return;
-    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
-    sqSelectStation(visible[(idx + 1) % visible.length].id);
-  }
-
-  function sqPrev() {
-    var visible = sqVisibleStations();
-    if (!visible.length) return;
-    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
-    sqSelectStation(visible[(idx - 1 + visible.length) % visible.length].id);
-  }
-
-  function sqShowTrack(id) {
-    clearTimeout(sqTrackTimer);
-
-    // Prefer live API data; fall back to mock rotation
-    var live = sqLiveData[id];
-    var t;
-    var isLive = false;
-    if (live && (live.artist || live.track)) {
-      t = { artist: live.artist, track: live.track };
-      isLive = true;
-    } else {
-      var tracks = SQ_TRACKS[id];
-      if (!tracks || !tracks.length) return;
-      if (sqTrackIndex[id] === undefined) sqTrackIndex[id] = 0;
-      t = tracks[sqTrackIndex[id]];
+  // YNOT promo after 60 seconds
+  useEffect(() => {
+    clearTimeout(ynotTimer.current);
+    setYnotPromo(false);
+    if (playing && currentId === "ynot-radio-philly") {
+      ynotTimer.current = setTimeout(() => setYnotPromo(true), 60000);
     }
+    return () => clearTimeout(ynotTimer.current);
+  }, [playing, currentId]);
 
-    var trackEl  = document.getElementById('sq-track');
-    var artistEl = document.getElementById('sq-artist');
-
-    trackEl.classList.add('fading');
-    artistEl.classList.add('fading');
-
-    setTimeout(function() {
-      if (sqCurrentId !== id) return;
-      trackEl.textContent  = t.track;
-      artistEl.textContent = t.artist;
-      trackEl.classList.remove('fading');
-      artistEl.classList.remove('fading');
-      if (!isLive) {
-        var tracks = SQ_TRACKS[id];
-        if (tracks) sqTrackIndex[id] = (sqTrackIndex[id] + 1) % tracks.length;
-      }
-      sqUpdateMini();
-      // Live data: re-check at 30s in case the cron updated it; mock: rotate at 30s
-      sqTrackTimer = setTimeout(function() { sqShowTrack(id); }, 30000);
-    }, 300);
+  function pick(id) {
+    setCurrentId(id);
+    const st = stations.find(s => s.id === id);
+    if (st) setGroup(st.group);
   }
+  function shiftGroup(dir) {
+    const i = window.SQLCH_GROUPS.indexOf(group);
+    setGroup(window.SQLCH_GROUPS[(i + dir + window.SQLCH_GROUPS.length) % window.SQLCH_GROUPS.length]);
+  }
+  function addStation({ name, url }) {
+    const id = name.toLowerCase().replace(/[^\w]+/g, "-");
+    if (stations.find(s => s.id === id)) return;
+    setStations(prev => [...prev, { id, name, url, subtitle: "added", frequency: "—", group }]);
+  }
+  function prevSt() {
+    const inG = stations.filter(s => s.group === group);
+    const i = inG.findIndex(s => s.id === currentId);
+    const prev = inG[(i - 1 + inG.length) % Math.max(inG.length, 1)];
+    if (prev) pick(prev.id);
+  }
+  function nextSt() {
+    const inG = stations.filter(s => s.group === group);
+    const i = inG.findIndex(s => s.id === currentId);
+    const next = inG[(i + 1) % Math.max(inG.length, 1)];
+    if (next) pick(next.id);
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
+      <audio ref={audioRef} preload="none" />
+
+      <div className="chassis acc-amber" style={{ width: 420 }}>
+        <NowPlayingDisplay np={np} playing={playing} paused={paused} />
+        <TransportBar
+          playing={playing} paused={paused}
+          onPlayPause={() => setPlayState(s => s === "playing" ? "paused" : "playing")}
+          onStop={() => setPlayState("idle")}
+          onPrev={prevSt} onNext={nextSt}
+          onCollapse={() => setCollapsed(c => !c)}
+        />
+        {collapsed && (
+          <CollapsedBar
+            stations={stations} currentId={currentId} group={group}
+            onPickNum={pick}
+            onPrevGroup={() => shiftGroup(-1)}
+            onNextGroup={() => shiftGroup(1)}
+            onExpand={() => setCollapsed(false)}
+          />
+        )}
+        <div className="seam-wrap"><div className="seam"/><div className="seam-shadow"/></div>
+        <div className="mfr-row">
+          <div className="mfr-badge">SQLCH  ·  MMXXVI</div>
+          <div style={{fontFamily:"var(--mono)",fontSize:7,letterSpacing:".24em",color:"#3a3a3a"}}>SN·2026·PHL·001</div>
+        </div>
+      </div>
+
+      {ynotPromo && (
+        <div className="ynot-promo">
+          <button className="ynot-dismiss" onClick={() => setYnotPromo(false)}>✕</button>
+          you've been listening to YNOT Radio.<br />
+          independent music · commercial-free · philadelphia.<br />
+          <a href="https://www.ynotradio.net" target="_blank" rel="noopener noreferrer">
+            visit ynotradio.net →
+          </a>
+        </div>
+      )}
+
+      <LibraryModule
+        stations={stations} currentId={currentId} group={group}
+        onPick={pick} onGroupChange={setGroup} onAddStation={addStation}
+      />
+
+      <DiscoverModule onAddToLibrary={addStation} />
+
+      <MetaConsole np={np} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("app-root")).render(<Unit />);
 </script>
 
 </body>

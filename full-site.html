@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Repko · Digital Experience Systems Designer</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* SQLCH TRIGGER */
+    .sqlch-trigger {
+      position: fixed;
+      bottom: 80px;
+      left: 40px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      z-index: 10;
+      transition: color 0.2s;
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .sqlch-trigger { display: block; }
+    }
+    .sqlch-trigger:hover { color: var(--subtle); }
+
+    /* SQLCH MINI PLAYER */
+    .sq-mini {
+      position: fixed;
+      bottom: 20px;
+      left: 40px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #0d1117;
+      border: 1px solid #1e3a4a;
+      border-radius: 24px;
+      padding: 8px 14px 8px 12px;
+      z-index: 201;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      max-width: 320px;
+    }
+    .sq-mini:hover { border-color: #2e6a7a; }
+    .sq-mini.visible { display: flex; }
+    .sq-mini-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+      flex: 1;
+    }
+    .sq-mini-station {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      color: #eea050;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.5px;
+    }
+    .sq-mini-track {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      color: #4a7a8a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sq-mini-btn {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      background: none;
+      border: none;
+      color: #4a7a8a;
+      cursor: pointer;
+      padding: 2px 4px;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .sq-mini-btn:hover { color: #9ccfd8; }
+
+    /* SQLCH LIGHTBOX */
+    .sqlch-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .sqlch-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .sqlch-panel {
+      width: 474px;
+      max-height: min(90vh, 640px);
+      background: #0d1117;
+      border: 1px solid #1e3a4a;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      color: #9ccfd8;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    }
+    .sq-header {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      min-height: 100px;
+      flex-shrink: 0;
+    }
+    .sq-art {
+      width: 76px; height: 76px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #2a4a5a;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .sq-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .sq-station-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #e0def4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sq-freq {
+      font-size: 11px;
+      color: #4a7a8a;
+    }
+    .sq-track {
+      font-size: 12px;
+      color: #9ccfd8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity 0.3s;
+    }
+    .sq-artist {
+      font-size: 11px;
+      color: #6e8a96;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity 0.3s;
+    }
+    .sq-track.fading, .sq-artist.fading { opacity: 0; }
+    .sq-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      flex-shrink: 0;
+    }
+    .sq-ctrl-btn {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #4a7a8a;
+      padding: 3px 7px;
+      cursor: pointer;
+      border-radius: 2px;
+      letter-spacing: 0.5px;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .sq-ctrl-btn:hover { color: #9ccfd8; border-color: #2e6a7a; }
+    .sq-ctrl-btn.active { color: #eea050; border-color: #eea050; }
+    .sq-signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+      margin: 0 4px;
+    }
+    .sq-signal-bar {
+      width: 3px;
+      background: #1e3a4a;
+      border-radius: 1px;
+      transition: background 0.3s;
+    }
+    .sq-signal-bar:nth-child(1) { height: 4px; }
+    .sq-signal-bar:nth-child(2) { height: 7px; }
+    .sq-signal-bar:nth-child(3) { height: 11px; }
+    .sq-signal-bar:nth-child(4) { height: 16px; }
+    .sqlch-overlay.playing .sq-signal-bar {
+      background: #9ccfd8;
+      animation: sq-pulse 0.8s ease-in-out infinite alternate;
+    }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(2) { animation-delay: 0.1s; }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(3) { animation-delay: 0.25s; }
+    .sqlch-overlay.playing .sq-signal-bar:nth-child(4) { animation-delay: 0.4s; }
+    @keyframes sq-pulse {
+      from { opacity: 0.4; transform: scaleY(0.6); transform-origin: bottom; }
+      to   { opacity: 1;   transform: scaleY(1);   transform-origin: bottom; }
+    }
+    .sq-transport {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      flex-shrink: 0;
+    }
+    .sq-transport-btn {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #4a7a8a;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .sq-transport-btn:hover { color: #9ccfd8; border-color: #2e6a7a; background: #172030; }
+    .sq-transport-btn.play-btn { width: 48px; height: 48px; font-size: 18px; }
+    .sq-filter-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      background: #0a0e14;
+      border-bottom: 1px solid #1e3a4a;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .sq-filter-input {
+      flex: 1;
+      background: #111827;
+      border: 1px solid #1e3a4a;
+      color: #9ccfd8;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      padding: 5px 8px;
+      outline: none;
+      border-radius: 2px;
+    }
+    .sq-filter-input::placeholder { color: #2a4a5a; }
+    .sq-filter-input:focus { border-color: #2e6a7a; }
+    .sq-filter-icon { font-size: 13px; color: #2a4a5a; user-select: none; }
+    .sq-tabs {
+      display: flex;
+      border-bottom: 1px solid #1e3a4a;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .sq-tabs::-webkit-scrollbar { display: none; }
+    .sq-tab {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 10px;
+      color: #4a7a8a;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 10px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .sq-tab:hover { color: #9ccfd8; }
+    .sq-tab.active { color: #9ccfd8; border-bottom-color: #9ccfd8; }
+    .sq-list {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: #1e3a4a transparent;
+    }
+    .sq-list::-webkit-scrollbar { width: 4px; }
+    .sq-list::-webkit-scrollbar-thumb { background: #1e3a4a; border-radius: 2px; }
+    .sq-row {
+      display: flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-bottom: 1px solid #0d1a24;
+      cursor: pointer;
+      gap: 8px;
+      transition: background 0.1s;
+    }
+    .sq-row:hover { background: #111827; }
+    .sq-row.sq-active { background: #0a1a2a; }
+    .sq-row.sq-unavailable { opacity: 0.35; cursor: default; pointer-events: none; font-style: italic; }
+    .sq-row-name {
+      flex: 1;
+      font-size: 12px;
+      color: #9ccfd8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sq-row.sq-active .sq-row-name { color: #eea050; }
+    .sq-row-freq { font-size: 10px; color: #2a4a5a; min-width: 60px; text-align: right; }
+    .sq-row-cat  { font-size: 10px; color: #2a4a5a; min-width: 40px; text-align: right; letter-spacing: 0.5px; }
+    .sq-row-actions { font-size: 10px; color: #1e3a4a; display: flex; gap: 6px; }
+
+    /* ── TERMINAL ELEMENTS ── */
+    .nav-name {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .terminal-prompt { color: var(--foam); font-weight: 700; }
+    .terminal-command { color: var(--gold); font-weight: 600; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+
+    /* === KEBAB NAV === */
+    .kebab-wrapper { position: relative; display: inline-block; }
+    .kebab-btn {
+      position: relative; width: 44px; height: 44px;
+      background: var(--surface); border: 2px solid var(--overlay);
+      border-radius: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .spit {
+      position: relative; width: 3px; height: 28px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+    }
+    .spit::before {
+      content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%); width: 1px;
+      background: linear-gradient(to bottom, transparent, #eea050, transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .dot-orbit {
+      position: relative; width: 3px; height: 5px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--text); position: absolute;
+      left: 50%; transform: translateX(-50%); transition: background 0.2s;
+    }
+    /* Hover animations — real pointer devices only; touch :hover is sticky so we skip it entirely */
+    @media (hover: hover) {
+      .kebab-btn:hover {
+        border-color: #eea050; background: var(--overlay);
+        animation: spit-startup 0.5s ease-out forwards;
+      }
+      .kebab-btn:hover .spit::before { opacity: 0.5; }
+      .kebab-btn:hover .dot { background: #eea050; }
+      .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
+      .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
+      .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
+      .kebab-btn:hover::after { opacity: 0.12; }
+    }
+    /* Stop orbit animation when menu is open (mouse users who open while hovering) */
+    .kebab-btn.open .dot-orbit .dot { animation: none; }
+    @keyframes orbit {
+      0%   { transform: translateX(0px)  scale(1);     opacity: 1;    }
+      12%  { transform: translateX(5px)  scaleX(0.65); opacity: 0.9;  }
+      25%  { transform: translateX(7px)  scaleX(0.15); opacity: 0.6;  }
+      38%  { transform: translateX(5px)  scaleX(0.05); opacity: 0.25; }
+      50%  { transform: translateX(0px)  scale(0.6);   opacity: 0.15; }
+      62%  { transform: translateX(-5px) scaleX(0.05); opacity: 0.25; }
+      75%  { transform: translateX(-7px) scaleX(0.15); opacity: 0.6;  }
+      88%  { transform: translateX(-5px) scaleX(0.65); opacity: 0.9;  }
+      100% { transform: translateX(0px)  scale(1);     opacity: 1;    }
+    }
+    @keyframes spit-startup {
+      0%  { transform: rotate(0deg); }
+      15% { transform: rotate(-1.5deg); }
+      35% { transform: rotate(0.8deg); }
+      55% { transform: rotate(-0.4deg); }
+      75% { transform: rotate(0.2deg); }
+      100%{ transform: rotate(0deg); }
+    }
+    .kebab-btn::after {
+      content: ''; position: absolute; inset: -1px; border-radius: 6px;
+      background: radial-gradient(ellipse at center, #eea050 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: -1;
+    }
+    .kebab-menu {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: var(--surface); border: 1px solid var(--overlay);
+      border-radius: 6px; min-width: 130px; overflow: hidden;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+    .kebab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .kebab-menu a {
+      display: block; padding: 10px 16px; font-size: 13px; letter-spacing: 0.5px;
+      color: var(--subtle); text-decoration: none;
+      border-bottom: 1px solid var(--overlay);
+      opacity: 0; transform: translateX(-10px);
+      transition: background 0.12s, color 0.12s;
+    }
+    .kebab-menu a:last-child { border-bottom: none; }
+    .kebab-menu.open a:nth-child(1) { animation: km-in 0.25s ease-out 0.05s forwards; }
+    .kebab-menu.open a:nth-child(2) { animation: km-in 0.25s ease-out 0.10s forwards; }
+    .kebab-menu.open a:nth-child(3) { animation: km-in 0.25s ease-out 0.15s forwards; }
+    @keyframes km-in { to { opacity: 1; transform: translateX(0); } }
+    .kebab-menu a:hover { background: var(--overlay); color: var(--text); }
+    .kebab-overlay { position: fixed; inset: 0; z-index: 50; display: none; }
+    .kebab-overlay.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 0 88px;
+      position: relative;
+      animation: heroFadeIn 0.7s ease-out;
+    }
+
+    .hero-decor {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--iris);
+      margin-bottom: 36px;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: heroFadeIn 0.6s ease-out 0.05s both;
+      /* Placeholder color if no image src */
+      background: var(--overlay);
+    }
+
+    .hero-avatar:hover {
+      border-color: var(--gold);
+      transform: scale(1.05);
+    }
+
+    .hero-eyebrow {
+      font-size: 13px;
+      color: var(--iris);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: heroFadeIn 0.6s ease-out 0.12s both;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      max-width: 580px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--gold) 70%, var(--iris) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroFadeIn 0.6s ease-out 0.2s both;
+    }
+
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(to right, var(--foam), var(--iris));
+      margin-top: 20px;
+      border-radius: 2px;
+    }
+
+    .hero-body {
+      font-size: 17px;
+      color: var(--subtle);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+      animation: heroFadeIn 0.6s ease-out 0.3s both;
+    }
+
+    .hero-body strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── NAV CARDS ── */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      animation: heroFadeIn 0.6s ease-out 0.4s both;
+    }
+
+    .nav-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 15px 15px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+
+    .nav-card:hover {
+      border-color: var(--muted);
+      background: var(--overlay);
+    }
+
+    .nav-card-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .nav-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-card-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .nav-card.accent-iris:hover { border-color: var(--iris); }
+    .nav-card.accent-iris .nav-card-label { color: var(--iris); }
+
+    .nav-card.accent-gold:hover { border-color: var(--gold); }
+    .nav-card.accent-gold .nav-card-label { color: var(--gold); }
+
+    .nav-card.accent-foam:hover { border-color: var(--foam); }
+    .nav-card.accent-foam .nav-card-label { color: var(--foam); }
+
+    .nav-card.accent-rose:hover { border-color: var(--rose); }
+    .nav-card.accent-rose .nav-card-label { color: var(--rose); }
+
+    /* ── CURRENTLY ── */
+    .currently {
+      padding: 30px 0;
+      border-top: 1px solid var(--hl-med);
+      margin-top: 80px;
+    }
+
+    .currently-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .currently-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .currently-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .currently-item:last-child {
+      border-bottom: 1px solid var(--hl-low);
+    }
+
+    .currently-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pine);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    .currently-text {
+      font-size: 15px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .currently-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .currently-text a {
+      color: var(--foam);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+    }
+
+    .currently-text a:hover {
+      text-decoration-color: var(--foam);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--hl-med);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .nav-cards { grid-template-columns: 1fr; }
+      .hero { padding: 64px 0 56px; }
+      .hero-avatar { width: 100px; height: 100px; margin-bottom: 24px; }
+      .hero-decor { width: 140px; height: 140px; top: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--hl-med)" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+</svg>
+
+<button class="sqlch-trigger" onclick="openSqlch()">sqlch</button>
+
+<div id="kebab-overlay" class="kebab-overlay"></div>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">
+      <span class="terminal-prompt">root@nix:~$</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
+    <div class="kebab-wrapper">
+      <button class="kebab-btn" onclick="toggleKebab()" aria-label="Navigation">
+        <div class="spit">
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+        </div>
+      </button>
+      <div class="kebab-menu" id="kebab-menu">
+        <a href="/work">Work</a>
+        <a href="/writing">Writing</a>
+        <a href="/projects">Projects</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="hero">
+      <!-- Replace src with your actual photo path -->
+      <img class="hero-avatar" src="assets/profile.jpg" alt="Philip Repko" />
+
+      <p class="hero-eyebrow">Digital Experience Systems Designer</p>
+
+      <h1>Building systems that think,<br>and also kind of judge you...</h1>
+
+      <p class="hero-body">
+        I design and own <strong>conversational AI platforms</strong> where fintech and human behavior converge —
+        turning contact center chaos into something members can actually use.
+      </p>
+
+      <div class="nav-cards">
+        <a href="/work" class="nav-card accent-iris">
+          <p class="nav-card-label">Case Studies</p>
+          <p class="nav-card-title">Work</p>
+          <p class="nav-card-desc">The conversational AI system — how it should work, and how I know.</p>
+        </a>
+        <a href="/writing" class="nav-card accent-gold">
+          <p class="nav-card-label">Words</p>
+          <p class="nav-card-title">Writing</p>
+          <p class="nav-card-desc">Fiction, poetry, and sometimes gibberish.</p>
+        </a>
+        <a href="/projects" class="nav-card accent-foam">
+          <p class="nav-card-label">Open Source</p>
+          <p class="nav-card-title">Projects</p>
+          <p class="nav-card-desc">CLI tools, NixOS configs, and things built for fun.</p>
+        </a>
+        <a href="mailto:me@philipjrepko.com" class="nav-card accent-rose">
+          <p class="nav-card-label">Contact</p>
+          <p class="nav-card-title">Does this sound remotely interesting?</p>
+          <p class="nav-card-desc">Let's talk.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="currently">
+      <p class="currently-label">Currently</p>
+      <div class="currently-items">
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--iris);"></div>
+          <p class="currently-text">Auditing 2,500+ conversation goals for a <strong>full rebrand</strong></p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--gold);"></div>
+          <p class="currently-text">Building <strong><a href="https://github.com/SW-philip/nixos">phl</a></strong> — a custom shell with an opinionated narrator</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--foam);"></div>
+          <p class="currently-text">Finishing <strong>All These Perfect Floods</strong>, a novel</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · Philadelphia · philipjrepko.com </p>
+  </div>
+</footer>
+
+<div class="sqlch-overlay" id="sqlch-overlay" onclick="handleSqlchOverlayClick(event)">
+  <div class="sqlch-panel" id="sqlch-panel">
+    <div class="sq-header">
+      <div class="sq-art">art</div>
+      <div class="sq-meta">
+        <div class="sq-station-name" id="sq-station-name">&#8212; &#8212;</div>
+        <div class="sq-freq" id="sq-freq"></div>
+        <div class="sq-track" id="sq-track">select a station</div>
+        <div class="sq-artist" id="sq-artist"></div>
+      </div>
+    </div>
+    <div class="sq-controls">
+      <button class="sq-ctrl-btn" id="sq-mono" onclick="sqToggle('sq-mono')">MONO</button>
+      <button class="sq-ctrl-btn active" id="sq-st" onclick="sqToggle('sq-st')">ST</button>
+      <div class="sq-signal">
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+        <div class="sq-signal-bar"></div>
+      </div>
+      <button class="sq-ctrl-btn" id="sq-loud" onclick="sqToggle('sq-loud')">LOUD</button>
+      <button class="sq-ctrl-btn" id="sq-mute" onclick="sqMute()">MUTE</button>
+    </div>
+    <div class="sq-transport">
+      <button class="sq-transport-btn" title="Favorite">&#9673;</button>
+      <button class="sq-transport-btn" onclick="sqPrev()" title="Previous">&#9198;</button>
+      <button class="sq-transport-btn play-btn" id="sq-play" onclick="sqPlayPause()" title="Play/Pause">&#9654;</button>
+      <button class="sq-transport-btn" onclick="sqStop()" title="Stop">&#9209;</button>
+      <button class="sq-transport-btn" onclick="sqNext()" title="Next">&#9197;</button>
+      <button class="sq-transport-btn" title="Bookmark">&#9830;</button>
+      <button class="sq-transport-btn" onclick="collapseSqlch()" title="Collapse">&#9660;</button>
+    </div>
+    <div class="sq-filter-row">
+      <input class="sq-filter-input" id="sq-filter" placeholder="filter..." oninput="sqFilter()" />
+      <span class="sq-filter-icon">&#127760;</span>
+      <button class="sq-ctrl-btn">+</button>
+    </div>
+    <div class="sq-tabs" id="sq-tabs">
+      <button class="sq-tab active" data-cat="ALL" onclick="sqSetTab(this)">ALL</button>
+      <button class="sq-tab" data-cat="Rock" onclick="sqSetTab(this)">Rock</button>
+      <button class="sq-tab" data-cat="Pop" onclick="sqSetTab(this)">Pop</button>
+      <button class="sq-tab" data-cat="Urban" onclick="sqSetTab(this)">Urban</button>
+      <button class="sq-tab" data-cat="Public" onclick="sqSetTab(this)">Public</button>
+    </div>
+    <div class="sq-list" id="sq-list"></div>
+  </div>
+</div>
+<div class="sq-mini" id="sq-mini" onclick="openSqlch()">
+  <div class="sq-mini-info">
+    <div class="sq-mini-station" id="sq-mini-station"></div>
+    <div class="sq-mini-track" id="sq-mini-track"></div>
+  </div>
+  <button class="sq-mini-btn" id="sq-mini-play" onclick="event.stopPropagation(); sqPlayPause()">&#9654;</button>
+  <button class="sq-mini-btn" onclick="event.stopPropagation(); sqStop()" title="Stop">&#215;</button>
+</div>
+<audio id="sqlch-audio" crossorigin="anonymous"></audio>
+
+<script>
+  (function() {
+    var _km = null;
+    function toggleKebab() {
+      var btn = document.querySelector('.kebab-btn');
+      var m = document.getElementById('kebab-menu');
+      var ov = document.getElementById('kebab-overlay');
+      var opening = !m.classList.contains('open');
+      btn.classList.toggle('open', opening);
+      m.classList.toggle('open', opening);
+      ov.classList.toggle('active', opening);
+      _km = opening ? m : null;
+    }
+    function closeKebab() {
+      if (_km) { _km.classList.remove('open'); _km = null; }
+      document.querySelector('.kebab-btn').classList.remove('open');
+      document.getElementById('kebab-overlay').classList.remove('active');
+    }
+    window.toggleKebab = toggleKebab;
+    document.getElementById('kebab-overlay').addEventListener('click', closeKebab);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKebab(); });
+  })();
+
+  function openSqlch() {
+    document.getElementById('sqlch-overlay').classList.add('open');
+    document.getElementById('sq-mini').classList.remove('visible');
+    sqCheckHls();
+    sqRenderList();
+    // Fetch live now-playing on open and start 60s refresh poll
+    sqFetchLive();
+    clearInterval(sqLivePollTimer);
+    sqLivePollTimer = setInterval(sqFetchLive, 60000);
+  }
+  function collapseSqlch() {
+    // Hide the overlay but keep audio running — state is preserved
+    document.getElementById('sqlch-overlay').classList.remove('open');
+    clearInterval(sqLivePollTimer);
+    sqUpdateMini();
+  }
+  function handleSqlchOverlayClick(e) {
+    if (e.target === document.getElementById('sqlch-overlay')) collapseSqlch();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') collapseSqlch();
+  });
+  function sqUpdateMini() {
+    var mini = document.getElementById('sq-mini');
+    var audio = document.getElementById('sqlch-audio');
+    if (!sqCurrentId) {
+      mini.classList.remove('visible');
+      return;
+    }
+    mini.classList.add('visible');
+    document.getElementById('sq-mini-station').textContent =
+      document.getElementById('sq-station-name').textContent;
+    document.getElementById('sq-mini-track').textContent =
+      document.getElementById('sq-track').textContent;
+    document.getElementById('sq-mini-play').textContent =
+      audio.paused ? '\u25b6' : '\u23f8';
+  }
+
+  function sqToggle(id) {
+    document.getElementById(id).classList.toggle('active');
+  }
+  function sqMute() {
+    var audio = document.getElementById('sqlch-audio');
+    var btn = document.getElementById('sq-mute');
+    audio.muted = !audio.muted;
+    btn.classList.toggle('active', audio.muted);
+  }
+
+  const SQ_STATIONS = [
+    // Rock
+    { id:'wmmr', name:'(WMMR) MMR Rocks',         freq:'93.3 FM',  cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMMRFMAACIHR.aac' },
+    { id:'wmgk', name:'(WMGK) Classic Rock 102.9', freq:'102.9 FM', cat:'Rock',   url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WMGKFMAAC.aac' },
+    { id:'wrff', name:'(WRFF) Alt 104.5',           freq:'104.5 FM', cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc3401' },
+    { id:'wzzo', name:'(WZZO) Rock 95.1',           freq:'95.1 FM',  cat:'Rock',   url:'https://stream.revma.ihrhls.com/zc1977' },
+    { id:'wrpr', name:'(WRPR) Real Punk Radio',     freq:'900 AM',   cat:'Rock',   url:'http://149.56.155.73:8080/stream' },
+    { id:'xfm',  name:'(XFM) Indie',                freq:'1060 AM',  cat:'Rock',   url:'http://kathy.torontocast.com:2690/stream' },
+    { id:'ynot', name:'(YNOT) Ynot Radio',          freq:'1490 AM',  cat:'Rock',   url:'https://das-edge15-live365-dal02.cdnstream.com/a54553' },
+    // Pop
+    { id:'wioq', name:'(WIOQ) Q102 Philly',         freq:'102.1 FM', cat:'Pop',    url:'https://stream.revma.ihrhls.com/zc1997/hls.m3u8', hls:true },
+    { id:'wbeb', name:'(WBEB) B101',                 freq:'101.1 FM', cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wbebfmaac-imc' },
+    { id:'wogl', name:'(WOGL) Big 98.1',             freq:'98.1 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-woglfmaac-imc' },
+    { id:'wben', name:'(WBEN) Ben FM',               freq:'95.7 FM',  cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WBENFMAAC.aac' },
+    { id:'wstw', name:'(WSTW) Delaware Valley',      freq:'93.7 FM',  cat:'Pop',    url:'https://ais-sa1.streamon.fm:443/7864_96k.aac' },
+    { id:'wtdy', name:'(WTDY) Hot AC 96.5',          freq:'96.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/audacy-wtdyfmaac-imc' },
+    { id:'wpst', name:'(WPST) Top-40 94.5',          freq:'94.5 FM',  cat:'Pop',    url:'https://live.amperwave.net/direct/townsquare-wpstfmaac-ibc3' },
+    { id:'wlev', name:'(WLEV) AC 100.7',             freq:'100.7 FM', cat:'Pop',    url:'https://playerservices.streamtheworld.com/api/livestream-redirect/wlevfm.mp3' },
+    // Urban
+    { id:'wusl', name:'(WUSL) Power 99',             freq:'98.9 FM',  cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc2009' },
+    { id:'wdas', name:'(WDAS) Urban 105.3',          freq:'105.3 FM', cat:'Urban',  url:'https://stream.revma.ihrhls.com/zc1993' },
+    { id:'wrnb', name:'(WRNB) RnB and Hip Hop',      freq:'1060 AM',  cat:'Urban',  url:'https://playerservices.streamtheworld.com/api/livestream-redirect/WRNBHD2.mp3' },
+    // Public
+    { id:'wxpn', name:'(WXPN) XPN Public Radio',     freq:'88.5 FM',  cat:'Public', url:'https://wxpnhi.xpn.org/xpnhi' },
+    { id:'xpon', name:'(WXPN) XPonential (HD2)',      freq:'88.1 FM',  cat:'Public', url:'https://wxpn.xpn.org/xpn2mp3hi' },
+    { id:'whyy', name:'(WHYY) NPR',                  freq:'90.9 FM',  cat:'Public', url:'http://whyy.streamguys1.com/whyy-mp3' },
+    { id:'wxvu', name:'(WXVU) Villanova Radio',       freq:'89.1 FM',  cat:'Public', url:'http://nap.casthost.net:8002/stream' },
+  ];
+
+  const SQ_TRACKS = {
+    // Rock — hard/classic rock feel
+    wmmr: [{ artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Marcy Playground', track:'Sex & Candy' }, { artist:'ZZ Top', track:'Legs' }],
+    wmgk: [{ artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'ZZ Top', track:'Legs' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }],
+    wzzo: [{ artist:'Nirvana', track:'Lounge Act' }, { artist:'Foo Fighters', track:'Your Favorite Toy' }, { artist:'Jack White', track:'G.O.D. And The Broken Ribs' }, { artist:'Nine Inch Nails', track:'Big Man With A Gun' }, { artist:'Marcy Playground', track:'Sex & Candy' }],
+    ynot: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Japandroids', track:'The House That Heaven Built' }, { artist:'BON JOVI', track:"Who Says You Can't Go Home" }, { artist:'Nirvana', track:'Lounge Act' }, { artist:'ZZ Top', track:'Legs' }],
+    // Alt / indie rock
+    wrff: [{ artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'Geese', track:'Cobra' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }],
+    xfm:  [{ artist:'Talking Heads', track:'The Girl Wants to Be with the Girls' }, { artist:'We Are Scientists', track:'Less From You' }, { artist:'Arctic Monkeys', track:'Opening Night' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Modest Mouse', track:'Look How Far...' }],
+    // Punk
+    wrpr: [{ artist:'DEADLETTER', track:'The Snitching Hour' }, { artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Dave Hause', track:'Look Alive' }, { artist:'Remember Sports', track:'Across The Line' }],
+    // Pop / Hot AC — each station gets a distinct starting rotation
+    wioq: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }],
+    wbeb: [{ artist:'Cub Sport', track:'Hands' }, { artist:'Ringside', track:'Struggle' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'The Last Dinner Party', track:'The Scythe' }],
+    wogl: [{ artist:'Luna', track:'Bewitched' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Ringside', track:'Struggle' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Hazel English', track:'Jesse' }],
+    wben: [{ artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
+    wstw: [{ artist:'Ringside', track:'Struggle' }, { artist:'Luna', track:'Bewitched' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
+    wtdy: [{ artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Kate Nash', track:'Trash' }, { artist:'Cub Sport', track:'Hands' }, { artist:'Rosa Walton', track:'Sorry Anyway' }],
+    wpst: [{ artist:'Rosa Walton', track:'Sorry Anyway' }, { artist:'Cub Sport', track:'Hands' }, { artist:'The Last Dinner Party', track:'The Scythe' }, { artist:'Hazel English', track:'Jesse' }, { artist:'Teen Jesus and the Jean Teasers', track:'MOTHER' }],
+    wlev: [{ artist:'Luna', track:'Bewitched' }, { artist:'Andy Snitzer', track:"Don't Wanna Stop" }, { artist:'Ringside', track:'Struggle' }, { artist:'Travis', track:'Flowers In The Window' }, { artist:'Hazel English', track:'Jesse' }],
+    // Urban
+    wusl: [{ artist:'Beastie Boys', track:'Egg Raid On Mojo' }, { artist:'Unknown Artist', track:'Power 99 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }],
+    wdas: [{ artist:'Unknown Artist', track:'105.3 Live' }, { artist:'Unknown Artist', track:'Urban Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
+    wrnb: [{ artist:'Unknown Artist', track:'RnB Live' }, { artist:'Unknown Artist', track:'Hip Hop Mix' }, { artist:'Beastie Boys', track:'Egg Raid On Mojo' }],
+    // Public
+    wxpn: [{ artist:'Ratboys', track:'The World, So Madly' }, { artist:'Yo La Tengo', track:'Big Day Coming' }, { artist:'Courtney Barnett', track:'Mantis' }, { artist:'They Might Be Giants', track:'Wu-Tang' }, { artist:'Stephie Coplan & the Pedestrians', track:'Caroline' }],
+    xpon: [{ artist:'Modest Mouse', track:'Look How Far...' }, { artist:'Just Mustard', track:'WE WERE JUST HERE' }, { artist:'Geese', track:'Cobra' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Ratboys', track:'The World, So Madly' }],
+    whyy: [{ artist:'NPR', track:'Morning Edition' }, { artist:'NPR', track:'All Things Considered' }, { artist:'NPR', track:'Fresh Air' }, { artist:'NPR', track:'Weekend Edition' }],
+    wxvu: [{ artist:'Dream Nails', track:'The Information' }, { artist:'The Linda Lindas', track:'Talking To Myself' }, { artist:'Ratboys', track:'The World, So Madly' }, { artist:'Remember Sports', track:'Across The Line' }, { artist:'Dave Hause', track:'Look Alive' }],
+  };
+
+  var sqActiveTab = 'ALL';
+  var sqFilterText = '';
+
+  function sqSetTab(btn) {
+    document.querySelectorAll('.sq-tab').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+    sqActiveTab = btn.dataset.cat;
+    sqRenderList();
+  }
+  function sqFilter() {
+    sqFilterText = document.getElementById('sq-filter').value.toLowerCase();
+    sqRenderList();
+  }
+  var sqUnavailable = new Set();
+  var sqCurrentId = null;
+  var sqLiveData = {};
+  var sqLivePollTimer = null;
+
+  function sqFetchLive() {
+    fetch('assets/now-playing.json?t=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(function(json) {
+        sqLiveData = json.stations || {};
+        // If a station is currently playing and we just got fresh data, refresh display
+        if (sqCurrentId && sqLiveData[sqCurrentId]) {
+          sqShowTrack(sqCurrentId);
+        }
+      })
+      .catch(function() { /* API unreachable — keep showing current data */ });
+  }
+
+  function sqRenderList() {
+    var list = document.getElementById('sq-list');
+    list.textContent = '';
+
+    SQ_STATIONS.forEach(function(s) {
+      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return;
+      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return;
+
+      var row = document.createElement('div');
+      row.className = 'sq-row' +
+        (sqUnavailable.has(s.id) ? ' sq-unavailable' : '') +
+        (sqCurrentId === s.id    ? ' sq-active'      : '');
+
+      var name = document.createElement('span');
+      name.className = 'sq-row-name';
+      name.textContent = s.name;
+
+      var freq = document.createElement('span');
+      freq.className = 'sq-row-freq';
+      freq.textContent = s.freq;
+
+      var cat = document.createElement('span');
+      cat.className = 'sq-row-cat';
+      cat.textContent = s.cat;
+
+      var actions = document.createElement('span');
+      actions.className = 'sq-row-actions';
+      actions.textContent = '% \u00d7';
+
+      row.appendChild(name);
+      row.appendChild(freq);
+      row.appendChild(cat);
+      row.appendChild(actions);
+
+      row.addEventListener('click', (function(id) {
+        return function() { sqSelectStation(id); };
+      })(s.id));
+
+      list.appendChild(row);
+    });
+  }
+
+  function sqCheckHls() {
+    var audio = document.getElementById('sqlch-audio');
+    var canHls = audio.canPlayType('application/vnd.apple.mpegurl') !== '';
+    if (!canHls) {
+      SQ_STATIONS.forEach(function(s) {
+        if (s.hls) sqUnavailable.add(s.id);
+      });
+    }
+  }
+
+  var sqTrackIndex = {};
+  var sqTrackTimer = null;
+  var sqErrorTimeout = null;
+
+  function sqSelectStation(id) {
+    var station = SQ_STATIONS.find(function(s) { return s.id === id; });
+    if (!station || sqUnavailable.has(id)) return;
+
+    sqCurrentId = id;
+    sqRenderList();
+
+    document.getElementById('sq-station-name').textContent = station.name;
+    document.getElementById('sq-freq').textContent = station.freq;
+
+    var audio = document.getElementById('sqlch-audio');
+    clearTimeout(sqErrorTimeout);
+    audio.pause();
+    audio.src = station.url;
+
+    audio.onerror = function() {
+      clearTimeout(sqErrorTimeout);
+      sqMarkUnavailable(id);
+    };
+    audio.oncanplay = function() {
+      clearTimeout(sqErrorTimeout);
+    };
+
+    audio.play().catch(function() { sqMarkUnavailable(id); });
+
+    sqErrorTimeout = setTimeout(function() {
+      if (audio.readyState < 3) sqMarkUnavailable(id);
+    }, 4000);
+
+    document.getElementById('sq-play').textContent = '\u23f8';
+    document.getElementById('sqlch-overlay').classList.add('playing');
+
+    sqShowTrack(id);
+    sqUpdateMini();
+  }
+
+  function sqMarkUnavailable(id) {
+    sqUnavailable.add(id);
+    if (sqCurrentId === id) sqNext();
+    sqRenderList();
+  }
+
+  function sqPlayPause() {
+    var audio = document.getElementById('sqlch-audio');
+    var btn = document.getElementById('sq-play');
+    if (!sqCurrentId) return;
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '\u23f8';
+      document.getElementById('sqlch-overlay').classList.add('playing');
+    } else {
+      audio.pause();
+      btn.textContent = '\u25b6';
+      document.getElementById('sqlch-overlay').classList.remove('playing');
+    }
+    sqUpdateMini();
+  }
+
+  function sqStop() {
+    clearTimeout(sqErrorTimeout);
+    clearTimeout(sqTrackTimer);
+    var audio = document.getElementById('sqlch-audio');
+    audio.pause();
+    audio.src = '';
+    sqCurrentId = null;
+    document.getElementById('sq-play').textContent = '\u25b6';
+    document.getElementById('sq-station-name').textContent = '\u2014 \u2014';
+    document.getElementById('sq-freq').textContent = '';
+    document.getElementById('sq-track').textContent = 'select a station';
+    document.getElementById('sq-artist').textContent = '';
+    document.getElementById('sqlch-overlay').classList.remove('playing');
+    document.getElementById('sq-mini').classList.remove('visible');
+    sqRenderList();
+  }
+
+  function sqVisibleStations() {
+    return SQ_STATIONS.filter(function(s) {
+      if (sqUnavailable.has(s.id)) return false;
+      if (sqActiveTab !== 'ALL' && s.cat !== sqActiveTab) return false;
+      if (sqFilterText && s.name.toLowerCase().indexOf(sqFilterText) === -1) return false;
+      return true;
+    });
+  }
+
+  function sqNext() {
+    var visible = sqVisibleStations();
+    if (!visible.length) return;
+    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
+    sqSelectStation(visible[(idx + 1) % visible.length].id);
+  }
+
+  function sqPrev() {
+    var visible = sqVisibleStations();
+    if (!visible.length) return;
+    var idx = visible.findIndex(function(s) { return s.id === sqCurrentId; });
+    sqSelectStation(visible[(idx - 1 + visible.length) % visible.length].id);
+  }
+
+  function sqShowTrack(id) {
+    clearTimeout(sqTrackTimer);
+
+    // Prefer live API data; fall back to mock rotation
+    var live = sqLiveData[id];
+    var t;
+    var isLive = false;
+    if (live && (live.artist || live.track)) {
+      t = { artist: live.artist, track: live.track };
+      isLive = true;
+    } else {
+      var tracks = SQ_TRACKS[id];
+      if (!tracks || !tracks.length) return;
+      if (sqTrackIndex[id] === undefined) sqTrackIndex[id] = 0;
+      t = tracks[sqTrackIndex[id]];
+    }
+
+    var trackEl  = document.getElementById('sq-track');
+    var artistEl = document.getElementById('sq-artist');
+
+    trackEl.classList.add('fading');
+    artistEl.classList.add('fading');
+
+    setTimeout(function() {
+      if (sqCurrentId !== id) return;
+      trackEl.textContent  = t.track;
+      artistEl.textContent = t.artist;
+      trackEl.classList.remove('fading');
+      artistEl.classList.remove('fading');
+      if (!isLive) {
+        var tracks = SQ_TRACKS[id];
+        if (tracks) sqTrackIndex[id] = (sqTrackIndex[id] + 1) % tracks.length;
+      }
+      sqUpdateMini();
+      // Live data: re-check at 30s in case the cron updated it; mock: rotate at 30s
+      sqTrackTimer = setTimeout(function() { sqShowTrack(id); }, 30000);
+    }, 300);
+  }
+</script>
+
+</body>
+</html>
