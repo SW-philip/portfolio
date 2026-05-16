@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Repko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Page shell ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0a0b0e;
+      color: #e0def4;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page-header {
+      padding: 44px 24px 20px;
+      text-align: center;
+    }
+
+    .nav-brand {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 18px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .terminal-prompt  { color: #9ccfd8; font-weight: 700; }
+    .terminal-command { color: #f6c177; font-weight: 600; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 1.05em;
+      background: #c4a7e7;
+      animation: blink 1s step-end infinite;
+      border-radius: 1px;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .tagline {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #44415a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .app-wrap {
+      padding: 24px 24px 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .ynot-promo {
+      max-width: 420px;
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
+      border-top: 1px solid #444;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #ffb84a;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      animation: fade-up 0.4s ease;
+      position: relative;
+    }
+
+    .ynot-promo a {
+      display: inline-block;
+      margin-top: 6px;
+      color: #ffb84a;
+      border-bottom: 1px solid rgba(255,184,74,0.35);
+      padding-bottom: 1px;
+      font-weight: 600;
+      transition: border-color 0.15s;
+    }
+    .ynot-promo a:hover { border-bottom-color: #ffb84a; }
+
+    .ynot-dismiss {
+      position: absolute;
+      top: 10px; right: 12px;
+      background: none;
+      border: none;
+      color: #3a3a3a;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .ynot-dismiss:hover { color: #6e6a86; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 28px 24px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #2a2a3a;
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+    footer a { color: #3a3a4a; transition: color 0.15s; }
+    footer a:hover { color: #6e6a86; }
+
+    /* ── Chassis CSS ──────────────────────────────────────────────────────────── */
+    :root {
+      --acc-lcd:     #5bc8ff;
+      --acc-lcd-d:   #2a7ab5;
+      --acc-lcd-2:   #3a8ab8;
+      --acc-lcd-3:   #4a9ac8;
+      --acc-lcd-dim: #1a4a6a;
+      --st-green: #2ecc44;
+      --st-loud:  #f0a020;
+      --st-mute:  #e05555;
+      --mono: "IBM Plex Mono", "JetBrains Mono", "Courier New", monospace;
+      --sans: "IBM Plex Sans", system-ui, sans-serif;
+    }
+
+    .chassis.acc-amber { --acc-lcd: #ffb84a; --acc-lcd-d: #b57a20; --acc-lcd-2: #c88a30; --acc-lcd-3: #e0a048; --acc-lcd-dim: #6a4a1a; }
+
+    .chassis {
+      background:
+        radial-gradient(ellipse 80% 25% at 50% 0%, rgba(30,60,110,0.22) 0%, transparent 100%),
+        #0d0d0d;
+      border: 1px solid #222;
+      border-top: 1px solid #444;
+      border-left: 1px solid #444;
+      border-radius: 7px;
+      outline: 1px solid #111;
+      outline-offset: -3px;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.9),
+        0 0 0 2px #181818,
+        0 0 0 3px rgba(80,80,80,0.15),
+        0 10px 40px rgba(0,0,0,0.95),
+        0 0 100px rgba(0,15,50,0.35);
+      color: var(--acc-lcd);
+      font-family: var(--mono);
+      padding: 4px;
+      user-select: none;
+    }
+
+    .now-playing {
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px),
+        linear-gradient(127deg, transparent 38%, rgba(255,255,255,0.022) 39%, transparent 40%),
+        linear-gradient(53deg,  transparent 58%, rgba(255,255,255,0.014) 59%, transparent 60%),
+        linear-gradient(161deg, transparent 72%, rgba(255,255,255,0.018) 73%, transparent 74%);
+      background-color: #050810;
+      border-radius: 4px 4px 0 0;
+      padding: 10px 12px;
+      border-bottom: 1px solid #0a1628;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.85), inset 0 -1px 3px rgba(0,0,0,0.5);
+    }
+
+    .np-row { display: flex; gap: 10px; align-items: stretch; }
+
+    .art-panel {
+      width: 84px; height: 84px;
+      border-radius: 6px;
+      padding: 2px;
+      box-shadow:
+        0 0 18px color-mix(in oklab, var(--acc-lcd) 40%, transparent),
+        0 0 40px color-mix(in oklab, var(--acc-lcd) 22%, transparent),
+        0 4px 24px rgba(0,0,0,0.75);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .art-panel img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+    .art-panel .art-placeholder {
+      width: 100%; height: 100%; border-radius: 4px;
+      background: repeating-linear-gradient(45deg,
+        color-mix(in oklab, var(--acc-lcd) 14%, #050810) 0 6px,
+        color-mix(in oklab, var(--acc-lcd) 6%,  #050810) 6px 12px);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      color: var(--acc-lcd-dim);
+      text-transform: uppercase;
+    }
+
+    .info-panel {
+      flex: 1;
+      background: #0c1422;
+      border-radius: 6px;
+      padding: 4px 8px;
+      border: 1px solid rgba(20,42,72,0.55);
+      border-top: 1px solid color-mix(in oklab, var(--acc-lcd) 7%, transparent);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.55);
+      display: flex; flex-direction: column; gap: 0;
+      min-width: 0;
+    }
+
+    .display-bar {
+      background: #040810;
+      border-radius: 3px;
+      margin-top: 3px;
+      padding: 3px 7px;
+      border: 1px solid #0a1520;
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.75);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .station-name { font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: var(--acc-lcd); text-shadow: 0 0 8px color-mix(in oklab, var(--acc-lcd) 50%, transparent); }
+    .track-info   { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--acc-lcd-d); }
+    .meta-album   { font-family: var(--mono); font-size: 10px; font-weight: 600; color: color-mix(in oklab, var(--acc-lcd) 45%, #0a1422); letter-spacing: 0.04em; margin-top: 3px; padding-left: 2px; }
+    .meta-sub     { font-family: var(--mono); font-size: 9px; color: color-mix(in oklab, var(--acc-lcd) 28%, #0a1422); letter-spacing: 0.03em; padding-left: 2px; }
+
+    .indicator-panel {
+      background: #040810;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,30,60,0.25) 3px, rgba(0,30,60,0.25) 4px);
+      border-radius: 2px;
+      margin: 4px 12px 2px;
+      padding: 5px 8px;
+      border: 1px solid #0a1520;
+      box-shadow: inset 0 1px 5px rgba(0,0,0,0.75);
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .orbit-grid { display: grid; grid-template-columns: repeat(3, 8px); grid-template-rows: repeat(3, 8px); gap: 2px; flex-shrink: 0; }
+    .orbit-cell { display: flex; align-items: center; justify-content: center; }
+    .orbit-center { width: 6px; height: 6px; border-radius: 2px; background: color-mix(in oklab, var(--acc-lcd) 50%, #000); opacity: 0.45; }
+    .orbit-dot { width: 4px; height: 4px; border-radius: 2px; background: var(--acc-lcd); opacity: 0.12; color: var(--acc-lcd); }
+
+    .playing .orbit-center { animation: orbit-center-pulse 2.4s ease-in-out infinite; opacity: 1; }
+    .playing .orbit-dot.dn { animation: orbit-n 1.2s linear infinite 0.0s; }
+    .playing .orbit-dot.de { animation: orbit-e 1.2s linear infinite 0.3s; }
+    .playing .orbit-dot.ds { animation: orbit-s 1.2s linear infinite 0.6s; }
+    .playing .orbit-dot.dw { animation: orbit-w 1.2s linear infinite 0.9s; }
+
+    @keyframes orbit-center-pulse { 0%,100%{opacity:.55} 50%{opacity:1} }
+    @keyframes orbit-n { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:0 -5px 6px currentColor} 40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-e { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:5px 0 6px currentColor}  40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-s { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:0 5px 6px currentColor}  40%{opacity:.4} 100%{opacity:.12} }
+    @keyframes orbit-w { 0%{opacity:.12;box-shadow:none} 6%{opacity:1;box-shadow:-5px 0 6px currentColor} 40%{opacity:.4} 100%{opacity:.12} }
+
+    .sig-strip { display: flex; gap: 2px; align-items: flex-end; height: 18px; flex: 1; min-width: 0; }
+    .sig-bar { width: 3px; border-radius: 1px 1px 0 0; background: linear-gradient(180deg, var(--acc-lcd) 0%, color-mix(in oklab, var(--acc-lcd) 30%, #000) 100%); opacity: 0.28; }
+    .sig-bar:nth-child(1){height:4px} .sig-bar:nth-child(2){height:7px} .sig-bar:nth-child(3){height:11px}
+    .sig-bar:nth-child(4){height:15px} .sig-bar:nth-child(5){height:17px} .sig-bar:nth-child(6){height:14px}
+    .sig-bar:nth-child(7){height:10px} .sig-bar:nth-child(8){height:6px} .sig-bar:nth-child(9){height:4px}
+
+    .playing .sig-bar { animation: sigpulse .9s ease-in-out infinite; }
+    .playing .sig-bar:nth-child(1){animation-duration:.83s;animation-delay:0s}
+    .playing .sig-bar:nth-child(2){animation-duration:1.12s;animation-delay:.2s}
+    .playing .sig-bar:nth-child(3){animation-duration:.77s;animation-delay:.08s}
+    .playing .sig-bar:nth-child(4){animation-duration:.95s;animation-delay:.35s}
+    .playing .sig-bar:nth-child(5){animation-duration:.68s;animation-delay:.12s}
+    .playing .sig-bar:nth-child(6){animation-duration:1.08s;animation-delay:.28s}
+    .playing .sig-bar:nth-child(7){animation-duration:.88s;animation-delay:.05s}
+    .playing .sig-bar:nth-child(8){animation-duration:.72s;animation-delay:.42s}
+    .playing .sig-bar:nth-child(9){animation-duration:1.00s;animation-delay:.17s}
+    @keyframes sigpulse { 0%,100%{opacity:.14} 45%{opacity:.85} }
+
+    .radio-btn { font-family: var(--mono); font-size: 9px; letter-spacing: 0.10em; color: #1a3a50; background: linear-gradient(180deg, #0c1825 0%, #070d16 100%); border: 1px solid #0e1e2e; border-top: 1px solid #182d40; border-radius: 2px; padding: 2px 7px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.7); }
+    .radio-btn.lit       { color: var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 35%, #0c1825); text-shadow: 0 0 7px color-mix(in oklab, var(--acc-lcd) 80%, transparent); }
+    .radio-btn.st-ind.lit   { color: var(--st-green); border-color: #1a4a22; text-shadow: 0 0 8px var(--st-green); }
+    .radio-btn.loud-ind.lit { color: var(--st-loud);  border-color: #4a3010; text-shadow: 0 0 8px var(--st-loud); }
+    .radio-btn.mute-ind.lit { color: var(--st-mute);  border-color: #4a1515; text-shadow: 0 0 8px var(--st-mute); }
+
+    .controls { margin: 8px 10px 10px; background: #0c1422; border-radius: 6px; border: 1px solid rgba(20,42,72,0.55); padding: 5px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; box-shadow: inset 0 1px 6px rgba(0,0,0,0.5); }
+
+    .ctl-btn { background: linear-gradient(180deg, #222 0%, #141414 60%, #1a1a1a 100%); color: color-mix(in oklab, var(--acc-lcd) 80%, #fff); border: 1px solid #2a2a2a; border-top: 1px solid #3a3a3a; border-radius: 4px; padding: 6px 0; font-family: var(--mono); font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.07); text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 50%, transparent); cursor: pointer; transition: all 0.1s; }
+    .ctl-btn:hover { background: linear-gradient(180deg, #1a2a3a 0%, #0f1e2e 100%); border-color: color-mix(in oklab, var(--acc-lcd) 40%, #2a2a2a); color: var(--acc-lcd); text-shadow: 0 0 10px color-mix(in oklab, var(--acc-lcd) 90%, transparent); }
+    .ctl-btn:active { background: #070f1a; box-shadow: inset 0 2px 5px rgba(0,0,0,0.85); }
+    .ctl-btn.lit { color: var(--acc-lcd); text-shadow: 0 0 10px var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 40%, #2a2a2a); }
+
+    .seam-wrap { margin: 0 4px; }
+    .seam        { height: 1px; background: linear-gradient(to right, transparent 0%, #2a2a2a 15%, #555 50%, #2a2a2a 85%, transparent 100%); }
+    .seam-shadow { height: 1px; background: linear-gradient(to right, transparent 0%, #0a0a0a 15%, #111 50%, #0a0a0a 85%, transparent 100%); }
+
+    .mfr-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 10px 4px; }
+    .mfr-badge { font-family: var(--mono); font-size: 7px; letter-spacing: 0.20em; color: #3a3a3a; text-shadow: 0 1px 0 rgba(80,80,80,0.3); }
+
+    .module { background: radial-gradient(ellipse 80% 15% at 50% 0%, rgba(30,60,110,0.15) 0%, transparent 100%), #0d0d0d; border: 1px solid #222; border-top: 1px solid #444; border-left: 1px solid #444; border-radius: 6px; outline: 1px solid #111; outline-offset: -3px; box-shadow: 0 0 0 1px rgba(0,0,0,0.9), 0 0 0 2px #181818, 0 6px 24px rgba(0,0,0,0.85); padding: 4px; font-family: var(--mono); }
+
+    .module-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px 5px; background: #040810; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,30,60,0.2) 3px, rgba(0,30,60,0.2) 4px); border-radius: 4px 4px 0 0; border-bottom: 1px solid #0a1628; }
+    .module-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--acc-lcd-d); text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 40%, transparent); }
+    .module-dots { display: flex; gap: 5px; }
+    .module-dot { width: 10px; height: 10px; border-radius: 50%; background: #0a1520; border: 1px solid #1a2a3a; cursor: pointer; }
+    .module-dot.min   { background: #1a3a2a; border-color: #2a5a3a; }
+    .module-dot.fold  { background: #3a2a1a; border-color: #5a3a2a; }
+    .module-dot.close { background: #3a1a1a; border-color: #5a2a2a; }
+
+    .module-body { background: #050810; border-radius: 0 0 4px 4px; padding: 6px; }
+
+    .group-bar { display: flex; gap: 2px; background: #050b14; background-image: repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0,20,45,0.18) 5px, rgba(0,20,45,0.18) 6px); border: 1px solid #0a1520; border-radius: 4px; padding: 3px 4px; margin-bottom: 4px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.8); }
+    .group-tab { background: transparent; color: #1a4060; border: 1px solid transparent; border-bottom: 2px solid transparent; border-radius: 2px 2px 0 0; padding: 2px 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; cursor: pointer; flex: 1; }
+    .group-tab:hover { color: var(--acc-lcd-3); background: color-mix(in oklab, var(--acc-lcd) 4%, transparent); }
+    .group-tab.active { color: var(--acc-lcd); background: color-mix(in oklab, var(--acc-lcd) 6%, transparent); border-color: color-mix(in oklab, var(--acc-lcd) 12%, transparent); border-bottom-color: color-mix(in oklab, var(--acc-lcd) 70%, transparent); text-shadow: 0 0 5px color-mix(in oklab, var(--acc-lcd) 65%, transparent); }
+
+    .toolbar { display: flex; gap: 4px; align-items: center; background: #080808; padding: 4px 6px; border-radius: 3px; margin-bottom: 4px; }
+    .toolbar .search { flex: 1; background: #0a0f18; color: var(--acc-lcd-3); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 7px; font-family: var(--mono); font-size: 11px; outline: none; }
+    .toolbar .search:focus { border-color: color-mix(in oklab, var(--acc-lcd) 35%, #1a2a3a); color: var(--acc-lcd); }
+    .toolbar .tb-btn { background: #0f0f0f; color: var(--acc-lcd-2); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+    .toolbar .tb-btn:hover { background: #0f1e2e; color: var(--acc-lcd); border-color: color-mix(in oklab, var(--acc-lcd) 40%, transparent); }
+
+    .station-list { padding: 2px 4px; max-height: 240px; overflow-y: auto; }
+    .station-list::-webkit-scrollbar { width: 6px; }
+    .station-list::-webkit-scrollbar-track { background: #040810; }
+    .station-list::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 3px; }
+
+    .station-row { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 3px; color: var(--acc-lcd-d); font-size: 11px; cursor: pointer; border-left: 2px solid transparent; }
+    .station-row:hover { background: color-mix(in oklab, var(--acc-lcd) 10%, transparent); color: var(--acc-lcd-3); }
+    .station-row.active { background: linear-gradient(90deg, color-mix(in oklab, var(--acc-lcd) 24%, transparent) 0%, color-mix(in oklab, var(--acc-lcd) 10%, transparent) 100%); color: var(--acc-lcd); text-shadow: 0 0 8px color-mix(in oklab, var(--acc-lcd) 60%, transparent); border-left-color: color-mix(in oklab, var(--acc-lcd) 60%, transparent); box-shadow: inset 2px 0 8px color-mix(in oklab, var(--acc-lcd) 8%, transparent); }
+    .station-row .name { flex: 1; font-family: var(--sans); font-size: 13px; font-weight: 600; }
+    .station-row .name .sub { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .08em; opacity: .65; margin-top: 1px; }
+
+    .freq-badge { font-family: var(--mono); font-size: 9px; color: var(--acc-lcd-3); padding: 2px 6px; background: rgba(0,20,45,0.7); border: 1px solid color-mix(in oklab, var(--acc-lcd) 12%, transparent); border-radius: 2px; text-shadow: 0 0 6px color-mix(in oklab, var(--acc-lcd) 45%, transparent); }
+    .group-badge { font-family: var(--mono); font-size: 9px; color: var(--st-green); padding: 2px 5px; background: rgba(0,20,10,0.7); border: 1px solid rgba(91,200,91,0.18); border-radius: 2px; }
+
+    .collapsed-bar { padding: 6px 8px; background: rgba(0,8,18,0.8); border-top: 1px solid #0a1628; display: flex; align-items: center; gap: 4px; }
+    .quick-nav, .quick-num, .group-label-btn, .mode-toggle { font-family: var(--mono); background: #080f18; border: 1px solid #0f1e2e; border-top: 1px solid #152535; border-radius: 3px; color: var(--acc-lcd-dim); cursor: pointer; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+    .quick-nav        { min-width: 22px; height: 26px; font-size: 10px; }
+    .quick-num        { min-width: 34px; height: 26px; font-size: 13px; font-weight: 700; color: color-mix(in oklab, var(--acc-lcd) 35%, #111); }
+    .quick-num.active { color: var(--acc-lcd); text-shadow: 0 0 10px color-mix(in oklab, var(--acc-lcd) 90%, transparent); border-color: color-mix(in oklab, var(--acc-lcd) 35%, transparent); background: #0d1a28; }
+    .quick-num:disabled { opacity: 0.35; cursor: default; }
+    .group-label-btn  { min-width: 52px; height: 26px; font-size: 8px; letter-spacing: 0.18em; color: var(--acc-lcd-d); background: #040810; text-shadow: 0 0 5px color-mix(in oklab, var(--acc-lcd) 45%, transparent); }
+    .mode-toggle      { width: 34px; height: 26px; font-size: 16px; color: var(--acc-lcd); text-shadow: 0 0 8px var(--acc-lcd); background: linear-gradient(180deg, #222 0%, #141414 100%); border: 1px solid #2a2a2a; }
+
+    .discover-results { display: flex; flex-direction: column; max-height: 240px; overflow-y: auto; }
+    .discover-results::-webkit-scrollbar { width: 6px; }
+    .discover-results::-webkit-scrollbar-track { background: #040810; }
+    .discover-results::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 3px; }
+    .discover-result  { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-bottom: 1px solid #0d1a2a; }
+    .discover-result .info { flex: 1; min-width: 0; }
+    .discover-name { font-family: var(--mono); font-size: 11px; color: var(--acc-lcd-2); font-weight: 700; }
+    .discover-meta { font-family: var(--mono); font-size: 10px; color: var(--acc-lcd-dim); }
+    .discover-add  { background: transparent; color: var(--st-green); border: 1px solid #1a3a2a; border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
+    .discover-add:hover  { background: rgba(30,120,60,0.18); border-color: #2a7a4a; }
+    .discover-add.added  { color: #4ae888; border-color: #2a7a4a; }
+
+    .placeholder-block { font-family: var(--mono); font-size: 10px; color: var(--acc-lcd-dim); padding: 20px; text-align: center; background: repeating-linear-gradient(45deg, color-mix(in oklab, var(--acc-lcd) 6%, #050810) 0 6px, color-mix(in oklab, var(--acc-lcd) 2%, #050810) 6px 12px); border: 1px solid #0a1520; border-radius: 3px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .inline-form { background: #06090f; padding: 8px 10px; border-top: 1px solid #0e2540; border-bottom: 1px solid #0e2540; display: grid; gap: 4px; }
+    .inline-form label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--acc-lcd-d); text-transform: uppercase; }
+    .inline-form .row  { display: flex; gap: 5px; align-items: center; }
+    .inline-form input { flex: 1; background: #070f1c; color: var(--acc-lcd-3); border: 1px solid #1a2a3a; border-radius: 3px; padding: 3px 7px; font-family: var(--mono); font-size: 11px; outline: none; }
+    .inline-form input:focus { border-color: color-mix(in oklab, var(--acc-lcd) 35%, transparent); color: var(--acc-lcd); }
+    .inline-form .actions { display: flex; gap: 5px; justify-content: flex-end; }
+    .inline-form button { background: #0f1e2e; color: var(--acc-lcd-2); border: 1px solid #1a3a5a; border-radius: 3px; padding: 3px 10px; font-family: var(--mono); font-size: 10px; cursor: pointer; }
+    .inline-form button:hover { background: #1a3a5a; color: var(--acc-lcd); }
+    .inline-form button.cancel:hover { background: #2a1010; color: #e86060; border-color: #6a2020; }
+
+    .meta-console { background: #040810; border: 1px solid #0a1520; border-radius: 3px; padding: 5px 8px; font-family: var(--mono); font-size: 9px; line-height: 1.55; letter-spacing: 0.04em; box-shadow: inset 0 1px 5px rgba(0,0,0,0.75); max-height: 180px; overflow-y: auto; }
+    .meta-row { display: flex; gap: 6px; }
+    .meta-row .k { color: var(--acc-lcd-d); min-width: 72px; }
+    .meta-row .v { color: var(--acc-lcd-3); }
+    .meta-row .src { color: var(--st-green); }
+  </style>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="nav-brand">
+    <span class="terminal-prompt">sqlch@nix:~$</span>
+    <span class="terminal-command">Philip Repko</span>
+    <span class="cursor"></span>
+  </div>
+  <p class="tagline">portfolio under reconstruction · the daemon keeps you company</p>
+</header>
+
+<div class="app-wrap">
+  <div id="app-root"></div>
+</div>
+
+<footer>
+  <a href="mailto:me@philipjrepko.com">me@philipjrepko.com</a>
+  &nbsp;·&nbsp; back when it's done
+</footer>
+
+<!-- ── Station data ────────────────────────────────────────────────────────────── -->
+<script>
+window.SQLCH_STATIONS = [
+  { id: "wxpn-885-philadelphia-pa", name: "WXPN",        subtitle: "88.5 Philadelphia",          frequency: "88.5 FM",  group: "FM1", url: "https://wxpn.xpn.org/xpnmain" },
+  { id: "wxpn-hd2-xponential",      name: "XPONential",  subtitle: "88.1 HD2",                   frequency: "88.1 FM",  group: "FM1", url: "https://wxpn.xpn.org/xponential" },
+  { id: "whyy",                     name: "WHYY",         subtitle: "90.9 Philadelphia",          frequency: "90.9 FM",  group: "FM1", url: "https://streams.whyy.org/whyy" },
+  { id: "wrti",                     name: "WRTI",         subtitle: "Temple · Jazz + Classical",  frequency: "90.1 FM",  group: "FM1", url: "https://wrti-prod.streamguys1.com/wrti-mp3" },
+  { id: "ynot-radio-philly",        name: "YNOT Radio",   subtitle: "Independent · Philadelphia", frequency: "100.3",    group: "FM2", url: "https://das-edge15-live365-dal02.cdnstream.com/a54553" },
+  { id: "wmmr",                     name: "WMMR",         subtitle: "93.3 Rock",                  frequency: "93.3 FM",  group: "FM2", url: "" },
+  { id: "wxtu",                     name: "WXTU",         subtitle: "92.5 Country",               frequency: "92.5 FM",  group: "FM2", url: "" },
+  { id: "wmgk",                     name: "WMGK",         subtitle: "102.9 Classic Rock",         frequency: "102.9 FM", group: "FM2", url: "" },
+  { id: "kyw",                      name: "KYW",          subtitle: "1060 News",                  frequency: "1060 AM",  group: "AM1", url: "" },
+  { id: "wpht",                     name: "WPHT",         subtitle: "1210 Talk",                  frequency: "1210 AM",  group: "AM1", url: "" },
+  { id: "wurd",                     name: "WURD",         subtitle: "900 Talk",                   frequency: "900 AM",   group: "AM1", url: "" },
+  { id: "radio-paradise-main",      name: "Radio Paradise", subtitle: "Main Mix",                 frequency: "INT·01",   group: "INT1", url: "https://stream.radioparadise.com/mp3-192" },
+  { id: "kexp-905",                 name: "KEXP",         subtitle: "Seattle · 90.3",             frequency: "INT·02",   group: "INT1", url: "https://kexp.streamguys1.com/kexp160.aac" },
+  { id: "nts-1",                    name: "NTS 1",        subtitle: "London",                     frequency: "INT·03",   group: "INT1", url: "https://stream-relay-geo.ntslive.net/stream" },
+  { id: "rinse-fm",                 name: "Rinse FM",     subtitle: "London · 106.8",             frequency: "INT·04",   group: "INT1", url: "https://stream.rinse.fm/rinse_fm.aac" },
+  { id: "dublab",                   name: "dublab",       subtitle: "Los Angeles",                frequency: "INT·05",   group: "INT1", url: "" },
+];
+
+window.SQLCH_GROUPS = ["FM1", "FM2", "AM1", "INT1"];
+
+window.SQLCH_NOW_PLAYING = {
+  "wxpn-885-philadelphia-pa": { artist: "Big Thief",         track: "Change",                album: "Dragon New Warm Mountain I Believe in You", year: "2022", genre: "Indie Folk",       cover: null, bitrate: 128, channels: 2 },
+  "wxpn-hd2-xponential":      { artist: "Yo La Tengo",       track: "Sinatra Drive Breakdown", album: "This Stupid World",                      year: "2023", genre: "Indie Rock",       cover: null, bitrate: 96,  channels: 2 },
+  "ynot-radio-philly":        { artist: "The War on Drugs",  track: "Under the Pressure",    album: "Lost in the Dream",                        year: "2014", genre: "Indie Rock",       cover: null, bitrate: 128, channels: 2 },
+  "radio-paradise-main":      { artist: "Phoebe Bridgers",   track: "Kyoto",                 album: "Copycat Killer",                           year: "2020", genre: "Chamber Pop",      cover: null, bitrate: 192, channels: 2 },
+  "kexp-905":                 { artist: "Wednesday",         track: "Chosen to Deserve",     album: "Rat Saw God",                              year: "2023", genre: "Country Shoegaze", cover: null, bitrate: 160, channels: 2 },
+  "nts-1":                    { artist: "Floating Points",   track: "Key103",                album: "Cascade",                                  year: "2024", genre: "Electronic",       cover: null, bitrate: 128, channels: 2 },
+};
+
+window.SQLCH_DISCOVER = {
+  "punk":    [ { name: "Rock Antenne - Punk Rock", country: "Germany", codec: "MP3", bitrate: 128 }, { name: "punk irratia", country: "Spain", codec: "MP3", bitrate: 192 }, { name: "REAL PUNK RADIO", country: "USA", codec: "MP3", bitrate: 128 }, { name: "Radio Caprice — Post-Punk", country: "Russia", codec: "AAC+", bitrate: 320 }, { name: "PunkRockRadio.ca", country: "Canada", codec: "MP3", bitrate: 192 } ],
+  "jazz":    [ { name: "WRTI Jazz", country: "USA", codec: "MP3", bitrate: 128 }, { name: "SomaFM — Sonic Universe", country: "USA", codec: "AAC", bitrate: 128 }, { name: "Radio Swiss Jazz", country: "Switzerland", codec: "MP3", bitrate: 128 }, { name: "TSF Jazz", country: "France", codec: "MP3", bitrate: 128 } ],
+  "ambient": [ { name: "SomaFM — Drone Zone", country: "USA", codec: "AAC", bitrate: 128 }, { name: "SomaFM — Deep Space One", country: "USA", codec: "AAC", bitrate: 128 }, { name: "Radio Caprice — Ambient", country: "Russia", codec: "AAC+", bitrate: 320 }, { name: "Hearts of Space", country: "USA", codec: "MP3", bitrate: 128 } ],
+  "indie":   [ { name: "KEXP 90.3", country: "USA", codec: "AAC", bitrate: 160 }, { name: "WXPN 88.5", country: "USA", codec: "MP3", bitrate: 128 }, { name: "NTS Radio 1", country: "UK", codec: "MP3", bitrate: 128 }, { name: "dublab", country: "USA", codec: "MP3", bitrate: 128 } ],
+};
+</script>
+
+<!-- ── Metadata parser ─────────────────────────────────────────────────────────── -->
+<script>
+(function () {
+  const LIVE_RE = /(?:[\s\-]+|\()(live|bootleg|demo|acoustic|session|rehearsal|rare|outtake|alternate|unreleased|b-side|soundboard)\b/i;
+
+  function stripLiveQualifier(track) {
+    if (!track) return { base: track, qualifier: null };
+    const m = track.match(LIVE_RE);
+    if (!m) return { base: track, qualifier: null };
+    const base = track.slice(0, m.index).replace(/[\s\-\(\[]+$/, "").trim();
+    return { base: base || track, qualifier: m[1].toLowerCase() };
+  }
+
+  function splitIcy(raw) {
+    if (!raw) return [null, null];
+    if (raw.includes(" - ")) { const [a, t] = raw.split(" - ", 2); return [a.trim() || null, t.trim() || null]; }
+    if (raw.includes("-"))   { const idx = raw.indexOf("-"); return [raw.slice(0, idx).trim() || null, raw.slice(idx + 1).trim() || null]; }
+    return [null, raw.trim() || null];
+  }
+
+  function norm(s) { return (s || "").toLowerCase().trim().replace(/\s+/g, " "); }
+
+  function enrichLookup(cache, artist, track) {
+    if (!cache || !artist || !track) return null;
+    const entry = cache[`${norm(artist)}::${norm(track)}`];
+    if (entry && entry.cover) return entry;
+    const { base, qualifier } = stripLiveQualifier(track);
+    if (qualifier && base !== track) {
+      const studio = cache[`${norm(artist)}::${norm(base)}`];
+      if (studio && studio.cover) return studio;
+    }
+    return entry || null;
+  }
+
+  function parseNowPlaying({ mpris, mpv, enriched, station } = {}) {
+    const sources = [];
+    let artist = null, track = null;
+
+    const md = (mpv && mpv.metadata) || {};
+    const mdArtist = (md.artist || md.Artist || "").trim();
+    const mdTitle  = (md.title  || md.Title  || "").trim();
+    if (mdArtist && mdTitle) { artist = mdArtist; track = mdTitle; sources.push("mpv.metadata.artist+title"); }
+
+    if (!artist || !track) {
+      const raw = (md["icy-title"] || md.title || "").trim();
+      if (raw) {
+        const [a, t] = splitIcy(raw);
+        if (a && t) { artist = a; track = t; sources.push("mpv.metadata.icy-title"); }
+        else if (t) { track = t; sources.push("mpv.metadata.icy-title(title-only)"); }
+      }
+    }
+
+    if (!artist || !track) {
+      if (mpris && (mpris.artist || mpris.title)) {
+        if (!artist && mpris.artist) artist = mpris.artist;
+        if (!track  && mpris.title)  track  = mpris.title;
+        sources.push("mpris.playerctl");
+      }
+    }
+
+    const icyGenre = (md["icy-genre"] || md.genre || "").trim() || null;
+    if (icyGenre) sources.push("mpv.icy-genre");
+
+    let album = null, year = null, genre = null, cover = null;
+    const e = enrichLookup(enriched, artist, track);
+    if (e) { album = e.album || null; year = e.year != null ? String(e.year) : null; genre = (e.genres && e.genres[0]) || null; cover = e.cover || null; sources.push("sqlch.enriched.json"); }
+    if (!genre && icyGenre) genre = icyGenre;
+
+    return {
+      station:   station ? (station.name || station.id) : null,
+      frequency: station ? (station.frequency || null) : null,
+      artist, track, album, year, genre, cover,
+      bitrate:   (mpv && (mpv.bitrate || md["icy-br"])) || null,
+      channels:  (mpv && mpv.channels) || null,
+      qualifier: track ? stripLiveQualifier(track).qualifier : null,
+      sources,
+    };
+  }
+
+  window.SqlchMeta = { parseNowPlaying, stripLiveQualifier, splitIcy };
+})();
+</script>
+
+<!-- ── Components + App ───────────────────────────────────────────────────────── -->
+<script type="text/babel">
+const { useState, useMemo, useEffect, useRef } = React;
+
+// ── Tiny pieces ───────────────────────────────────────────────────────────────
+function Orbit({ playing }) {
+  return (
+    <div className={`orbit-grid ${playing ? "playing" : ""}`}>
+      <div className="orbit-cell" /><div className="orbit-cell"><span className="orbit-dot dn" /></div><div className="orbit-cell" />
+      <div className="orbit-cell"><span className="orbit-dot dw" /></div><div className="orbit-cell"><span className="orbit-center" /></div><div className="orbit-cell"><span className="orbit-dot de" /></div>
+      <div className="orbit-cell" /><div className="orbit-cell"><span className="orbit-dot ds" /></div><div className="orbit-cell" />
+    </div>
+  );
+}
+
+function SignalBars({ playing }) {
+  return (
+    <div className={`sig-strip ${playing ? "playing" : ""}`}>
+      {Array.from({ length: 9 }).map((_, i) => <div key={i} className="sig-bar" />)}
+    </div>
+  );
+}
+
+// ── NowPlaying display ────────────────────────────────────────────────────────
+function NowPlayingDisplay({ np, playing, paused }) {
+  const on = playing && !paused;
+  const sub = [np.year, np.genre, np.bitrate ? `${np.bitrate}k` : null, np.channels === 1 ? "MONO" : null].filter(Boolean).join("  ·  ");
+  return (
+    <div className={`now-playing ${on ? "playing" : ""}`}>
+      <div className="np-row">
+        <div className="art-panel">
+          {np.cover ? <img src={np.cover} alt="" /> : <div className="art-placeholder">[ NO ART ]</div>}
+        </div>
+        <div className="info-panel">
+          <div className="display-bar station-name">{np.station || "— — —"}</div>
+          <div className="display-bar track-info">
+            {np.artist && np.track
+              ? <>{np.qualifier ? <span style={{opacity:.6}}>[{np.qualifier}] </span> : null}{np.artist} — {np.track}</>
+              : "— awaiting stream metadata —"}
+          </div>
+          <div className="meta-album">{np.album || ""}</div>
+          <div className="meta-sub">{sub}</div>
+        </div>
+      </div>
+      <div className="indicator-panel">
+        <Orbit playing={on} />
+        <SignalBars playing={on} />
+        <div className={`radio-btn st-ind   ${on ? "lit" : ""}`}>ST</div>
+        <div className={`radio-btn mono-ind ${on && np.channels === 1 ? "lit" : ""}`}>MONO</div>
+        <div className="radio-btn loud-ind lit">LOUD</div>
+        <div className="radio-btn mute-ind">MUTE</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Transport ─────────────────────────────────────────────────────────────────
+function TransportBar({ playing, paused, onPlayPause, onStop, onPrev, onNext, onCollapse }) {
+  return (
+    <div className="controls">
+      <button className="ctl-btn" onClick={onPrev}>⏮</button>
+      <button className={`ctl-btn ${playing && !paused ? "lit" : ""}`} onClick={onPlayPause}>
+        {paused || !playing ? "▶" : "⏸"}
+      </button>
+      <button className="ctl-btn" onClick={onStop}>■</button>
+      <button className="ctl-btn" onClick={onNext}>⏭</button>
+      <button className="ctl-btn" onClick={onCollapse}>◩</button>
+    </div>
+  );
+}
+
+// ── Collapsed quick-pick ──────────────────────────────────────────────────────
+function CollapsedBar({ stations, currentId, group, onPickNum, onPrevGroup, onNextGroup, onExpand }) {
+  const inGroup = stations.filter(s => s.group === group);
+  return (
+    <div className="collapsed-bar">
+      <button className="quick-nav" onClick={onPrevGroup}>◀</button>
+      <button className="group-label-btn">{group}</button>
+      {Array.from({ length: 5 }).map((_, i) => {
+        const st = inGroup[i];
+        return (
+          <button key={i} className={`quick-num ${st && st.id === currentId ? "active" : ""}`}
+            disabled={!st} onClick={() => st && onPickNum(st.id)}
+            title={st ? `${st.name} — ${st.frequency}` : ""}>
+            {i + 1}
+          </button>
+        );
+      })}
+      <button className="quick-nav" onClick={onNextGroup}>▶</button>
+      <button className="mode-toggle" onClick={onExpand}>◐</button>
+    </div>
+  );
+}
+
+// ── Library ───────────────────────────────────────────────────────────────────
+function LibraryModule({ stations, currentId, group, onPick, onGroupChange, onAddStation }) {
+  const [search, setSearch]   = useState("");
+  const [adding, setAdding]   = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newUrl, setNewUrl]   = useState("");
+
+  const filtered = stations
+    .filter(s => s.group === group)
+    .filter(s => !search || (s.name + " " + (s.subtitle || "")).toLowerCase().includes(search.toLowerCase()));
+
+  function doAdd() {
+    if (!newName || !newUrl) return;
+    onAddStation({ name: newName, url: newUrl });
+    setNewName(""); setNewUrl(""); setAdding(false);
+  }
+
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ LIBRARY</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="group-bar">
+          {window.SQLCH_GROUPS.map(g => (
+            <button key={g} className={`group-tab ${g === group ? "active" : ""}`} onClick={() => onGroupChange(g)}>{g}</button>
+          ))}
+        </div>
+        <div className="toolbar">
+          <input className="search" placeholder="filter library…" value={search} onChange={e => setSearch(e.target.value)} />
+          <button className="tb-btn" onClick={() => setAdding(a => !a)}>＋</button>
+        </div>
+        {adding && (
+          <div className="inline-form">
+            <label>add station</label>
+            <div className="row"><input placeholder="name" value={newName} onChange={e => setNewName(e.target.value)} /></div>
+            <div className="row"><input placeholder="stream url" value={newUrl} onChange={e => setNewUrl(e.target.value)} /></div>
+            <div className="actions">
+              <button className="cancel" onClick={() => setAdding(false)}>cancel</button>
+              <button onClick={doAdd}>save</button>
+            </div>
+          </div>
+        )}
+        <div className="station-list">
+          {filtered.length === 0
+            ? <div className="placeholder-block">[ no stations in {group} ]</div>
+            : filtered.map(st => (
+              <div key={st.id} className={`station-row ${st.id === currentId ? "active" : ""}`} onClick={() => onPick(st.id)}>
+                <div className="freq-badge">{st.frequency}</div>
+                <div className="name">{st.name}<span className="sub">{st.subtitle}</span></div>
+                <div className="group-badge">{st.group}</div>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Discover ──────────────────────────────────────────────────────────────────
+function DiscoverModule({ onAddToLibrary }) {
+  const [query, setQuery]       = useState("indie");
+  const [results, setResults]   = useState(window.SQLCH_DISCOVER["indie"] || []);
+  const [added, setAdded]       = useState(new Set());
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    if (!query) { setResults([]); return; }
+    setSearching(true);
+    const t = setTimeout(() => {
+      setResults(window.SQLCH_DISCOVER[query.trim().toLowerCase()] || []);
+      setSearching(false);
+    }, 400);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  function addOne(r) {
+    onAddToLibrary && onAddToLibrary({ name: r.name, url: "" });
+    setAdded(prev => { const n = new Set(prev); n.add(r.name); return n; });
+  }
+
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ DISCOVER · RADIOBROWSER</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="toolbar">
+          <input className="search" placeholder="genre / tag (punk · jazz · ambient · indie)" value={query} onChange={e => setQuery(e.target.value)} />
+          <button className="tb-btn">⌕</button>
+        </div>
+        <div style={{fontFamily:"var(--mono)",fontSize:10,color:"var(--acc-lcd-dim)",padding:"4px 2px"}}>
+          {searching ? "searching…" : results.length > 0 ? `results: ${results.length}` : "— no results —"}
+        </div>
+        <div className="discover-results">
+          {results.length === 0 && !searching
+            ? <div className="placeholder-block">[ search term placeholder ]</div>
+            : results.map((r, i) => (
+              <div key={i} className="discover-result">
+                <div className="info">
+                  <div className="discover-name">{r.name}</div>
+                  <div className="discover-meta">{r.country} · {r.codec} {r.bitrate}k</div>
+                </div>
+                <button className={`discover-add ${added.has(r.name) ? "added" : ""}`} onClick={() => addOne(r)}>
+                  {added.has(r.name) ? "✓ added" : "+ add"}
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Metadata console ──────────────────────────────────────────────────────────
+function MetaConsole({ np }) {
+  const rows = [
+    { k: "station",   v: np.station },
+    { k: "freq",      v: np.frequency },
+    { k: "artist",    v: np.artist },
+    { k: "track",     v: np.track },
+    np.qualifier ? { k: "qualifier", v: `[${np.qualifier}]` } : null,
+    { k: "album",     v: np.album },
+    { k: "year",      v: np.year },
+    { k: "genre",     v: np.genre },
+    { k: "bitrate",   v: np.bitrate ? `${np.bitrate}k` : null },
+    { k: "channels",  v: np.channels === 1 ? "mono" : np.channels === 2 ? "stereo" : np.channels },
+    { k: "cover",     v: np.cover ? "cached" : "—" },
+  ].filter(Boolean);
+
+  const sources = (np.sources || []).join("  ·  ") || "(none)";
+
+  return (
+    <div className="module" style={{ width: 420 }}>
+      <div className="module-header">
+        <div className="module-title">◆ METADATA CONSOLE · MPRIS + ICY</div>
+        <div className="module-dots"><div className="module-dot min"/><div className="module-dot fold"/><div className="module-dot close"/></div>
+      </div>
+      <div className="module-body">
+        <div className="meta-console">
+          {rows.map(({ k, v }) => (
+            <div key={k} className="meta-row">
+              <span className="k">{k}</span>
+              <span className="v">{v != null ? String(v) : "—"}</span>
+            </div>
+          ))}
+          <div className="meta-row">
+            <span className="src">sources</span>
+            <span className="v" style={{color:"var(--acc-lcd-dim)"}}>{sources}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main unit ─────────────────────────────────────────────────────────────────
+function Unit() {
+  const [currentId, setCurrentId] = useState("wxpn-885-philadelphia-pa");
+  const [group, setGroup]         = useState("FM1");
+  const [collapsed, setCollapsed] = useState(false);
+  const [stations, setStations]   = useState(window.SQLCH_STATIONS);
+  const [playState, setPlayState] = useState("idle"); // idle | playing | paused
+  const [ynotPromo, setYnotPromo] = useState(false);
+  const audioRef  = useRef(null);
+  const ynotTimer = useRef(null);
+
+  const playing = playState === "playing";
+  const paused  = playState === "paused";
+
+  const enriched = useMemo(() => {
+    const cache = {};
+    Object.values(window.SQLCH_NOW_PLAYING).forEach(np => {
+      cache[`${np.artist.toLowerCase()}::${np.track.toLowerCase()}`] = {
+        album: np.album, year: np.year, genres: np.genre ? [np.genre] : [], cover: np.cover,
+      };
+    });
+    return cache;
+  }, []);
+
+  const np = useMemo(() => {
+    const station = stations.find(s => s.id === currentId);
+    if (!station || playState === "idle") {
+      return window.SqlchMeta.parseNowPlaying({ mpris: null, mpv: null, enriched, station: null });
+    }
+    const seed = window.SQLCH_NOW_PLAYING[currentId] || null;
+    if (!seed) {
+      return window.SqlchMeta.parseNowPlaying({ mpris: null, mpv: { metadata: {}, bitrate: null, channels: null }, enriched, station });
+    }
+    return window.SqlchMeta.parseNowPlaying({
+      mpris: { artist: seed.artist, title: seed.track },
+      mpv: { metadata: { "icy-title": `${seed.artist} - ${seed.track}`, "icy-genre": seed.genre, "icy-br": seed.bitrate }, bitrate: seed.bitrate, channels: seed.channels },
+      enriched,
+      station,
+    });
+  }, [currentId, playState, enriched]);
+
+  // Audio wiring
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      const station = stations.find(s => s.id === currentId);
+      const url = station?.url || "";
+      if (url) {
+        if (audio.src !== url) audio.src = url;
+        audio.play().catch(() => {});
+      }
+    } else if (paused) {
+      audio.pause();
+    } else {
+      audio.pause();
+      if (audio.src) { audio.removeAttribute("src"); audio.load(); }
+    }
+  }, [playState, currentId]);
+
+  // YNOT promo after 60 seconds
+  useEffect(() => {
+    clearTimeout(ynotTimer.current);
+    setYnotPromo(false);
+    if (playing && currentId === "ynot-radio-philly") {
+      ynotTimer.current = setTimeout(() => setYnotPromo(true), 60000);
+    }
+    return () => clearTimeout(ynotTimer.current);
+  }, [playing, currentId]);
+
+  function pick(id) {
+    setCurrentId(id);
+    const st = stations.find(s => s.id === id);
+    if (st) setGroup(st.group);
+  }
+  function shiftGroup(dir) {
+    const i = window.SQLCH_GROUPS.indexOf(group);
+    setGroup(window.SQLCH_GROUPS[(i + dir + window.SQLCH_GROUPS.length) % window.SQLCH_GROUPS.length]);
+  }
+  function addStation({ name, url }) {
+    const id = name.toLowerCase().replace(/[^\w]+/g, "-");
+    if (stations.find(s => s.id === id)) return;
+    setStations(prev => [...prev, { id, name, url, subtitle: "added", frequency: "—", group }]);
+  }
+  function prevSt() {
+    const inG = stations.filter(s => s.group === group);
+    const i = inG.findIndex(s => s.id === currentId);
+    const prev = inG[(i - 1 + inG.length) % Math.max(inG.length, 1)];
+    if (prev) pick(prev.id);
+  }
+  function nextSt() {
+    const inG = stations.filter(s => s.group === group);
+    const i = inG.findIndex(s => s.id === currentId);
+    const next = inG[(i + 1) % Math.max(inG.length, 1)];
+    if (next) pick(next.id);
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
+      <audio ref={audioRef} preload="none" />
+
+      <div className="chassis acc-amber" style={{ width: 420 }}>
+        <NowPlayingDisplay np={np} playing={playing} paused={paused} />
+        <TransportBar
+          playing={playing} paused={paused}
+          onPlayPause={() => setPlayState(s => s === "playing" ? "paused" : "playing")}
+          onStop={() => setPlayState("idle")}
+          onPrev={prevSt} onNext={nextSt}
+          onCollapse={() => setCollapsed(c => !c)}
+        />
+        {collapsed && (
+          <CollapsedBar
+            stations={stations} currentId={currentId} group={group}
+            onPickNum={pick}
+            onPrevGroup={() => shiftGroup(-1)}
+            onNextGroup={() => shiftGroup(1)}
+            onExpand={() => setCollapsed(false)}
+          />
+        )}
+        <div className="seam-wrap"><div className="seam"/><div className="seam-shadow"/></div>
+        <div className="mfr-row">
+          <div className="mfr-badge">SQLCH  ·  MMXXVI</div>
+          <div style={{fontFamily:"var(--mono)",fontSize:7,letterSpacing:".24em",color:"#3a3a3a"}}>SN·2026·PHL·001</div>
+        </div>
+      </div>
+
+      {ynotPromo && (
+        <div className="ynot-promo">
+          <button className="ynot-dismiss" onClick={() => setYnotPromo(false)}>✕</button>
+          you've been listening to YNOT Radio.<br />
+          independent music · commercial-free · philadelphia.<br />
+          <a href="https://www.ynotradio.net" target="_blank" rel="noopener noreferrer">
+            visit ynotradio.net →
+          </a>
+        </div>
+      )}
+
+      <LibraryModule
+        stations={stations} currentId={currentId} group={group}
+        onPick={pick} onGroupChange={setGroup} onAddStation={addStation}
+      />
+
+      <DiscoverModule onAddToLibrary={addStation} />
+
+      <MetaConsole np={np} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("app-root")).render(<Unit />);
+</script>
+
+</body>
+</html>
