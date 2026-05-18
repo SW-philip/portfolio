@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Repko · Conversational Experience Systems Designer</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --rose: #ea9a97;
+      --pine: #3e8fb0;
+      --foam: #9ccfd8;
+      --iris: #c4a7e7;
+      --hl-low: #2a283e;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--base);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── SYSTEM SIDEBARS ── */
+    .sys-sidebar {
+      position: fixed;
+      bottom: 80px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      color: var(--muted);
+      z-index: 10;
+      pointer-events: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sidebar-left { left: 40px; }
+    .sidebar-right { right: 40px; text-align: right; }
+
+    .stat-line { margin-bottom: 4px; }
+    .stat-label { color: var(--pine); margin-right: 4px; }
+
+    /* ── TERMINAL ELEMENTS ── */
+    .nav-name {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .terminal-prompt { color: var(--foam); font-weight: 700; }
+    .terminal-command { color: var(--gold); font-weight: 600; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--iris);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav { padding: 28px 0; border-bottom: 1px solid var(--hl-med); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+
+    /* === KEBAB NAV === */
+    .kebab-wrapper { position: relative; display: inline-block; }
+    .kebab-btn {
+      position: relative; width: 44px; height: 44px;
+      background: var(--surface); border: 2px solid var(--overlay);
+      border-radius: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .kebab-btn:hover {
+      border-color: #eea050; background: var(--overlay);
+      animation: spit-startup 0.5s ease-out forwards;
+    }
+    .spit {
+      position: relative; width: 3px; height: 28px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+    }
+    .spit::before {
+      content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%); width: 1px;
+      background: linear-gradient(to bottom, transparent, #eea050, transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .kebab-btn:hover .spit::before { opacity: 0.5; }
+    .dot-orbit {
+      position: relative; width: 3px; height: 5px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--text); position: absolute;
+      left: 50%; transform: translateX(-50%); transition: background 0.2s;
+    }
+    .kebab-btn:hover .dot { background: #eea050; }
+    .kebab-btn:hover .dot-orbit:nth-child(1) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) 0s infinite; }
+    .kebab-btn:hover .dot-orbit:nth-child(2) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.47s infinite; }
+    .kebab-btn:hover .dot-orbit:nth-child(3) .dot { animation: orbit 1.4s cubic-bezier(0.45,0.05,0.55,0.95) -0.93s infinite; }
+    @keyframes orbit {
+      0%   { transform: translateX(0px)  scale(1);     opacity: 1;    }
+      12%  { transform: translateX(5px)  scaleX(0.65); opacity: 0.9;  }
+      25%  { transform: translateX(7px)  scaleX(0.15); opacity: 0.6;  }
+      38%  { transform: translateX(5px)  scaleX(0.05); opacity: 0.25; }
+      50%  { transform: translateX(0px)  scale(0.6);   opacity: 0.15; }
+      62%  { transform: translateX(-5px) scaleX(0.05); opacity: 0.25; }
+      75%  { transform: translateX(-7px) scaleX(0.15); opacity: 0.6;  }
+      88%  { transform: translateX(-5px) scaleX(0.65); opacity: 0.9;  }
+      100% { transform: translateX(0px)  scale(1);     opacity: 1;    }
+    }
+    @keyframes spit-startup {
+      0%  { transform: rotate(0deg); }
+      15% { transform: rotate(-1.5deg); }
+      35% { transform: rotate(0.8deg); }
+      55% { transform: rotate(-0.4deg); }
+      75% { transform: rotate(0.2deg); }
+      100%{ transform: rotate(0deg); }
+    }
+    .kebab-btn::after {
+      content: ''; position: absolute; inset: -1px; border-radius: 6px;
+      background: radial-gradient(ellipse at center, #eea050 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: -1;
+    }
+    .kebab-btn:hover::after { opacity: 0.12; }
+    .kebab-menu {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: var(--surface); border: 1px solid var(--overlay);
+      border-radius: 6px; min-width: 130px; overflow: hidden;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+    .kebab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .kebab-menu a {
+      display: block; padding: 10px 16px; font-size: 13px; letter-spacing: 0.5px;
+      color: var(--subtle); text-decoration: none;
+      border-bottom: 1px solid var(--overlay);
+      opacity: 0; transform: translateX(-10px);
+      transition: background 0.12s, color 0.12s;
+    }
+    .kebab-menu a:last-child { border-bottom: none; }
+    .kebab-menu.open a:nth-child(1) { animation: km-in 0.25s ease-out 0.05s forwards; }
+    .kebab-menu.open a:nth-child(2) { animation: km-in 0.25s ease-out 0.10s forwards; }
+    .kebab-menu.open a:nth-child(3) { animation: km-in 0.25s ease-out 0.15s forwards; }
+    @keyframes km-in { to { opacity: 1; transform: translateX(0); } }
+    .kebab-menu a:hover { background: var(--overlay); color: var(--text); }
+    .kebab-overlay { position: fixed; inset: 0; z-index: 50; display: none; }
+    .kebab-overlay.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 0 88px;
+      position: relative;
+      animation: heroFadeIn 0.7s ease-out;
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--iris);
+      margin-bottom: 36px;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: heroFadeIn 0.6s ease-out 0.05s both;
+      background: var(--overlay);
+    }
+
+    .hero-avatar:hover {
+      border-color: var(--gold);
+      transform: scale(1.05);
+    }
+
+    .hero-eyebrow {
+      font-size: 13px;
+      color: var(--iris);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: heroFadeIn 0.6s ease-out 0.12s both;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      max-width: 620px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--gold) 70%, var(--iris) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroFadeIn 0.6s ease-out 0.2s both;
+    }
+
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(to right, var(--foam), var(--iris));
+      margin-top: 20px;
+      border-radius: 2px;
+    }
+
+    .hero-body {
+      font-size: 17px;
+      color: var(--subtle);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+      animation: heroFadeIn 0.6s ease-out 0.3s both;
+    }
+
+    .hero-body strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── NAV CARDS ── */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      animation: heroFadeIn 0.6s ease-out 0.4s both;
+    }
+
+    .nav-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--hl-med);
+      border-radius: 10px;
+      padding: 18px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+
+    .nav-card:hover {
+      border-color: var(--muted);
+      background: var(--overlay);
+    }
+
+    .nav-card-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .nav-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-card-desc {
+      font-size: 13px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .nav-card.accent-iris:hover { border-color: var(--iris); }
+    .nav-card.accent-iris .nav-card-label { color: var(--iris); }
+
+    .nav-card.accent-gold:hover { border-color: var(--gold); }
+    .nav-card.accent-gold .nav-card-label { color: var(--gold); }
+
+    .nav-card.accent-foam:hover { border-color: var(--foam); }
+    .nav-card.accent-foam .nav-card-label { color: var(--foam); }
+
+    .nav-card.accent-rose:hover { border-color: var(--rose); }
+    .nav-card.accent-rose .nav-card-label { color: var(--rose); }
+
+    /* ── CURRENTLY ── */
+    .currently {
+      padding: 30px 0;
+      border-top: 1px solid var(--hl-med);
+      margin-top: 80px;
+    }
+
+    .currently-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .currently-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .currently-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--hl-low);
+    }
+
+    .currently-item:last-child {
+      border-bottom: 1px solid var(--hl-low);
+    }
+
+    .currently-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pine);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    .currently-text {
+      font-size: 15px;
+      color: var(--subtle);
+      line-height: 1.5;
+    }
+
+    .currently-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .currently-text a {
+      color: var(--foam);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+    }
+
+    .currently-text a:hover {
+      text-decoration-color: var(--foam);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--hl-med);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .sys-sidebar { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-cards { grid-template-columns: 1fr; }
+      .hero { padding: 64px 0 56px; }
+      .hero-avatar { width: 100px; height: 100px; margin-bottom: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--hl-med)" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+</svg>
+
+<aside class="sys-sidebar sidebar-left">
+  <div class="stat-line"><span class="stat-label">OS</span> NixOS 26.05</div>
+  <div class="stat-line"><span class="stat-label">WM</span> Niri (Wayland)</div>
+  <div class="stat-line"><span class="stat-label">LOC</span> Philadelphia, PA</div>
+</aside>
+
+<aside class="sys-sidebar sidebar-right">
+  <div class="stat-line"><span class="stat-label">STATUS</span> Production Nominal</div>
+  <div class="stat-line"><span class="stat-label">INTENTS</span> 2,412 active</div>
+  <div class="stat-line"><span class="stat-label">SHELL</span> zsh</div>
+</aside>
+
+<div id="kebab-overlay" class="kebab-overlay"></div>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">
+      <span class="terminal-prompt">phil@nix:~#</span>
+      <span class="terminal-command">Philip Repko</span>
+      <span class="cursor"></span>
+    </span>
+    <div class="kebab-wrapper">
+      <button class="kebab-btn" onclick="toggleKebab()" aria-label="Navigation">
+        <div class="spit">
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+          <div class="dot-orbit"><span class="dot"></span></div>
+        </div>
+      </button>
+      <div class="kebab-menu" id="kebab-menu">
+        <a href="/work">Work</a>
+        <a href="/writing">Writing</a>
+        <a href="/projects">Projects</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="hero">
+      <img class="hero-avatar" src="assets/profile.jpg" alt="Philip Repko" />
+
+      <p class="hero-eyebrow">Conversational Experience Systems Designer</p>
+
+      <h1>Designing systems that understand intent,<br>and occasionally judge it.</h1>
+
+      <p class="hero-body">
+        I engineer and own <strong>large-scale conversational AI systems</strong> where complex financial infrastructure meets human frustration. I map the paths that turn million-call contact center chaos into predictable, elegant self-service.
+      </p>
+
+      <div class="nav-cards">
+        <a href="/work" class="nav-card accent-iris">
+          <p class="nav-card-label">Case Studies</p>
+          <p class="nav-card-title">Systems Work</p>
+          <p class="nav-card-desc">Intent mapping, containment strategy, and how I untangle disputed transactions and ACH routing failures.</p>
+        </a>
+        <a href="/writing" class="nav-card accent-gold">
+          <p class="nav-card-label">Words</p>
+          <p class="nav-card-title">Writing</p>
+          <p class="nav-card-desc">Speculative fiction, dark comedies, poetry, and things that don't require an API documentation file.</p>
+        </a>
+        <a href="/projects" class="nav-card accent-foam">
+          <p class="nav-card-label">Open Source</p>
+          <p class="nav-card-title">Projects</p>
+          <p class="nav-card-desc">Custom CLI tools, dotfiles, and NixOS configurations generated purely for technical sanity.</p>
+        </a>
+        <a href="mailto:me@philipjrepko.com" class="nav-card accent-rose">
+          <p class="nav-card-label">Contact</p>
+          <p class="nav-card-title">Have a broken taxonomy?</p>
+          <p class="nav-card-desc">Let's look at the logs together.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="currently">
+      <p class="currently-label">Currently</p>
+      <div class="currently-items">
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--iris);"></div>
+          <p class="currently-text">Auditing and re-architecting <strong>2,500+ conversational interaction models</strong> for a major fintech evolution</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--gold);"></div>
+          <p class="currently-text">Migrating a legacy classification layer to a modern <strong>LLM-orchestrated routing framework</strong> with custom guardrails</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--foam);"></div>
+          <p class="currently-text">Building <strong><a href="https://github.com/SW-philip/nixos">phl</a></strong> — a custom development shell configuration featuring an overly opinionated text narrator</p>
+        </div>
+        <div class="currently-item">
+          <div class="currently-dot" style="background: var(--rose);"></div>
+          <p class="currently-text">Polishing the final draft of <strong>All These Perfect Floods</strong>, a novel</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Philip Repko · Philadelphia, PA · philipjrepko.com </p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var _km = null;
+    function toggleKebab() {
+      var m = document.getElementById('kebab-menu');
+      var ov = document.getElementById('kebab-overlay');
+      var opening = !m.classList.contains('open');
+      m.classList.toggle('open', opening);
+      ov.classList.toggle('active', opening);
+      _km = opening ? m : null;
+    }
+    function closeKebab() {
+      if (_km) { _km.classList.remove('open'); _km = null; }
+      document.getElementById('kebab-overlay').classList.remove('active');
+    }
+    window.toggleKebab = toggleKebab;
+    document.getElementById('kebab-overlay').addEventListener('click', closeKebab);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKebab(); });
+  })();
+</script>
+
+</body>
+</html>
