@@ -1,526 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Philip Repko</title>
-<style>
-  :root {
-    --base: #232136;
-    --surface: #2a273f;
-    --overlay: #393552;
-    --muted: #6e6a86;
-    --subtle: #908caa;
-    --text: #e0def4;
-    --love: #eb6f92;
-    --gold: #f6c177;
-    --rose: #ea9a97;
-    --pine: #3e8fb0;
-    --foam: #9ccfd8;
-    --iris: #c4a7e7;
-    --highlight-low: #2a283e;
-    --highlight-med: #44415a;
-    --highlight-high: #56526e;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>philipjrepko.com</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --iris: #c4a7e7;
+      --hl-med: #44415a;
+    }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body {
-    background: var(--base);
-    color: var(--text);
-    font-family: 'Iosevka', 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 28px;
+    }
 
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1.25rem 4rem;
-  }
+    .center {
+      max-width: 520px;
+      width: 100%;
+    }
 
-  .wrap { width: 100%; max-width: 680px; }
+    .who {
+      font-size: clamp(13px, 2vw, 15px);
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
 
-  header {
-    border-bottom: 1px solid var(--highlight-med);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-  }
+    .name {
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
 
-  .prompt { color: var(--foam); font-size: 14px; }
-  .prompt .user { color: var(--iris); }
-  .prompt .at { color: var(--subtle); }
-  .prompt .host { color: var(--rose); }
-  .prompt .sep { color: var(--subtle); }
-  .prompt .cmd { color: var(--text); }
+    .name span {
+      color: var(--gold);
+    }
 
-  h1 {
-    font-size: 28px;
-    font-weight: 400;
-    margin-top: 0.5rem;
-    letter-spacing: -0.02em;
-  }
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: var(--hl-med);
+      margin-bottom: 32px;
+    }
 
-  .tagline {
-    color: var(--subtle);
-    font-size: 14px;
-    margin-top: 0.25rem;
-  }
+    .answer {
+      font-size: clamp(16px, 2.5vw, 19px);
+      color: var(--subtle);
+      line-height: 1.65;
+      max-width: 400px;
+    }
 
-  .daemon {
-    border-left: 2px solid var(--iris);
-    padding: 0.25rem 0 0.25rem 1rem;
-    margin: 1.5rem 0;
-    color: var(--subtle);
-    font-size: 14px;
-  }
-  .daemon .label {
-    color: var(--iris);
-    font-size: 12px;
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-  .daemon p + p { margin-top: 0.5rem; }
-  .daemon em { color: var(--rose); font-style: italic; }
-  .daemon strong { color: var(--gold); font-weight: 400; }
+    .answer em {
+      font-style: normal;
+      color: var(--iris);
+    }
 
-  .scene { display: none; }
-  .scene.active { display: block; }
+    .footer {
+      margin-top: 64px;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-  .question {
-    color: var(--text);
-    font-size: 16px;
-    margin: 1rem 0 0.75rem;
-  }
+    .footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--hl-med);
+    }
 
-  .binary {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    margin: 1rem 0;
-  }
-  button.bin {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--highlight-med);
-    padding: 1rem;
-    font-family: inherit;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.15s;
-  }
-  button.bin:hover {
-    background: var(--overlay);
-    border-color: var(--foam);
-  }
-  button.bin:active { transform: scale(0.98); }
-  button.bin.picked {
-    border-color: var(--iris);
-    background: var(--overlay);
-    color: var(--iris);
-  }
+    .footer a:hover { color: var(--subtle); }
 
-  .you-said {
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0.75rem 0;
-    font-style: italic;
-  }
-  .you-said strong { color: var(--gold); font-weight: 400; font-style: normal; }
-
-  .reveal-box {
-    background: var(--surface);
-    border: 1px solid var(--highlight-med);
-    border-left: 2px solid var(--gold);
-    padding: 1.25rem;
-    margin: 1rem 0;
-    border-radius: 2px;
-  }
-  .reveal-box .finding {
-    color: var(--text);
-    font-size: 15px;
-    margin-bottom: 0.75rem;
-  }
-  .reveal-box .finding strong { color: var(--gold); font-weight: 400; }
-  .reveal-box .stat {
-    color: var(--rose);
-    font-size: 14px;
-    margin: 0.75rem 0;
-  }
-  .reveal-box .study {
-    color: var(--subtle);
-    font-size: 12px;
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px dashed var(--highlight-med);
-  }
-
-  .chart-wrap {
-    background: var(--highlight-low);
-    border: 1px solid var(--highlight-med);
-    padding: 1rem 0.5rem 0.5rem;
-    margin: 1rem 0;
-    border-radius: 2px;
-  }
-  .chart-title {
-    color: var(--subtle);
-    font-size: 11px;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
-  }
-  .chart-svg { display: block; width: 100%; height: auto; }
-  .chart-legend {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
-    font-size: 11px;
-    color: var(--subtle);
-    flex-wrap: wrap;
-  }
-  .chart-legend span::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 2px;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
-  .chart-legend .a::before { background: var(--gold); }
-  .chart-legend .b::before { background: var(--foam); }
-
-  .explanation {
-    border-left: 2px solid var(--rose);
-    padding: 0.25rem 0 0.25rem 1rem;
-    margin: 2rem 0 1rem;
-    color: var(--text);
-    font-size: 14px;
-  }
-  .explanation .label {
-    color: var(--rose);
-    font-size: 12px;
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .explanation p + p { margin-top: 0.75rem; }
-  .explanation em { color: var(--foam); font-style: italic; }
-  .explanation strong { color: var(--gold); font-weight: 400; }
-
-  .actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-  button.action {
-    background: transparent;
-    color: var(--subtle);
-    border: 1px solid var(--highlight-med);
-    padding: 0.5rem 1rem;
-    font-family: inherit;
-    font-size: 13px;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.15s;
-  }
-  button.action:hover {
-    color: var(--text);
-    border-color: var(--foam);
-  }
-
-  footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--highlight-low);
-    color: var(--muted);
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  footer a {
-    color: var(--subtle);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--muted);
-  }
-  footer a:hover { color: var(--foam); border-color: var(--foam); }
-
-  .cursor {
-    display: inline-block;
-    width: 7px;
-    height: 14px;
-    background: var(--foam);
-    vertical-align: -2px;
-    animation: blink 1.1s steps(2) infinite;
-    margin-left: 2px;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  @media (max-width: 480px) {
-    body { padding: 1.5rem 1rem 3rem; }
-    h1 { font-size: 22px; }
-  }
-</style>
+    .dots {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-
-  <header>
-    <div class="prompt">
-      <span class="user">sqlch</span><span class="at">@</span><span class="host">nix</span><span class="sep">:~$</span>
-      <span class="cmd">whoami --status</span>
+  <div class="center">
+    <p class="who">Who is<span class="dots" id="dots"></span></p>
+    <h1 class="name">philip<span>j</span>repko.com</h1>
+    <div class="divider"></div>
+    <p class="answer">The answer will <em>neither surprise nor bore you.</em> It's coming though. Give it a minute.</p>
+    <div class="footer">
+      <a href="mailto:me@philipjrepko.com">me@philipjrepko.com</a>
     </div>
-    <h1>Philip Repko</h1>
-    <p class="tagline">conversational experience systems · portfolio offline during re-indexing</p>
-  </header>
+  </div>
 
-  <section class="scene active" id="scene-q1">
-    <div class="daemon">
-      <span class="label">daemon</span>
-      <p>while the content trees rebuild, help verify our evaluation logic. two rapid-fire questions.</p>
-    </div>
-    <p class="question" id="q1-text"></p>
-    <div class="binary" id="q1-choices"></div>
-  </section>
-
-  <section class="scene" id="scene-q2">
-    <p class="you-said" id="q1-recap"></p>
-    <p class="question" id="q2-text"></p>
-    <div class="binary" id="q2-choices"></div>
-  </section>
-
-  <section class="scene" id="scene-reveal">
-    <div class="daemon">
-      <span class="label">daemon</span>
-      <p id="reveal-intro"></p>
-    </div>
-
-    <div class="reveal-box">
-      <div class="finding" id="reveal-finding"></div>
-      <div class="chart-wrap">
-        <div class="chart-title" id="chart-title"></div>
-        <svg class="chart-svg" id="chart-svg" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
-        <div class="chart-legend" id="chart-legend"></div>
-      </div>
-      <div class="stat" id="reveal-stat"></div>
-      <div class="study" id="reveal-study"></div>
-    </div>
-
-    <div class="daemon">
-      <span class="label">daemon</span>
-      <p id="reveal-bait"></p>
-    </div>
-
-    <div class="actions">
-      <button class="action" id="explain-btn">→ process tracing log</button>
-      <button class="action" id="again-btn">run alternate evaluation</button>
-    </div>
-  </section>
-
-  <section class="scene" id="scene-explain">
-    <div class="explanation">
-      <span class="label">analysis breakdown</span>
-      <p>The system did not parse your preferences. The correlation shown above is accurate and verifiable via <a href="https://tylervigen.com/spurious-correlations" style="color:var(--foam);text-decoration:none;border-bottom:1px dotted var(--foam);">Tyler Vigen's archive</a>—the mathematical dependency is mathematically valid, and the underlying records are authentic.</p>
-      <p>What is fabricated is the logical architecture that implied your choice had any systemic relationship to that curve. There is no classification matrix connecting your input parameters to industrial or public safety tracking records. The sequence was generated explicitly to test how your internal interpretation layer handles sudden contextual voids.</p>
-      <p>If you felt a narrative begin to self-assemble—even for a fraction of a second—your brain did exactly what it was optimized to do. It synthesized order out of arbitrary nodes, inventing a causal bridge where only isolated events existed. <em>"People who prefer architectural predictability might naturally..."</em></p>
-      <p>In conversational AI and automation design, this is the exact threshold where users drop off, hallucinate value, or rationalize systematic errors. We call this <strong>post-hoc rationalization</strong>. The conclusion crystallizes instantly and reflexively based on systemic layout or environmental signals; the structured justification is compiled backward, after the fact, to give the illusion of linear processing.</p>
-      <p>You cannot patch this out of human wetware. It runs the majority of interfaces, arguments, and systemic disagreements. But if you design automated systems, recognizing this specific inflection point is the difference between a containment engine that actually helps a user, and a convoluted funnel that just makes them guess why they're trapped.</p>
-      <p style="margin-top:1.25rem;border-top:1px dashed var(--highlight-med);padding-top:1rem;"><strong>Why this matters.</strong> A huge portion of enterprise conversational AI architecture fails because engineers build systems to handle *logical arguments*, while human users interact via *immediate intuitive jumps* followed by defense strategies. When an interface fails, or an automated agent drifts, users won't read the documentation—they'll create a story about why it failed, and then they'll act on that story as if it were the ground truth.</p>
-    </div>
-    <div class="actions">
-      <button class="action" id="restart-btn">restart evaluation</button>
-      <button class="action" id="email-btn">notify me when re-indexing completes</button>
-    </div>
-  </section>
-
-  <footer>
-    <span>philipjrepko.com · the daemon is listening</span>
-    <a href="mailto:hello@philipjrepko.com">hello@philipjrepko.com</a>
-  </footer>
-
-</div>
-
-<script>
-const Q1_OPTIONS = [
-  { text: "system recovery model:", a: "fail-safe defaults", b: "strict system integrity" },
-  { text: "operating philosophy:", a: "predictable architecture", b: "runtime optimization" },
-  { text: "development model:", a: "declarative state", b: "imperative scripting" },
-  { text: "cognitive approach:", a: "structural isolation", b: "continuous synthesis" },
-  { text: "interface preference:", a: "terminal streams", b: "spatial layout managers" }
-];
-
-const Q2_OPTIONS = [
-  { text: "narrative execution profile:", a: "recursive patterns", b: "linear progression" },
-  { text: "system management focus:", a: "containment and deflection", b: "unrestricted exploration" },
-  { text: "architectural metric:", a: "utility-scale efficiency", b: "minimal footprint code" },
-  { text: "workspace distribution:", a: "strictly tiled", b: "dynamically scaled" }
-];
-
-const CORRELATIONS = [
-  {
-    a: "US per-capita cheese consumption",
-    b: "Number of people who died entangled in their bedsheets",
-    r: 0.947,
-    years: "2000–2009",
-    seriesA: [29.8, 30.1, 30.6, 30.6, 31.3, 31.7, 32.6, 32.7, 32.8, 33.1],
-    seriesB: [327, 456, 509, 497, 596, 573, 661, 741, 809, 717],
-    source: "USDA · CDC mortality data"
-  },
-  {
-    a: "Films Nicolas Cage appeared in (per year)",
-    b: "Number of people who drowned in swimming pools",
-    r: 0.666,
-    years: "1999–2009",
-    seriesA: [2, 2, 2, 3, 1, 1, 2, 3, 4, 1, 4],
-    seriesB: [109, 102, 102, 98, 85, 95, 96, 98, 123, 94, 102],
-    source: "IMDB · CDC internal charts"
-  },
-  {
-    a: "US spending on science, space, and technology",
-    b: "Suicides by hanging, strangulation, and suffocation",
-    r: 0.992,
-    years: "1999–2009",
-    seriesA: [18.079, 18.594, 19.753, 20.734, 20.831, 23.029, 23.597, 23.584, 25.525, 27.731, 29.449],
-    seriesB: [5427, 5688, 6198, 6462, 6635, 7336, 7248, 7491, 8161, 8578, 9000],
-    source: "OMB · CDC safety indices"
-  },
-  {
-    a: "US per-capita margarine consumption",
-    b: "Divorce rate in Maine",
-    r: 0.993,
-    years: "2000–2009",
-    seriesA: [8.2, 7.0, 6.5, 5.3, 5.2, 4.0, 4.6, 4.5, 4.2, 3.7],
-    seriesB: [5.0, 4.7, 4.6, 4.4, 4.3, 4.1, 4.2, 4.2, 4.2, 4.1],
-    source: "USDA · Maine Department of Vital Records"
-  },
-  {
-    a: "Number of letters in the winning Scripps spelling bee word",
-    b: "Number of people killed by venomous spiders",
-    r: 0.808,
-    years: "1999–2009",
-    seriesA: [9, 8, 11, 9, 7, 4, 8, 9, 5, 8, 6],
-    seriesB: [6, 5, 5, 10, 8, 14, 10, 4, 8, 5, 6],
-    source: "Scripps Tracking · CDC hazardous exposure indices"
-  }
-];
-
-let state = { q1: null, q1Pair: null, q2: null, q2Pair: null, corr: null };
-
-const $ = id => document.getElementById(id);
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-
-function show(sceneId) {
-  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-  $(sceneId).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function renderBinary(containerId, pair, onPick) {
-  const c = $(containerId);
-  c.innerHTML = '';
-  [pair.a, pair.b].forEach(label => {
-    const b = document.createElement('button');
-    b.className = 'bin';
-    b.textContent = label;
-    b.addEventListener('click', () => {
-      c.querySelectorAll('.bin').forEach(x => x.classList.remove('picked'));
-      b.classList.add('picked');
-      setTimeout(() => onPick(label), 280);
-    });
-    c.appendChild(b);
-  });
-}
-
-function startQ1() {
-  state = { q1: null, q1Pair: null, q2: null, q2Pair: null, corr: null };
-  state.q1Pair = pick(Q1_OPTIONS);
-  $('q1-text').innerHTML = state.q1Pair.text + '<span class="cursor"></span>';
-  renderBinary('q1-choices', state.q1Pair, ans => {
-    state.q1 = ans;
-    startQ2();
-  });
-  show('scene-q1');
-}
-
-function startQ2() {
-  state.q2Pair = pick(Q2_OPTIONS);
-  $('q1-recap').innerHTML = `parameter parsed: <strong>"${state.q1}"</strong>. loading state dependency...`;
-  $('q2-text').innerHTML = state.q2Pair.text + '<span class="cursor"></span>';
-  renderBinary('q2-choices', state.q2Pair, ans => {
-    state.q2 = ans;
-    showReveal();
-  });
-  show('scene-q2');
-}
-
-function showReveal() {
-  state.corr = pick(CORRELATIONS);
-  const c = state.corr;
-
-  $('reveal-intro').innerHTML =
-    `evaluation matrix populated. isolating users who register <strong>"${state.q1}"</strong> and <strong>"${state.q2}"</strong> profiles:`;
-
-  $('reveal-finding').innerHTML =
-    `Your active selection model mirrors the exact variance path between <strong>${c.a}</strong> and <strong>${c.b}</strong> across the tracking period ${c.years}.`;
-
-  $('chart-title').textContent = `${c.a}  vs.  ${c.b}  ·  ${c.years}`;
-  drawChart(c.seriesA, c.seriesB);
-  $('chart-legend').innerHTML = `<span class="a">${c.a}</span><span class="b">${c.b}</span>`;
-
-  $('reveal-stat').innerHTML = `derived tracking correlation · <strong style="color:var(--gold)">r = ${c.r}</strong>`;
-  $('reveal-study').innerHTML = `source index: ${c.source} · compiled via Tyler Vigen`;
-
-  $('reveal-bait').innerHTML =
-    `freeze execution for a second. <em>is your narrative generator running yet?</em> did your brain find a reason why someone selecting <strong>"${state.q1}"</strong> maps to this trendline?`;
-
-  show('scene-reveal');
-}
-
-function drawChart(a, b) {
-  const svg = $('chart-svg');
-  const W = 600, H = 200, P = 20;
-  const n = Math.min(a.length, b.length);
-  const normalize = arr => {
-    const min = Math.min(...arr), max = Math.max(...arr);
-    const range = max - min || 1;
-    return arr.map(v => (v - min) / range);
-  };
-  const na = normalize(a.slice(0, n));
-  const nb = normalize(b.slice(0, n));
-  const xStep = (W - 2 * P) / (n - 1);
-  const toY = v => H - P - v * (H - 2 * P);
-  const path = arr => arr.map((v, i) =>
-    `${i === 0 ? 'M' : 'L'} ${P + i * xStep} ${toY(v)}`
-  ).join(' ');
-
-  svg.innerHTML = `
-    <line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="#44415a" stroke-width="1"/>
-    <line x1="${P}" y1="${P}" x2="${P}" y2="${H - P}" stroke="#44415a" stroke-width="1"/>
-    <path d="${path(na)}" fill="none" stroke="#f6c177" stroke-width="2" stroke-linejoin="round"/>
-    <path d="${path(nb)}" fill="none" stroke="#9ccfd8" stroke-width="2" stroke-linejoin="round"/>
-    ${na.map((v, i) => `<circle cx="${P + i * xStep}" cy="${toY(v)}" r="2.5" fill="#f6c177"/>`).join('')}
-    ${nb.map((v, i) => `<circle cx="${P + i * xStep}" cy="${toY(v)}" r="2.5" fill="#9ccfd8"/>`).join('')}
-  `;
-}
-
-$('explain-btn').addEventListener('click', () => show('scene-explain'));
-$('again-btn').addEventListener('click', startQ1);
-$('restart-btn').addEventListener('click', startQ1);
-$('email-btn').addEventListener('click', () => {
-  window.location.href = 'mailto:hello@philipjrepko.com?subject=re-indexing%20completion%20alert';
-});
-
-startQ1();
-</script>
+  <script>
+    const el = document.getElementById('dots');
+    const frames = ['', '.', '..', '...', '....', '.....', '......', '.......', '........', '.........', '..........'];
+    let i = 0;
+    let dir = 1;
+    setInterval(() => {
+      el.textContent = frames[i];
+      i += dir;
+      if (i >= frames.length - 1) dir = -1;
+      if (i <= 0) dir = 1;
+    }, 120);
+  </script>
 </body>
 </html>

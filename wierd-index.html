@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Philip Repko</title>
+<style>
+:root {
+  --base:    #232136;
+  --surface: #2a273f;
+  --overlay: #393552;
+  --muted:   #6e6a86;
+  --subtle:  #908caa;
+  --text:    #e0def4;
+  --love:    #eb6f92;
+  --gold:    #f6c177;
+  --rose:    #ea9a97;
+  --foam:    #9ccfd8;
+  --iris:    #c4a7e7;
+  --hl-low:  #2a283e;
+  --hl-med:  #44415a;
+  --hl-high: #56526e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--base);
+  color: var(--text);
+  font-family: 'Iosevka', 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  height: 100vh;
+  overflow: hidden;
+}
+.app {
+  display: grid;
+  grid-template-rows: 36px 1fr;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+}
+/* Topbar */
+.topbar {
+  grid-column: 1 / 3;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hl-med);
+  display: flex;
+  align-items: center;
+  padding: 0 0.875rem;
+  gap: 0.875rem;
+  min-width: 0;
+}
+.tbar-id { white-space: nowrap; flex-shrink: 0; font-size: 12.5px; }
+.tbar-id .name { color: var(--text); }
+.tbar-id .sep  { color: var(--muted); }
+.tbar-id .repo { color: var(--foam); text-decoration: none; }
+.tbar-id .repo:hover { color: var(--iris); }
+.breadcrumb {
+  flex: 1; display: flex; align-items: center;
+  font-size: 11.5px; overflow: hidden; white-space: nowrap; min-width: 0;
+}
+.bc-sep  { padding: 0 0.2rem; color: var(--hl-med); }
+.bc-part { color: var(--subtle); }
+.bc-leaf { color: var(--text); }
+.tbar-nav { display: flex; gap: 1.25rem; flex-shrink: 0; font-size: 11.5px; }
+.tbar-nav a { color: var(--muted); text-decoration: none; }
+.tbar-nav a:hover { color: var(--subtle); }
+/* Sidebar */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--hl-med);
+  overflow-y: auto; overflow-x: hidden;
+}
+.sb-head {
+  padding: 0.5rem 0.75rem 0.3rem;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); border-bottom: 1px solid var(--hl-low);
+  position: sticky; top: 0; background: var(--surface); z-index: 1;
+}
+/* Tree items */
+.ti {
+  display: flex; align-items: center; gap: 0.3rem;
+  padding: 0.185rem 0.6rem; cursor: pointer;
+  white-space: nowrap; overflow: hidden; user-select: none; line-height: 1.5;
+}
+.ti-ic { flex-shrink: 0; font-size: 9px; width: 10px; text-align: center; color: var(--hl-med); }
+.ti-nm { overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
+.ti-dir .ti-nm { color: var(--iris); }
+.ti-dir:hover .ti-nm { color: var(--text); }
+.ti-file .ti-nm { color: var(--subtle); }
+.ti-file:hover .ti-nm { color: var(--text); }
+.ti-file.active .ti-nm { color: var(--foam); }
+.ti-file.nix .ti-ic { color: var(--muted); }
+.tc { display: none; }
+.tc.open { display: block; }
+/* Main */
+.main { display: flex; flex-direction: column; overflow: hidden; }
+/* Import bar */
+.ibar {
+  display: none; padding: 0.3rem 1rem; border-bottom: 1px solid var(--hl-low);
+  gap: 1.25rem; flex-wrap: wrap; align-items: center;
+  font-size: 11px; background: var(--surface);
+}
+.ibar.on { display: flex; }
+.ib-group { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+.ib-lbl { color: var(--muted); flex-shrink: 0; }
+.ib-chip {
+  color: var(--foam); border: 1px solid var(--hl-med);
+  border-radius: 2px; padding: 0.05rem 0.3rem; cursor: pointer; font-size: 10.5px;
+}
+.ib-chip:hover { color: var(--iris); border-color: var(--subtle); }
+.ib-chip.rev { color: var(--gold); }
+.ib-chip.rev:hover { color: var(--rose); }
+/* Code area */
+.carea { flex: 1; overflow: auto; padding: 0.75rem 1.25rem 2rem; }
+/* Welcome */
+.welcome {
+  height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.6rem;
+  color: var(--muted); text-align: center;
+}
+.wl-repo { font-size: 17px; color: var(--subtle); }
+.wl-hint { font-size: 11.5px; }
+/* Code */
+pre.code {
+  font-family: inherit; font-size: 12px; line-height: 1.72;
+  color: var(--text); white-space: pre; tab-size: 2;
+}
+.row { display: block; }
+.ln {
+  display: inline-block; min-width: 2.5rem; text-align: right;
+  padding-right: 1.25rem; color: var(--muted); user-select: none;
+  font-size: 10.5px; opacity: 0.7;
+}
+/* Nix tokens */
+.nk { color: var(--iris); }
+.nb { color: var(--foam); }
+.ns { color: var(--gold); }
+.nc { color: var(--muted); font-style: italic; }
+.na { color: var(--rose); }
+.np {
+  color: var(--foam); cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--hl-med);
+  text-underline-offset: 2px;
+}
+.np:hover { color: var(--iris); text-decoration-color: var(--subtle); }
+/* Messages */
+.msg { color: var(--muted); font-style: italic; }
+.err { color: var(--love); }
+/* Scrollbars */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--overlay); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--hl-high); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <span class="tbar-id">
+      <span class="name">Philip Repko</span>
+      <span class="sep"> · </span>
+      <a class="repo" href="https://github.com/SW-philip/dotfiles" target="_blank">SW-philip/dotfiles</a>
+    </span>
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <nav class="tbar-nav">
+      <a href="https://github.com/SW-philip" target="_blank">github</a>
+      <a href="mailto:me@philipjrepko.com">contact</a>
+    </nav>
+  </header>
+
+  <aside class="sidebar">
+    <div class="sb-head">dotfiles</div>
+    <div id="tree-root"><span class="msg" style="padding:0.5rem 0.75rem;display:block">loading…</span></div>
+  </aside>
+
+  <main class="main">
+    <div class="ibar" id="ibar">
+      <div class="ib-group" id="ib-out"></div>
+      <div class="ib-group" id="ib-in"></div>
+    </div>
+    <div class="carea" id="carea">
+      <div class="welcome" id="welcome">
+        <div class="wl-repo">SW-philip/dotfiles</div>
+        <div class="wl-hint">select a file to explore</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const OWNER = 'SW-philip';
+const REPO  = 'dotfiles';
+let BRANCH  = 'main';
+
+const rawUrl = p => `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${p}`;
+const apiUrl = e => `https://api.github.com/repos/${OWNER}/${REPO}/${e}`;
+
+const fcache = {};
+const icache = {};
+const revMap = {};
+
+// ─── Tree ─────────────────────────────────────────────────────────────────────
+function buildTree(items) {
+  const root = { d: {}, f: [] };
+  for (const item of items) {
+    if (item.type !== 'blob') continue;
+    const parts = item.path.split('/');
+    let node = root;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const k = parts[i];
+      if (!node.d[k]) node.d[k] = { d: {}, f: [] };
+      node = node.d[k];
+    }
+    node.f.push({ name: parts.at(-1), path: item.path });
+  }
+  return root;
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function renderTree(node, container, depth) {
+  const dirs  = Object.entries(node.d).sort(([a],[b]) => a.localeCompare(b));
+  const files = node.f.sort((a,b) => a.name.localeCompare(b.name));
+
+  for (const [name, child] of dirs) {
+    const wrap  = el('div');
+    const row   = el('div', 'ti ti-dir');
+    row.style.paddingLeft = `${0.6 + depth * 0.8}rem`;
+    const ic = el('span', 'ti-ic', '▶');
+    const nm = el('span', 'ti-nm', name + '/');
+    row.append(ic, nm);
+    const kids = el('div', 'tc');
+    renderTree(child, kids, depth + 1);
+    wrap.append(row, kids);
+    row.addEventListener('click', () => {
+      const open = kids.classList.toggle('open');
+      ic.textContent = open ? '▼' : '▶';
+    });
+    container.appendChild(wrap);
+  }
+
+  for (const f of files) {
+    const isNix = f.name.endsWith('.nix');
+    const row = el('div', `ti ti-file${isNix ? ' nix' : ''}`);
+    row.style.paddingLeft = `${0.6 + (depth + 1) * 0.8}rem`;
+    row.dataset.path = f.path;
+    row.append(el('span', 'ti-ic', isNix ? '◆' : '·'), el('span', 'ti-nm', f.name));
+    row.addEventListener('click', () => openFile(f.path));
+    container.appendChild(row);
+  }
+}
+
+// ─── File open ────────────────────────────────────────────────────────────────
+async function openFile(path) {
+  markActive(path);
+  setBreadcrumb(path);
+  document.getElementById('welcome').style.display = 'none';
+  const carea = document.getElementById('carea');
+  carea.replaceChildren(Object.assign(el('div', 'msg'), { textContent: 'loading…' }));
+
+  let text = fcache[path];
+  if (text === undefined) {
+    try {
+      const resp = await fetch(rawUrl(path));
+      if (!resp.ok) throw new Error(resp.status);
+      text = await resp.text();
+      fcache[path] = text;
+    } catch(err) {
+      const e = el('div', 'err');
+      e.textContent = `could not fetch ${path}: ${err.message}`;
+      carea.replaceChildren(e);
+      return;
+    }
+  }
+
+  if (!icache[path]) {
+    icache[path] = parseImports(text, path);
+    for (const imp of icache[path]) {
+      if (!revMap[imp]) revMap[imp] = new Set();
+      revMap[imp].add(path);
+    }
+  }
+
+  renderIbar(path);
+  carea.replaceChildren(renderCode(path, text));
+}
+
+function markActive(path) {
+  document.querySelectorAll('.ti-file.active').forEach(e => e.classList.remove('active'));
+  const row = document.querySelector(`.ti-file[data-path="${CSS.escape(path)}"]`);
+  if (!row) return;
+  row.classList.add('active');
+  let node = row.parentElement;
+  while (node && node.id !== 'tree-root') {
+    if (node.classList.contains('tc')) {
+      node.classList.add('open');
+      const prev = node.previousElementSibling;
+      if (prev?.classList.contains('ti-dir')) prev.querySelector('.ti-ic').textContent = '▼';
+    }
+    node = node.parentElement;
+  }
+  row.scrollIntoView({ block: 'nearest' });
+}
+
+function setBreadcrumb(path) {
+  const bc = document.getElementById('breadcrumb');
+  bc.replaceChildren();
+  const parts = ['~', ...path.split('/')];
+  parts.forEach((p, i) => {
+    if (i > 0) bc.appendChild(el('span', 'bc-sep', '/'));
+    bc.appendChild(el('span', i === parts.length - 1 ? 'bc-leaf' : 'bc-part', p));
+  });
+}
+
+// ─── Import bar ───────────────────────────────────────────────────────────────
+function chip(text, title, rev, onClick) {
+  const c = el('span', 'ib-chip' + (rev ? ' rev' : ''), text);
+  c.title = title;
+  c.addEventListener('click', onClick);
+  return c;
+}
+
+function renderIbar(path) {
+  const bar  = document.getElementById('ibar');
+  const outG = document.getElementById('ib-out');
+  const inG  = document.getElementById('ib-in');
+  outG.replaceChildren();
+  inG.replaceChildren();
+
+  const outs = icache[path] || [];
+  const ins  = revMap[path] ? [...revMap[path]] : [];
+
+  if (!outs.length && !ins.length) { bar.classList.remove('on'); return; }
+  bar.classList.add('on');
+
+  if (outs.length) {
+    outG.appendChild(el('span', 'ib-lbl', 'imports'));
+    outs.forEach(imp => outG.appendChild(chip(imp.split('/').pop(), imp, false, () => openFile(imp))));
+  }
+  if (ins.length) {
+    inG.appendChild(el('span', 'ib-lbl', 'imported by'));
+    ins.forEach(imp => inG.appendChild(chip(imp.split('/').pop(), imp, true, () => openFile(imp))));
+  }
+}
+
+// ─── Import parser ────────────────────────────────────────────────────────────
+function parseImports(text, filePath) {
+  const dir = filePath.includes('/') ? filePath.slice(0, filePath.lastIndexOf('/')) : '';
+  const seen = new Set();
+  const result = [];
+  const add = raw => {
+    const r = nixResolve(dir, raw.trim());
+    if (r && !seen.has(r)) { seen.add(r); result.push(r); }
+  };
+  const stripped = text.replace(/#[^\n]*/g, ' ').replace(/\/\*[\s\S]*?\*\//g, ' ');
+  for (const m of stripped.matchAll(/\bimport\s+(\.\.?\/[\w./+-]+)/g)) add(m[1]);
+  for (const m of stripped.matchAll(/imports\s*=\s*\[([^\]]*)\]/gs))
+    for (const pm of m[1].matchAll(/(\.\.?\/[\w./+-]+)/g)) add(pm[1]);
+  return result;
+}
+
+function nixResolve(dir, rel) {
+  const parts = (dir ? `${dir}/${rel}` : rel).split('/');
+  const out = [];
+  for (const p of parts) {
+    if (p === '' || p === '.') continue;
+    if (p === '..') { out.pop(); continue; }
+    out.push(p);
+  }
+  let r = out.join('/');
+  if (!(out.at(-1) || '').includes('.')) r += '/default.nix';
+  return r;
+}
+
+// ─── Nix tokenizer ────────────────────────────────────────────────────────────
+const KW = new Set(['let','in','if','then','else','with','rec','inherit','assert','or','and','not']);
+const BI = new Set(['import','builtins','null','true','false','lib','pkgs','config',
+                    'modulesPath','self','inputs','outputs','nixpkgs']);
+
+function tokenizeNix(text, filePath) {
+  const dir = filePath.includes('/') ? filePath.slice(0, filePath.lastIndexOf('/')) : '';
+  const tokens = [];
+  let i = 0;
+  const n = text.length;
+
+  const push = (cls, t, imp) => tokens.push({ cls, text: t, imp });
+  const plain = t => tokens.push({ cls: null, text: t });
+
+  while (i < n) {
+    const ch = text[i];
+
+    if (ch === '#') {
+      let j = i;
+      while (j < n && text[j] !== '\n') j++;
+      push('nc', text.slice(i, j));
+      i = j; continue;
+    }
+
+    if (ch === '/' && text[i+1] === '*') {
+      let j = i + 2;
+      while (j < n - 1 && !(text[j] === '*' && text[j+1] === '/')) j++;
+      push('nc', text.slice(i, j + 2));
+      i = j + 2; continue;
+    }
+
+    if (ch === "'" && text[i+1] === "'") {
+      let j = i + 2;
+      while (j < n - 1 && !(text[j] === "'" && text[j+1] === "'")) j++;
+      push('ns', text.slice(i, j + 2));
+      i = j + 2; continue;
+    }
+
+    if (ch === '"') {
+      let j = i + 1;
+      while (j < n && text[j] !== '"') { if (text[j] === '\\') j++; j++; }
+      push('ns', text.slice(i, j + 1));
+      i = j + 1; continue;
+    }
+
+    if (ch === '.' && (text[i+1] === '/' || (text[i+1] === '.' && text[i+2] === '/'))) {
+      let j = i;
+      while (j < n && /[\w./\-+]/.test(text[j])) j++;
+      const raw = text.slice(i, j);
+      push('np', raw, nixResolve(dir, raw));
+      i = j; continue;
+    }
+
+    if (/[a-zA-Z_]/.test(ch)) {
+      let j = i;
+      while (j < n && /[\w\-']/.test(text[j])) j++;
+      const word = text.slice(i, j);
+      if (KW.has(word)) {
+        push('nk', word);
+      } else if (BI.has(word)) {
+        push('nb', word);
+      } else {
+        let k = j;
+        while (k < n && (text[k] === ' ' || text[k] === '\t')) k++;
+        push(text[k] === '=' && text[k+1] !== '=' ? 'na' : null, word);
+      }
+      i = j; continue;
+    }
+
+    plain(ch);
+    i++;
+  }
+  return tokens;
+}
+
+// ─── Code renderer ────────────────────────────────────────────────────────────
+function renderCode(path, text) {
+  const isNix = path.endsWith('.nix');
+  const pre = el('pre', 'code');
+
+  const tokens = isNix
+    ? tokenizeNix(text, path)
+    : [{ cls: null, text }];
+
+  let lineNum = 0;
+  let row = null;
+
+  const startRow = () => {
+    row = el('span', 'row');
+    const ln = el('span', 'ln', ++lineNum);
+    row.appendChild(ln);
+    pre.appendChild(row);
+  };
+
+  startRow();
+
+  for (const tok of tokens) {
+    const parts = tok.text.split('\n');
+    for (let p = 0; p < parts.length; p++) {
+      if (p > 0) startRow();
+      if (!parts[p]) continue;
+
+      if (tok.cls) {
+        const span = el('span', tok.cls, parts[p]);
+        if (tok.imp) {
+          span.dataset.imp = tok.imp;
+          span.addEventListener('click', () => openFile(tok.imp));
+        }
+        row.appendChild(span);
+      } else {
+        row.appendChild(document.createTextNode(parts[p]));
+      }
+    }
+  }
+
+  return pre;
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const r = await fetch(apiUrl(''));
+    if (r.ok) { const d = await r.json(); BRANCH = d.default_branch || 'main'; }
+  } catch { /* keep default */ }
+
+  try {
+    const r = await fetch(apiUrl('git/trees/HEAD?recursive=1'));
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    if (!d.tree) throw new Error('empty tree');
+
+    const root = document.getElementById('tree-root');
+    root.replaceChildren();
+    renderTree(buildTree(d.tree), root, 0);
+    if (d.tree.some(f => f.path === 'flake.nix')) openFile('flake.nix');
+  } catch(err) {
+    const e = el('div', 'err');
+    e.style.padding = '0.5rem 0.75rem';
+    e.textContent = `tree load failed: ${err.message}`;
+    document.getElementById('tree-root').replaceChildren(e);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
