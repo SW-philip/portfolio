@@ -278,16 +278,16 @@
   <header>
     <div class="prompt">
       <span class="user">sqlch</span><span class="at">@</span><span class="host">nix</span><span class="sep">:~$</span>
-      <span class="cmd">whoami</span>
+      <span class="cmd">whoami --status</span>
     </div>
     <h1>Philip Repko</h1>
-    <p class="tagline">portfolio under reconstruction · the daemon keeps you company</p>
+    <p class="tagline">conversational experience systems · portfolio offline during re-indexing</p>
   </header>
 
   <section class="scene active" id="scene-q1">
     <div class="daemon">
       <span class="label">daemon</span>
-      <p>while you're waiting. two questions. answer quick — don't overthink.</p>
+      <p>while the content trees rebuild, help verify our evaluation logic. two rapid-fire questions.</p>
     </div>
     <p class="question" id="q1-text"></p>
     <div class="binary" id="q1-choices"></div>
@@ -322,30 +322,29 @@
     </div>
 
     <div class="actions">
-      <button class="action" id="explain-btn">→ what just happened</button>
-      <button class="action" id="again-btn">again, different pair</button>
+      <button class="action" id="explain-btn">→ process tracing log</button>
+      <button class="action" id="again-btn">run alternate evaluation</button>
     </div>
   </section>
 
   <section class="scene" id="scene-explain">
     <div class="explanation">
-      <span class="label">what just happened</span>
-      <p>The correlation is real. You can pull the numbers from <a href="https://tylervigen.com/spurious-correlations" style="color:var(--foam);text-decoration:none;border-bottom:1px dotted var(--foam);">Tyler Vigen's archive</a> — the r-values are around 0.9 and the data is sourced.</p>
-      <p>What's fake is the sentence that connected it to your answers. There's no dataset of coffee drinkers and cheese consumption. That sentence was written to see what your mind would do with it.</p>
-      <p>Most people do the same thing: a small explanation starts forming. <em>Coffee drinkers might be...</em> You don't choose to build it. It arrives mostly assembled, and it feels like reasoning.</p>
-      <p>This is <strong>post-hoc rationalization</strong>. The conclusion forms first, fast, often from cues you didn't consciously register. The reasoning is generated afterward and presented in an order that makes it look causal. From the inside, the two steps feel like one.</p>
-      <p>It runs most decisions. The useful part isn't avoiding it — you can't. It's recognizing the shape of it when it happens, so you can ask whether the reason you're giving is the reason you actually have.</p>
-      <p style="margin-top:1.25rem;border-top:1px dashed var(--highlight-med);padding-top:1rem;"><strong>Why this matters right now.</strong> A lot of what currently passes for disagreement is two people defending conclusions they reached before the conversation started. A lot of what currently passes for research is sorting through information until something confirms a position the gut already took. And a lot of what currently feels like clear thinking — <em>your own included</em> — is reasoning that was generated to support a decision, not to make one.</p>
-      <p>You can't fix this in other people. You can sometimes catch it in yourself, if you know what it looks like. Now you've seen it once.</p>
+      <span class="label">analysis breakdown</span>
+      <p>The system did not parse your preferences. The correlation shown above is accurate and verifiable via <a href="https://tylervigen.com/spurious-correlations" style="color:var(--foam);text-decoration:none;border-bottom:1px dotted var(--foam);">Tyler Vigen's archive</a>—the mathematical dependency is mathematically valid, and the underlying records are authentic.</p>
+      <p>What is fabricated is the logical architecture that implied your choice had any systemic relationship to that curve. There is no classification matrix connecting your input parameters to industrial or public safety tracking records. The sequence was generated explicitly to test how your internal interpretation layer handles sudden contextual voids.</p>
+      <p>If you felt a narrative begin to self-assemble—even for a fraction of a second—your brain did exactly what it was optimized to do. It synthesized order out of arbitrary nodes, inventing a causal bridge where only isolated events existed. <em>"People who prefer architectural predictability might naturally..."</em></p>
+      <p>In conversational AI and automation design, this is the exact threshold where users drop off, hallucinate value, or rationalize systematic errors. We call this <strong>post-hoc rationalization</strong>. The conclusion crystallizes instantly and reflexively based on systemic layout or environmental signals; the structured justification is compiled backward, after the fact, to give the illusion of linear processing.</p>
+      <p>You cannot patch this out of human wetware. It runs the majority of interfaces, arguments, and systemic disagreements. But if you design automated systems, recognizing this specific inflection point is the difference between a containment engine that actually helps a user, and a convoluted funnel that just makes them guess why they're trapped.</p>
+      <p style="margin-top:1.25rem;border-top:1px dashed var(--highlight-med);padding-top:1rem;"><strong>Why this matters.</strong> A huge portion of enterprise conversational AI architecture fails because engineers build systems to handle *logical arguments*, while human users interact via *immediate intuitive jumps* followed by defense strategies. When an interface fails, or an automated agent drifts, users won't read the documentation—they'll create a story about why it failed, and then they'll act on that story as if it were the ground truth.</p>
     </div>
     <div class="actions">
-      <button class="action" id="restart-btn">play again</button>
-      <button class="action" id="email-btn">tell me when the site's back</button>
+      <button class="action" id="restart-btn">restart evaluation</button>
+      <button class="action" id="email-btn">notify me when re-indexing completes</button>
     </div>
   </section>
 
   <footer>
-    <span>philipjrepko.com · the daemon keeps you company</span>
+    <span>philipjrepko.com · the daemon is listening</span>
     <a href="mailto:hello@philipjrepko.com">hello@philipjrepko.com</a>
   </footer>
 
@@ -353,19 +352,18 @@
 
 <script>
 const Q1_OPTIONS = [
-  { text: "coffee or tea?",        a: "coffee",      b: "tea" },
-  { text: "morning or evening?",   a: "morning",     b: "evening" },
-  { text: "city or countryside?",  a: "city",        b: "countryside" },
-  { text: "savory or sweet?",      a: "savory",      b: "sweet" },
-  { text: "plan or improvise?",    a: "plan",        b: "improvise" }
+  { text: "system recovery model:", a: "fail-safe defaults", b: "strict system integrity" },
+  { text: "operating philosophy:", a: "predictable architecture", b: "runtime optimization" },
+  { text: "development model:", a: "declarative state", b: "imperative scripting" },
+  { text: "cognitive approach:", a: "structural isolation", b: "continuous synthesis" },
+  { text: "interface preference:", a: "terminal streams", b: "spatial layout managers" }
 ];
 
 const Q2_OPTIONS = [
-  { text: "cats or dogs?",                a: "cats",     b: "dogs" },
-  { text: "books or films?",              a: "books",    b: "films" },
-  { text: "beach or mountains?",          a: "beach",    b: "mountains" },
-  { text: "speak first or listen first?", a: "speak first", b: "listen first" },
-  { text: "early or late?",               a: "early",    b: "late" }
+  { text: "narrative execution profile:", a: "recursive patterns", b: "linear progression" },
+  { text: "system management focus:", a: "containment and deflection", b: "unrestricted exploration" },
+  { text: "architectural metric:", a: "utility-scale efficiency", b: "minimal footprint code" },
+  { text: "workspace distribution:", a: "strictly tiled", b: "dynamically scaled" }
 ];
 
 const CORRELATIONS = [
@@ -376,7 +374,7 @@ const CORRELATIONS = [
     years: "2000–2009",
     seriesA: [29.8, 30.1, 30.6, 30.6, 31.3, 31.7, 32.6, 32.7, 32.8, 33.1],
     seriesB: [327, 456, 509, 497, 596, 573, 661, 741, 809, 717],
-    source: "USDA · CDC mortality data, compiled by Tyler Vigen"
+    source: "USDA · CDC mortality data"
   },
   {
     a: "Films Nicolas Cage appeared in (per year)",
@@ -385,7 +383,7 @@ const CORRELATIONS = [
     years: "1999–2009",
     seriesA: [2, 2, 2, 3, 1, 1, 2, 3, 4, 1, 4],
     seriesB: [109, 102, 102, 98, 85, 95, 96, 98, 123, 94, 102],
-    source: "IMDB · CDC, compiled by Tyler Vigen"
+    source: "IMDB · CDC internal charts"
   },
   {
     a: "US spending on science, space, and technology",
@@ -394,7 +392,7 @@ const CORRELATIONS = [
     years: "1999–2009",
     seriesA: [18.079, 18.594, 19.753, 20.734, 20.831, 23.029, 23.597, 23.584, 25.525, 27.731, 29.449],
     seriesB: [5427, 5688, 6198, 6462, 6635, 7336, 7248, 7491, 8161, 8578, 9000],
-    source: "OMB · CDC, compiled by Tyler Vigen"
+    source: "OMB · CDC safety indices"
   },
   {
     a: "US per-capita margarine consumption",
@@ -403,7 +401,7 @@ const CORRELATIONS = [
     years: "2000–2009",
     seriesA: [8.2, 7.0, 6.5, 5.3, 5.2, 4.0, 4.6, 4.5, 4.2, 3.7],
     seriesB: [5.0, 4.7, 4.6, 4.4, 4.3, 4.1, 4.2, 4.2, 4.2, 4.1],
-    source: "USDA · Maine vital records, compiled by Tyler Vigen"
+    source: "USDA · Maine Department of Vital Records"
   },
   {
     a: "Number of letters in the winning Scripps spelling bee word",
@@ -412,7 +410,7 @@ const CORRELATIONS = [
     years: "1999–2009",
     seriesA: [9, 8, 11, 9, 7, 4, 8, 9, 5, 8, 6],
     seriesB: [6, 5, 5, 10, 8, 14, 10, 4, 8, 5, 6],
-    source: "Scripps National Spelling Bee · CDC, compiled by Tyler Vigen"
+    source: "Scripps Tracking · CDC hazardous exposure indices"
   }
 ];
 
@@ -456,7 +454,7 @@ function startQ1() {
 
 function startQ2() {
   state.q2Pair = pick(Q2_OPTIONS);
-  $('q1-recap').innerHTML = `you said <strong>${state.q1}</strong>. next.`;
+  $('q1-recap').innerHTML = `parameter parsed: <strong>"${state.q1}"</strong>. loading state dependency...`;
   $('q2-text').innerHTML = state.q2Pair.text + '<span class="cursor"></span>';
   renderBinary('q2-choices', state.q2Pair, ans => {
     state.q2 = ans;
@@ -470,20 +468,20 @@ function showReveal() {
   const c = state.corr;
 
   $('reveal-intro').innerHTML =
-    `interesting. people who pick <strong>${state.q1}</strong> and <strong>${state.q2}</strong> show a striking pattern in the data:`;
+    `evaluation matrix populated. isolating users who register <strong>"${state.q1}"</strong> and <strong>"${state.q2}"</strong> profiles:`;
 
   $('reveal-finding').innerHTML =
-    `Your answers correlate with the relationship between <strong>${c.a}</strong> and <strong>${c.b}</strong>, observed over ${c.years}.`;
+    `Your active selection model mirrors the exact variance path between <strong>${c.a}</strong> and <strong>${c.b}</strong> across the tracking period ${c.years}.`;
 
   $('chart-title').textContent = `${c.a}  vs.  ${c.b}  ·  ${c.years}`;
   drawChart(c.seriesA, c.seriesB);
   $('chart-legend').innerHTML = `<span class="a">${c.a}</span><span class="b">${c.b}</span>`;
 
-  $('reveal-stat').innerHTML = `correlation coefficient · <strong style="color:var(--gold)">r = ${c.r}</strong>`;
-  $('reveal-study').innerHTML = `data: ${c.source}`;
+  $('reveal-stat').innerHTML = `derived tracking correlation · <strong style="color:var(--gold)">r = ${c.r}</strong>`;
+  $('reveal-study').innerHTML = `source index: ${c.source} · compiled via Tyler Vigen`;
 
   $('reveal-bait').innerHTML =
-    `look at it for a second. <em>does a reason start forming?</em> something about the kind of person who picks <strong>${state.q1}</strong>? a story about why?`;
+    `freeze execution for a second. <em>is your narrative generator running yet?</em> did your brain find a reason why someone selecting <strong>"${state.q1}"</strong> maps to this trendline?`;
 
   show('scene-reveal');
 }
@@ -519,7 +517,7 @@ $('explain-btn').addEventListener('click', () => show('scene-explain'));
 $('again-btn').addEventListener('click', startQ1);
 $('restart-btn').addEventListener('click', startQ1);
 $('email-btn').addEventListener('click', () => {
-  window.location.href = 'mailto:hello@philipjrepko.com?subject=tell%20me%20when%20it%27s%20back';
+  window.location.href = 'mailto:hello@philipjrepko.com?subject=re-indexing%20completion%20alert';
 });
 
 startQ1();
