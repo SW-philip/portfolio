@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Philip Repko</title>
+<style>
+  :root {
+    /* Canvas Basics */
+    --base:          #1a1926;
+    --surface:       #222035;
+    --overlay:       #2d2a44;
+    --muted:         #5b5777;
+    --subtle:        #8983a5;
+    --text:          #e2def7;
+
+    /* Operational Accents */
+    --cascade:       #61bca7;
+    --ouroboros:     #c29be6;
+    --foment:        #f5b35c;
+    --cardigan:      #e6708b;
+
+    /* Semantic UI Mapping */
+    --hl-low:        var(--surface);
+    --hl-med:        var(--overlay);
+    --pine:          var(--cascade);
+    --foam:          var(--cascade);
+    --iris:          var(--ouroboros);
+    --gold:          var(--foment);
+    --rose:          var(--cardigan);
+    --highlight-low: var(--hl-low);
+    --highlight-med: var(--hl-med);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--base);
+    color: var(--text);
+    font-family: 'Iosevka', 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .wrap { width: 100%; max-width: 720px; }
+
+  header { margin-bottom: 2.5rem; }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+  .meta-item span { color: var(--pine); }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  h1 .accent { color: var(--iris); }
+
+  .bio {
+    color: var(--subtle);
+    margin-top: 0.75rem;
+    font-size: 15px;
+    max-width: 600px;
+  }
+  .bio strong { color: var(--text); font-weight: 400; }
+
+  /* ── MODULE SELECTOR ── */
+  .manifest-nav {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--highlight-med);
+    padding-bottom: 0.5rem;
+    margin: 2.5rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+    transition: all 0.15s;
+  }
+  .nav-btn:hover { color: var(--foam); }
+  .nav-btn.active {
+    color: var(--gold);
+    background: var(--surface);
+  }
+
+  /* ── MANIFEST CARDS ── */
+  .module-view { display: none; }
+  .module-view.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--highlight-med);
+    border-radius: 3px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dashed var(--highlight-med);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .card-title { font-size: 15px; color: var(--foam); }
+  .card-title a { color: inherit; text-decoration: none; }
+  .card-title a:hover { color: var(--iris); }
+  .card-tag { font-size: 11px; color: var(--rose); text-transform: uppercase; }
+
+  .card p { color: var(--subtle); font-size: 14px; margin-bottom: 0.75rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .card strong { color: var(--text); font-weight: 400; }
+
+  .spec-list {
+    margin-top: 0.75rem;
+    font-size: 12px;
+    color: var(--muted);
+    list-style: none;
+  }
+  .spec-list li::before { content: "├─ "; color: var(--highlight-med); }
+  .spec-list li:last-child::before { content: "└─ "; }
+  .spec-list strong { color: var(--subtle); }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    margin-top: 0.75rem;
+    background: var(--base);
+    border: 1px solid var(--highlight-low);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .code-path {
+    background: var(--highlight-low);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--overlay);
+  }
+  .code-block pre {
+    padding: 0.75rem;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+    margin: 0;
+  }
+  .kw   { color: var(--iris); }
+  .bi   { color: var(--foam); }
+  .lf   { color: var(--pine); }
+  .str  { color: var(--gold); }
+  .cmt  { color: var(--muted); font-style: italic; }
+  .attr { color: var(--rose); }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--highlight-low);
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  footer a { color: var(--subtle); text-decoration: none; }
+  footer a:hover { color: var(--foam); }
+  .footer-links { display: flex; gap: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="meta-grid">
+      <div class="meta-item">Host: <span>SWphil / SWsurface</span></div>
+      <div class="meta-item">WM: <span>Niri / Wayland</span></div>
+      <div class="meta-item">OS: <span>NixOS 25.11</span></div>
+      <div class="meta-item">Loc: <span>Philadelphia, PA</span></div>
+    </div>
+    <h1>Philip Repko<span class="accent">.manifest</span></h1>
+    <p class="bio">
+      Systems designer engineering at the intersection of <strong>declarative infrastructure</strong>, <strong>conversational intelligence</strong>, and <strong>narrative structure</strong>. Prioritizing utility-scale efficiency over ephemeral trends.
+    </p>
+  </header>
+
+  <nav class="manifest-nav">
+    <button class="nav-btn active" onclick="switchModule('sys', this)">[01. System Architecture]</button>
+    <button class="nav-btn" onclick="switchModule('ai', this)">[02. Conversational Engines]</button>
+    <button class="nav-btn" onclick="switchModule('lit', this)">[03. Text &amp; Narrative]</button>
+  </nav>
+
+  <section id="mod-sys" class="module-view active">
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title"><a href="https://github.com/SW-philip/phlix" target="_blank">phlix</a></span>
+        <span class="card-tag">Active Deployment</span>
+      </div>
+      <p>Fully reproducible multi-host NixOS environment managed from a single flake. Targets vary across a custom workstation, an encrypted Surface Pro mobile host, and a shared family machine — hardware profiles strictly isolated from shared global state.</p>
+      <ul class="spec-list">
+        <li><strong>Security:</strong> Lanzaboote secure boot + TPM2-backed LUKS encryption, sops-nix for secrets.</li>
+        <li><strong>Stack:</strong> Niri compositor, Home Manager integrated, linux-surface kernel on the mobile host.</li>
+        <li><strong>Hosts:</strong> desktop (i5-9600K / GTX 1660) · surface (Surface Pro 7+) · family shell.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title"><a href="https://github.com/SW-philip/sqlch" target="_blank">sqlch</a></span>
+        <span class="card-tag">Daemon / TUI</span>
+      </div>
+      <p>Internet radio daemon built for zero-friction terminal operation. Drives an <strong>MPV</strong> backend, publishes live stream metadata over <strong>MPRIS</strong> for system-wide media integration, and exposes a <strong>Textual</strong> search interface tuned for tiling layout environments.</p>
+      <ul class="spec-list">
+        <li><strong>Runtime:</strong> Python 3, mpv, pydbus — packaged as a Nix derivation.</li>
+        <li><strong>Interface:</strong> sqlch-popup GTK layer-shell overlay for in-session search.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Theme Registry · Eval-time Discovery</span>
+        <span class="card-tag">Nix Meta-programming</span>
+      </div>
+      <p>A theme registry that builds itself at <strong>nix eval</strong> with no manifest files and no code generation. <code>builtins.readDir</code> walks the theme tree during evaluation, discovering every family and variant from directory structure alone. Palette files are imported live; their values are immediately available as typed Nix expressions — colors, shell exports, and light/dark heuristics all resolved before a single derivation is instantiated.</p>
+      <div class="code-block">
+        <div class="code-path">home/niri/default.nix</div>
+        <pre><span class="attr">allThemes</span> =
+  <span class="kw">let</span>
+    loadTheme = family: folderName:
+      <span class="kw">let</span>
+        dir    = <span class="str">"${themesRoot}/${family}/${folderName}"</span>;
+        files  = <span class="bi">builtins.readDir</span> dir;
+        nixName = <span class="bi">builtins.head</span> (<span class="bi">builtins.attrNames</span> (
+          <span class="lf">lib.filterAttrs</span> (n: _:
+            <span class="lf">lib.hasPrefix</span> <span class="str">"palette-"</span> n &amp;&amp; <span class="lf">lib.hasSuffix</span> <span class="str">".nix"</span> n
+          ) files));
+        slug = <span class="lf">lib.removeSuffix</span> <span class="str">".nix"</span>
+                 (<span class="lf">lib.removePrefix</span> <span class="str">"palette-"</span> nixName);
+        p    = <span class="kw">import</span> <span class="str">"${dir}/${nixName}"</span>;
+      <span class="kw">in</span> {
+        <span class="kw">inherit</span> family slug dir;
+        palette   = p;
+        shContent = <span class="bi">builtins.readFile</span> <span class="str">"${dir}/${shName}"</span>;
+        isLight   = p.isLight <span class="kw">or</span>
+                      ((p.FONT_SIZE_BAR <span class="kw">or</span> <span class="str">"12px"</span>) == <span class="str">"13px"</span>);
+      };
+    familyThemes = family:
+      <span class="lf">lib.mapAttrs'</span> (folder: _:
+        <span class="lf">lib.nameValuePair</span>
+          (loadTheme family folder).slug
+          (loadTheme family folder))
+        (<span class="lf">lib.filterAttrs</span> (_: t: t == <span class="str">"directory"</span>)
+          (<span class="bi">builtins.readDir</span> <span class="str">"${themesRoot}/${family}"</span>));
+  <span class="kw">in</span>
+    <span class="lf">lib.foldlAttrs</span>
+      (acc: family: _: acc // familyThemes family)
+      {} familyDirs;</pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Surface Kernel · structuredExtraConfig</span>
+        <span class="card-tag">Custom Kernel Build</span>
+      </div>
+      <p>The Surface Pro 7+ ships no upstream drivers for its hardware aggregator bus, touch/stylus stack, or IPU3 camera pipeline. This Nix expression passes structured kernel configuration — typed <code>module</code> values against Nix's kernel type system rather than raw <code>.config</code> strings — building the complete linux-surface module set into a custom kernel derivation at flake eval time.</p>
+      <div class="code-block">
+        <div class="code-path">pkgs/linux-surface-6_19/patches.nix</div>
+        <pre><span class="attr">structuredExtraConfig</span> = <span class="kw">with</span> lib.kernel; {
+  <span class="cmt"># Surface hardware aggregator bus</span>
+  <span class="attr">SURFACE_AGGREGATOR</span>               = module;
+  <span class="attr">SURFACE_AGGREGATOR_BUS</span>           = module;
+  <span class="attr">SURFACE_AGGREGATOR_REGISTRY</span>      = module;
+  <span class="attr">SURFACE_AGGREGATOR_TABLET_SWITCH</span> = module;
+  <span class="attr">SURFACE_DTX</span>                      = module;
+
+  <span class="cmt"># Touch / stylus input stack</span>
+  <span class="attr">HID_IPTS</span>                         = module;
+  <span class="attr">HID_ITHC</span>                         = module;
+
+  <span class="cmt"># IPU3 image signal processor (front camera)</span>
+  <span class="attr">VIDEO_IPU3_CIO2</span>                  = module;
+  <span class="attr">VIDEO_IPU3_IMGU</span>                  = module;
+  <span class="attr">VIDEO_OV5693</span>                     = module;
+
+  <span class="cmt"># Thermal / power sensors</span>
+  <span class="attr">SENSORS_SURFACE_TEMP</span>             = module;
+  <span class="attr">SENSORS_SURFACE_FAN</span>              = module;
+  <span class="attr">BATTERY_SURFACE</span>                  = module;
+};</pre>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="mod-ai" class="module-view">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Enterprise Taxonomy Audit</span>
+        <span class="card-tag">Optimization</span>
+      </div>
+      <p>Audited and restructured over <strong>2,500 conversational interaction states</strong> for a multi-channel banking rebrand. Replaced high-entropy routing configurations with predictable containment funnels built around validated intent paths rather than assumed user behavior.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">LLM Routing Architecture</span>
+        <span class="card-tag">Framework Design</span>
+      </div>
+      <p>Designing migration paths away from rigid statistical NLU classifiers into dynamic generative orchestration layers. Focused on <strong>deterministic containment strategy</strong>, hard deflection limits, and transaction parsing guardrails that hold under adversarial input.</p>
+    </div>
+  </section>
+
+  <section id="mod-lit" class="module-view">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">All These Perfect Floods</span>
+        <span class="card-tag">Novel Draft</span>
+      </div>
+      <p>A speculative fiction work tracking recursive memory, cognitive isolation, and structural erosion. Built around tightly bounded character profiles and dense, algorithmic pacing constraints.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>utility-scale design</span>
+    <div class="footer-links">
+      <a href="https://github.com/SW-philip" target="_blank">github/SW-philip</a>
+      <a href="mailto:philipjrepko@gmail.com">philipjrepko@gmail.com</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function switchModule(modId, btn) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.module-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('mod-' + modId).classList.add('active');
+}
+</script>
+</body>
+</html>
