@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip J. Repko | Digital Experience & Systems Designer</title>
+  <style>
+    :root {
+      --base: #232136;
+      --surface: #2a273f;
+      --overlay: #393552;
+      --muted: #6e6a86;
+      --subtle: #908caa;
+      --text: #e0def4;
+      --gold: #f6c177;
+      --iris: #c4a7e7;
+      --pine: #3e8fb0;
+      --hl-med: #44415a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--base);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 60px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    header {
+      margin-bottom: 48px;
+    }
+
+    .title-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .name {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .name span { color: var(--gold); }
+
+    .tagline {
+      font-size: clamp(16px, 2.5vw, 18px);
+      color: var(--iris);
+      margin-top: 8px;
+      font-weight: 400;
+    }
+
+    .location {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--hl-med);
+      margin: 32px 0;
+    }
+
+    .section-title {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .bio {
+      font-size: 17px;
+      color: var(--subtle);
+      margin-bottom: 40px;
+    }
+
+    .bio em {
+      font-style: normal;
+      color: var(--text);
+    }
+
+    /* Grid for Current Projects / Focus Areas */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    @media (min-width: 550px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--hl-med);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--subtle);
+    }
+
+    /* Professional Timeline */
+    .timeline {
+      margin-bottom: 48px;
+    }
+
+    .timeline-item {
+      margin-bottom: 24px;
+    }
+
+    .time-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .role {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .period {
+      color: var(--muted);
+    }
+
+    .company {
+      font-size: 14px;
+      color: var(--pine);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+      font-size: 15px;
+      color: var(--subtle);
+    }
+
+    /* Footer / Links */
+    footer {
+      margin-top: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .links a, .email-link {
+      font-size: 14px;
+      color: var(--subtle);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hl-med);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .links a:hover, .email-link:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .availability {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .indicator {
+      width: 8px;
+      height: 8px;
+      background: #9ccfd8;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <header>
+      <div class="title-area">
+        <div>
+          <h1 class="name">philip<span>j</span>repko</h1>
+          <p class="tagline">Digital Experience & Systems Designer</p>
+          <p class="location">Philadelphia, PA</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <main>
+      <section>
+        <p class="section-title">Overview</p>
+        <p class="bio">
+          I design, scale, and govern complex digital experience architectures. With a background deeply rooted in <em>conversational AI systems</em>, financial technology platforms, and highly automated, declarative infrastructure, I specialize in bridging the gap between sophisticated engineering and seamless human interaction[cite: 1].
+        </p>
+      </section>
+
+      <section>
+        <p class="section-title">Current Focus</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Conversational AI</h3>
+            <p>Designing robust enterprise frameworks for automated communication, focusing on intent precision, context persistence, and natural UX[cite: 1].</p>
+          </div>
+          <div class="card">
+            <h3>Digital Solutioning</h3>
+            <p>Architecting user journeys, operational compliance, and payment integrations for modern banking platforms.</p>
+          </div>
+          <div class="card">
+            <h3>Declarative Systems</h3>
+            <p>Building deterministic environments, structured data automation, and reproducible workflows for technical resilience.</p>
+          </div>
+          <div class="card">
+            <h3>Narrative & Structure</h3>
+            <p>Exploring the intersections of recursive design, systems theory, and visceral creative prose outside the terminal.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="timeline">
+        <p class="section-title">Experience & Practice</p>
+        
+        <div class="timeline-item">
+          <div class="time-meta">
+            <span class="role">Digital Solution Specialist</span>
+            <span class="period">Present</span>
+          </div>
+          <div class="company">Financial Services Sector</div>
+          <p>Overseeing system design, governance, and optimization for enterprise chatbot environments and integrated digital payment protocols, managing experiences that support massive, high-volume user bases daily[cite: 1].</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="time-meta">
+            <span class="role">Conversational AI Systems Architecture</span>
+            <span class="period">4+ Years</span>
+          </div>
+          <div class="company">Enterprise Architecture</div>
+          <p>Dedicated over four years to constructing, auditing, and refining conversational logic and technical middleware, tuning AI interaction paradigms to balance precise operational compliance with human fluidity[cite: 1].</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="divider"></div>
+
+    <footer>
+      <div class="links">
+        <a href="mailto:me@philipjrepko.com">Email</a>
+        <!-- Add your actual links here -->
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="availability">
+        <span class="indicator"></span>
+        <span>Available for technical advisory & design consultation</span>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
