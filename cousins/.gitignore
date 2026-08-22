@@ -1,0 +1,4 @@
+node_modules/
+seed-data.local.json
+seed-accounts.generated.json
+.wrangler/
