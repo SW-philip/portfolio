@@ -43,6 +43,9 @@ def joined_str_to_template(node):
 
 
 def call_text_arg(call, index=0):
+    if index >= len(call.args):
+        UNHANDLED.append(f"call to {call.func.id}() has too few arguments")
+        return None
     arg = call.args[index]
     text = const_str(arg)
     if text is not None:
@@ -67,6 +70,9 @@ def call_to_beat(call):
             return None
         return {"type": "line", "style": NARRATE_FUNCS[fname], "text": text}
     if fname in NAMED_FUNCS:
+        if len(call.args) < 2:
+            UNHANDLED.append(f"call to {fname}() has too few arguments")
+            return None
         name = const_str(call.args[0])
         text = call_text_arg(call, 1)
         if name is None or text is None:
@@ -135,6 +141,14 @@ def scene_to_beats(func):
             and stmt.value.func.id == "choice"
         ):
             prompt = call_text_arg(stmt.value, 0)
+            if (
+                len(stmt.value.args) < 2
+                or not isinstance(stmt.value.args[1], ast.List)
+                or not all(isinstance(el, ast.Tuple) and len(el.elts) >= 2 for el in stmt.value.args[1].elts)
+            ):
+                UNHANDLED.append("choice() options are not a list of 2-tuples")
+                i += 1
+                continue
             options = [
                 (const_str(el.elts[0]), const_str(el.elts[1]))
                 for el in stmt.value.args[1].elts
@@ -163,6 +177,10 @@ def scene_to_beats(func):
             and isinstance(stmt.value.func, ast.Name)
             and stmt.value.func.id == "name_the_crew"
         ):
+            if len(stmt.value.args) < 2:
+                UNHANDLED.append("call to name_the_crew() has too few arguments")
+                i += 1
+                continue
             prompt = call_text_arg(stmt.value, 0)
             default = call_text_arg(stmt.value, 1)
             beats.append({"type": "freeText", "prompt": prompt, "stateKey": "crew_name", "default": default})

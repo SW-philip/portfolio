@@ -121,6 +121,47 @@ class ConvertStoryTest(unittest.TestCase):
         self.assertEqual(beats, [])
         self.assertTrue(any("mystery_call" in msg for msg in UNHANDLED))
 
+    def test_speak_with_no_args_is_flagged_not_raised(self):
+        func = self.parse_scene('''
+            def scene_1():
+                speak()
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [])
+        self.assertTrue(any("speak" in msg and "too few arguments" in msg for msg in UNHANDLED))
+
+    def test_say_with_one_arg_is_flagged_not_raised(self):
+        func = self.parse_scene('''
+            def scene_1():
+                say("Wesley")
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [])
+        self.assertTrue(any("say" in msg and "too few arguments" in msg for msg in UNHANDLED))
+
+    def test_choice_with_malformed_options_is_flagged_not_raised(self):
+        func = self.parse_scene('''
+            def scene_1():
+                key = choice("What now?", ["A", "B"])
+                if key == "A":
+                    speak("A")
+                else:
+                    speak("B")
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [])
+        self.assertTrue(any("choice() options" in msg for msg in UNHANDLED))
+
+    def test_name_the_crew_with_one_arg_is_flagged_not_raised(self):
+        func = self.parse_scene('''
+            def scene_5():
+                name = name_the_crew("What do you call yourselves?")
+                s["crew_name"] = name
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [])
+        self.assertTrue(any("name_the_crew" in msg and "too few arguments" in msg for msg in UNHANDLED))
+
 
 if __name__ == "__main__":
     unittest.main()
