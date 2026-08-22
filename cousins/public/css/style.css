@@ -49,3 +49,39 @@ button { font-family: inherit; cursor: pointer; }
 }
 .pin-key:active { background: var(--hl-med); }
 .link-button { background: none; border: none; color: var(--subtle); text-decoration: underline; }
+
+/* -- dashboard -- */
+.dashboard { max-width: 480px; margin: 0 auto; padding: 32px 20px; }
+.dashboard h1 { font-size: 24px; margin-bottom: 4px; }
+.role { color: var(--subtle); margin-bottom: 4px; }
+.power { color: var(--gold); margin-bottom: 20px; }
+.dashboard h2 { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px; }
+.chapter-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.chapter-list li { background: var(--surface); border-radius: 10px; padding: 14px; }
+.chapter-list li.locked { color: var(--muted); }
+.chapter-list a { color: var(--iris); text-decoration: none; }
+
+/* -- player -- */
+.player { max-width: 640px; margin: 0 auto; padding: 24px 20px 80px; }
+#beats { display: flex; flex-direction: column; gap: 10px; }
+.beat { line-height: 1.5; }
+.beat-narrate { color: var(--text); }
+.beat-emphasis { color: var(--muted); font-style: italic; }
+.beat-say { font-weight: bold; }
+.beat-adult { color: var(--subtle); }
+.beat-power { font-style: italic; }
+.tap-continue, .choice-option, .free-text button {
+  display: block;
+  margin-top: 10px;
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 12px 16px;
+  width: 100%;
+  text-align: left;
+}
+.choice-prompt { color: var(--gold); font-style: italic; margin-top: 16px; }
+.free-text input { width: 100%; padding: 10px; margin-top: 8px; background: var(--base); border: 1px solid var(--muted); border-radius: 8px; color: var(--text); }
+.chapter-complete { text-align: center; padding: 40px 0; }
+.chapter-complete a { color: var(--iris); }
