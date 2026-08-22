@@ -112,6 +112,36 @@ class ConvertStoryTest(unittest.TestCase):
             {"type": "line", "style": "speak", "text": '"{{crew_name}}." Somebody says it out loud.'},
         ])
 
+    def test_fstring_referencing_s_get_crew_name_becomes_template(self):
+        func = self.parse_scene('''
+            def scene_5():
+                slow(f"  {s.get('crew_name', 'The Storm Crew')}, going home.", delay=0.03)
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [
+            {"type": "line", "style": "beat", "text": "{{crew_name}}, going home."},
+        ])
+
+    def test_driver_becomes_adult_named_salt(self):
+        func = self.parse_scene('''
+            def scene_1():
+                driver("Crew chief for Riptide. You know anything about trucks?")
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [
+            {"type": "adult", "name": "Salt", "text": "Crew chief for Riptide. You know anything about trucks?"},
+        ])
+
+    def test_bare_slow_in_scene_becomes_beat_line_stripped(self):
+        func = self.parse_scene('''
+            def scene_4():
+                slow("\\n    RIPTIDE -- ONE NIGHT ONLY\\n", delay=0.05, color=GOLD)
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [
+            {"type": "line", "style": "beat", "text": "RIPTIDE -- ONE NIGHT ONLY"},
+        ])
+
     def test_unrecognized_call_is_flagged_not_raised(self):
         func = self.parse_scene('''
             def scene_1():

@@ -13,6 +13,7 @@ import sys
 
 NARRATE_FUNCS = {"speak": "speak", "beat": "beat"}
 NAMED_FUNCS = {"say": "say", "adult": "adult", "power": "power"}
+FIXED_NAME_FUNCS = {"driver": "Salt"}
 
 UNHANDLED = []
 
@@ -23,9 +24,23 @@ def const_str(node):
     return None
 
 
+def is_crew_name_get(node):
+    """Match s.get('crew_name', <default>) / state.get('crew_name', <default>)."""
+    return (
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr == "get"
+        and isinstance(node.func.value, ast.Name)
+        and node.func.value.id in ("s", "state")
+        and len(node.args) >= 1
+        and const_str(node.args[0]) == "crew_name"
+    )
+
+
 def joined_str_to_template(node):
-    """Turn an f-string with only {name}/{crew_name} references into a
-    {{crew_name}} template marker. Anything else is flagged."""
+    """Turn an f-string with only {name}/{crew_name} references (as a bare
+    name or a s.get('crew_name', ...) lookup) into a {{crew_name}} template
+    marker. Anything else is flagged."""
     parts = []
     for value in node.values:
         if isinstance(value, ast.Constant):
@@ -35,6 +50,8 @@ def joined_str_to_template(node):
             if var not in ("name", "crew_name"):
                 UNHANDLED.append(f"f-string references unexpected var {var!r}")
                 return None
+            parts.append("{{crew_name}}")
+        elif isinstance(value, ast.FormattedValue) and is_crew_name_get(value.value):
             parts.append("{{crew_name}}")
         else:
             UNHANDLED.append("f-string has an unsupported expression")
@@ -64,6 +81,15 @@ def call_to_beat(call):
         return {"type": "wait"}
     if fname == "pause":
         return None
+    if fname == "slow":
+        # A bare slow(text, ...) call directly in a scene body is a one-off
+        # styled narration line (e.g. the flyer banner, a closing hook) --
+        # not the `slow` primitive definition itself, which convert_story.py
+        # never walks since it only processes scene_* function bodies.
+        text = call_text_arg(call)
+        if text is None:
+            return None
+        return {"type": "line", "style": "beat", "text": text.strip()}
     if fname in NARRATE_FUNCS:
         text = call_text_arg(call)
         if text is None:
@@ -78,6 +104,11 @@ def call_to_beat(call):
         if name is None or text is None:
             return None
         return {"type": NAMED_FUNCS[fname], "name": name, "text": text}
+    if fname in FIXED_NAME_FUNCS:
+        text = call_text_arg(call)
+        if text is None:
+            return None
+        return {"type": "adult", "name": FIXED_NAME_FUNCS[fname], "text": text}
     UNHANDLED.append(f"unrecognized call to {fname}()")
     return None
 
