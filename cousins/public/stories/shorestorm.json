@@ -1,0 +1,4611 @@
+{
+  "storyId": "shorestorm",
+  "title": "The Cousins of Brigantine",
+  "cast": [
+    {
+      "name": "Clementine",
+      "accountSlug": "clementine",
+      "color": "#87af87",
+      "role": "earth & healing",
+      "powerStateKey": "clementine_power",
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Ivory",
+      "accountSlug": "ivory",
+      "color": "#afffff",
+      "role": "wind",
+      "powerStateKey": "ivory_power",
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Olivia",
+      "accountSlug": "olivia",
+      "color": "#d7afff",
+      "role": "air & mist",
+      "powerStateKey": "olivia_power",
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Laine",
+      "accountSlug": "laine",
+      "color": "#5fafff",
+      "role": "water",
+      "powerStateKey": "laine_power",
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Theo",
+      "accountSlug": "theo",
+      "color": "#d75f00",
+      "role": "monster-truck expert",
+      "powerStateKey": null,
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Wesley",
+      "accountSlug": "wesley",
+      "color": "#8787af",
+      "role": "monster-truck expert",
+      "powerStateKey": null,
+      "revealChapter": null,
+      "revealedPower": null
+    },
+    {
+      "name": "Henry",
+      "accountSlug": "henry",
+      "color": "#ffd7af",
+      "role": "quiet",
+      "powerStateKey": null,
+      "revealChapter": 3,
+      "revealedPower": "calm & hush"
+    },
+    {
+      "name": "Elijah",
+      "accountSlug": "elijah",
+      "color": "#ffd787",
+      "role": "glow",
+      "powerStateKey": null,
+      "revealChapter": 3,
+      "revealedPower": "light & glow"
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Three Families, One House",
+      "beats": [
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The beach house sits a seawall away from the water. It is,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "everyone agrees, not big enough for 16 people \u2014 which is exactly why"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "it's perfect."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Upstairs is the Repko family: Phil, Brittany, Clementine, Henry, and the new baby,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "who has not yet said an opinion about any of this but seems fine with it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down the hall, Memaw is waking up, and pop-pop is starting coffee...quietly."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Downstairs is the Moser family: Emily, Ethan, Ivory, Olivia, and Theo."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "And in the room that used to be a garage is the other Repko family:"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ian, Christa, Laine, Wesley, and Elijah."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Eight cousins. Eight grown-ups. Four bathrooms. One secret poop room."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "A week in Brigantine."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Every morning is the same, and nobody wants it to change."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The coffee maker goes on. The screen door slaps twice \u2014 once for whoever"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "forgot the towels, and once for whoever remembered them."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "And the television, low (for now),"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "plays yesterday's monster trucks. Because it is always on."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Theo has the remote and does not share it."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "Watch. Watch. Right here \u2014 she cuts it too early."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He rewinds it. He is right. She did cut it too early."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Wesley is lying upside down on the couch, feet up the back cushions,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "watching the same twelve seconds with him for the third time."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "Riptide's coming through Atlantic City this week. I saw the truck."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "You did not see the truck."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "I saw a truck. It could've been the truck."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "This is, as far as anyone can tell, a completely reasonable argument to them both."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Out on the porch, Henry is very seriously feeding a piece of toast crust"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "to an imaginary friend, because there is nobody there, and he does not seem bothered"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "at all."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah is next to him, doing the same thing with"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "total confidence that this is a normal activity."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Neither of them is old enough to be trusted with a decision yet."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody thinks to ask what they know."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The tide's going out, and Emmie says it before anyone else does,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and that settles it; beach. Now, before it gets too hot."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Six of the cousins go down together, buckets swinging, towels dragging"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "half in the sand already."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "The two littlest stay back on the porch. For now."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Low tide in Brigantine leaves a strip of packed, dark sand that nobody"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "has walked on yet, and that is the best kind of sand there is."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine's already three shells deep in her bucket, and every one"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "of them is whole. She won't pick up a broken one. Never has."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Most people don't bother telling the difference."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She finds it half-buried near a clump of seaweed \u2014 a scallop shell,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "ridged, ordinary-looking, except that it's warm in a morning that"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "hasn't warmed up yet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She turns it over in her palm. It hums, faintly, like it's deciding"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "something about her."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She almost drops it in the bucket with the others."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Then, a few feet away, a gull is caught up in a tangle of old fishing"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "line, one wing pinned wrong against its body, thrashing in a way"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that makes everyone else look away."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The shell in Clementine's hand goes warmer. Warmer than warm."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Clementine do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She kneels down slowly and reaches for the gull with both hands, careful and calm.",
+              "effects": {
+                "clementine_power": "healer",
+                "team_spark": 1
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't grab. She just puts her hands near it, slow, the way"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "you'd want someone to come at you if you were scared and hurt."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The gull stops thrashing. One dark eye, unblinking, on her."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The shell in her fist goes hot \u2014 really hot \u2014 and then, just as fast, cools."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The line loosens on its own. The wing, when the gull stretches it,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "moves like it was never caught at all."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Clementine sits back in the sand, staring at her own hand."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She scoops a quick trench in the wet sand to pin the line down so it can't tighten.",
+              "effects": {
+                "clementine_power": "builder",
+                "team_spark": 1
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't touch the gull. She digs \u2014 fast, both hands, carving a"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "little wall of wet sand around the tangled line so it can't cinch tighter."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The shell in her pocket goes warm against her hip, like it approves"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "of a plan more than a feeling."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The sand wall holds. The gull works itself loose, awkward but whole,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "and flaps off low over the water."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Clementine looks at the trench she dug. It's a very good trench."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't know why that thought comes with a shiver."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She looks down at the shell. It's gone from warm to just faintly,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "stubbornly glowing, right at the center."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "She puts it in her pocket. Not the bucket. The shell."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ivory's been up on the dune grass the whole time, not really looking"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "for shells at all \u2014 looking for a good stick to draw with, which is"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "its own kind of treasure hunt."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The wind up here is different than down on the wet sand. Pushier."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Like it's got somewhere to be and would like her to move."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She finds the shell wedged sideways in a clump of beach grass, fan-shaped,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "ridged like it's already caught mid-gust."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "It's not warm, like Clementine's. It's just \u2014 moving. Faintly. In her closed hand."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's still turning it over when a gust comes through hard enough to"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "rip a beach umbrella clean out of the sand three towels down, sending"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "it cartwheeling straight for a stack of coolers and the baby's empty stroller."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Ivory do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She grabs at the wind with both hands and shoves back, hard, planting the umbrella flat.",
+              "effects": {
+                "ivory_power": "gust"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She throws both hands out like she's catching a football thrown too"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "hard, and the wind just \u2014 stops. Slams the umbrella flat into the"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "sand, all at once."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "The shell in her fist goes still. So does everything else within ten feet."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Nobody looks up from their towels. Nobody saw the part that mattered."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Ivory's ears are ringing a little, in a way that has nothing to do with sound."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She doesn't fight it head-on \u2014 she twists her wrist and nudges the gust sideways, around everyone.",
+              "effects": {
+                "ivory_power": "current"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't grab. She turns her wrist, slow, like unscrewing a jar"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "lid, and the gust just \u2014 bends. Slides sideways around the coolers"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "instead of through them."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The umbrella spins off harmlessly into open sand, rolling to a stop"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "against a very startled seagull."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Ivory looks at her own wrist like it just told her a secret."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She tucks the shell into her swimsuit strap, the only pocket she's got,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and doesn't say a word about it to anyone \u2014 not because she's hiding"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "it, exactly. She just doesn't have the sentence yet."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia's the one who actually checks the tide pools instead of just"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "stepping over them, crouched at the edge of the jetty rocks where the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "water's gone still and glassy between low tide and lower."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She finds the shell tucked under a clump of barnacles, small, spiraled"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "tight, almost see-through at the edges if you hold it up right."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "It's cool in her palm. Cooler than the rock. Cooler than a morning"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "this warm has any right to produce."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's still crouched there when she notices something washed up in the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "next pool over \u2014 a jellyfish, translucent, motionless, right where"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a little cousin is about to go wading in with a bucket."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Olivia do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She thickens the air around the pool into a soft, obvious haze \u2014 a warning nobody can miss.",
+              "effects": {
+                "olivia_power": "veil"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She cups the shell and breathes out slow, and a little bank of mist"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "rises up out of nowhere, right over the tide pool, thick enough that"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "nobody in their right mind would stick a hand into it blind."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "A grown-up shoos everyone away from the \"weird foggy spot\" without"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "ever knowing why. Olivia doesn't correct her."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Olivia watches the fog she made and feels, for the first time all"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "summer, extremely useful."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She thins the air just above the water instead, so the jellyfish is suddenly, clearly, impossible to overlook.",
+              "effects": {
+                "olivia_power": "clear"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't hide anything. She thins the air instead \u2014 pulls the"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "morning haze away from just that one patch of water until the"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "jellyfish sits there in perfect, undeniable focus."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "A cousin yelps, points, and the whole pool gets a wide, respectful berth."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Olivia watches it happen and doesn't say a word about the part"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "she played in it."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia slips the shell into the little zip pocket of her swim cover-up."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She almost tells Ivory, who's close enough to hear. Gets as far as"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "opening her mouth."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Then Ivory says something about the wind acting weird all morning, and Olivia closes it again."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down the beach, Laine's up to her knees in the shallows \u2014 the exact"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "line she's allowed to go without a grown-up watching closely, and she"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "knows precisely where it sits."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "(She still pushes it, of course. She's Bean's daughter...)"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's chasing the quicksand feeling of the wave going back out \u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that half-second where the sand disappears and it feels"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "like the ocean is trying to take you with it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Something rolls against her ankle. She reaches down without looking,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and comes up with a shell \u2014 long, spiraled, the color"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "of the inside of a storm cloud."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "It's cold. Not cold like the water around it. Colder, and dry."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She holds it up to the light. A wave breaks a little further out,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and the shell, in her hand, seems to lean toward the sound."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She looks at the water. She looks at the shell."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She has an idea that she is fairly sure is a bad idea, which has"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "never stopped her before."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Laine do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She wades out one careful step further and holds the shell just under the surface.",
+              "effects": {
+                "laine_power": "steady",
+                "team_spark": 1
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "One step. That's all. She keeps her feet where she can feel the sand"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "still under them, and dips the shell just below the surface."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "The water around her hand goes still. Not calm \u2014 still. Like it's listening."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "A small wave, the next one, doesn't break where waves are supposed to."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "It curls, gentle, and rolls itself right up her arm like a cat."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Laine laughs, a short surprised sound, and nearly drops the shell."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The water catches it before it hits the sand and hands it right back."
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She stays right where she is and just \u2014 asks the water to come to her.",
+              "effects": {
+                "laine_power": "wild",
+                "team_spark": 1
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She doesn't move her feet at all. She just holds the shell up,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "closes one eye like she's aiming something, and thinks: come here."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The water comes here."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Not a wave. A wall. Small, knee-high, but a wall \u2014 and it stops,"
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "all at once, just as it reaches her toes."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Then, with a splash, it falls at her feet."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Laine stands with her mouth open, still holding the shell overhead,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "grinning like she just won the grand prize."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "(Maybe she had...)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up on the dry sand, nobody noticed."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Two small shapes on the porch, half a beach away, are watching very,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "very closely."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry looks at Elijah, holding Sparkle Smash by the Uni-horn."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah smirks in agreement. They both leave the important things unsaid."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "In reality, Elijah said \"HEYOOOO\" and Henry did a chicken impression."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "By the time everyone is back up to the house, salt-crusted and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "sun-pink, Clementine's shell has gone quiet in her pocket and Laine has"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "been careful not to move the shell too quickly."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Neither of them has said a word to anyone about"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "what happened."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "They have, however, said quite a lot to each other, in low voices, all the way home."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ivory finds the flyer stapled to the ramp post at the top of the dune"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "walk, curling a little at the corners from the salt air."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A monster truck, mid-air, front wheels up over a crowd of tiny painted"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "stick-figure fans. Big letters. One word underlined twice."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "RIPTIDE \u2014 ONE NIGHT ONLY \u2014 ATLANTIC CITY FAIRGROUNDS"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She doesn't even finish reading it before she's running."
+        },
+        {
+          "type": "say",
+          "name": "Ivory",
+          "text": "THEO. WESLEY. THEO\u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She doesn't need to finish. They're already coming, because they heard"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the word Riptide from four houses down, the way dogs hear a can opener."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "There is a very loud, very overlapping conversation on the porch for"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "about six minutes, most of which is Theo and Wesley trying to out-fact"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "each other about horsepower."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "It's got a supercharger. I read the whole thing."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "Everyone's got a supercharger, that's not the interesting part\u2014"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Uncle Ian leans out the screen door, phone in hand, weather app open."
+        },
+        {
+          "type": "adult",
+          "name": "Ian",
+          "text": "There's a storm coming in Thursday night, just so you all know."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He says it the way grown-ups say things they don't expect anyone"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "to actually listen to."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Somewhere in the last six minutes, the flyer got folded into someone's back pocket, half-forgotten."
+        },
+        {
+          "type": "choice",
+          "prompt": "What do Theo and Wesley do about it?",
+          "options": [
+            {
+              "key": "A",
+              "label": "They stop arguing just long enough to dig the flyer back out and actually check the date.",
+              "effects": {
+                "storm_check": "checked"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo yanks the flyer out of his own pocket, smooths it flat against"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "his knee, and runs a finger down to the small print at the bottom."
+                },
+                {
+                  "type": "say",
+                  "name": "Wesley",
+                  "text": "...That's Thursday."
+                },
+                {
+                  "type": "say",
+                  "name": "Theo",
+                  "text": "That's Thursday."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "They look at each other. They look at the flyer. Neither of them"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "says the word cancel, because saying it out loud might make it real."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Two cousins now know exactly what's coming. That doesn't mean they know what to do about it."
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "They wave it off \u2014 the show's the show, they'll worry about weather when it happens.",
+              "effects": {
+                "storm_check": "missed"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Neither of them so much as glances at the flyer again. Why would"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "they \u2014 a storm on a Thursday is a grown-up problem, and there is"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "a supercharger to keep arguing about."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Someone should have checked which night the flyer said."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Nobody does. Not yet."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Out on the porch steps, Henry and Elijah sit together, sharing the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "last, sandy corner of a pretzel neither of them is supposed to be eating."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry looks at the flyer, upside down from where he's sitting."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He doesn't say anything. He just goes very quiet, the specific quiet"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "he gets right before a thunderstorm, hours before anyone else can tell"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "one's coming."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah looks at his own hands for a second, like he's checking they're"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "still there. Then he goes back to the pretzel."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody notices either of these things. There is a lot not to notice this week."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Across the Bridge",
+      "beats": [
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Thursday. The storm Uncle Ian mentioned is still, according to every"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "phone in the house, \"possible, late.\" Nobody has connected this to the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "flyer, which also says Thursday, in slightly smaller letters."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "The sky over the inlet is doing something orange and a little too pretty to trust."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The drive from Brigantine into Atlantic City takes eleven minutes and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "crosses one bridge, and by the halfway point Theo has explained the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "entire history of the sport to anyone in the car who will still make"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "eye contact with him."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "\u2014and that's why they don't run the mud pits anymore, it's a sand thing now, it's better for the tires\u2014"
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "You said that already."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "I'm saying it BETTER now."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The fairgrounds, when they finally get there, is a fenced lot at the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "edge of the city \u2014 bleachers on one side, a wall of stacked speakers"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "on the other, and in the middle, six trucks up on ramps under work lights,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "engines ticking as they cool."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "One of them is bigger than the rest, painted the deep churning green-blue of a wave about to break, and across the side, in letters made of chrome foam: RIPTIDE."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The whole family funnels toward the bleachers, except for two people"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "who stop walking entirely."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Theo and Wesley are standing at the chain-link, fingers through the gaps,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "looking at the pit like it's a place they've been dreaming about and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "just realized is also real."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A woman in a coverall spattered with sand and grease walks the fence line,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "checking latches, and stops in front of them."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "You two gonna stare or you gonna help."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Neither of them says anything for a second, which for Theo especially"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "is close to a medical event."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "Help. Definitely help."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Her name, according to the patch on her coverall, is SALT. She doesn't"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "explain the name and nobody asks, because it's obviously right."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Crew chief for Riptide. You know anything about trucks or do you just watch 'em?"
+        },
+        {
+          "type": "choice",
+          "prompt": "Theo answers first. What does he say?",
+          "options": [
+            {
+              "key": "A",
+              "label": "\"Both. I know the supercharger specs, the suspension travel, all of it.\"",
+              "effects": {
+                "theo_first": "recited"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo says it fast, like he's been saving it up all week, which he has."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt raises an eyebrow. Not unkindly."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Recite specs at me for a truck that isn't Riptide, I'll be impressed."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo, without missing a beat, does exactly that \u2014 for the wrong truck,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "perfectly, from memory."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt actually laughs."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Okay. Okay. In you come."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "He doesn't say anything \u2014 he just points at a bent tie-rod on the truck behind her.",
+              "effects": {
+                "theo_first": "spotted"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo just points, past her shoulder, at the truck two spots down."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Its front tie-rod is bent, just slightly, just enough that nobody"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "looking for it would notice \u2014 but he wasn't looking for it. He just saw it."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt turns around slowly. She looks at the tie-rod. She looks at Theo."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Huh."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Nobody's called that yet and we're on in two hours."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She waves them both through the gate without asking anything else."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Two cousins are now, officially, in the pit."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Inside the fence it's louder and it smells like hot rubber and cut grass,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and Wesley has gone very quiet, which for him is the loudest possible"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "thing he could do."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt leads them straight to Riptide, up close, close enough to see the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "hand-painted whitecaps along the fender and the dent nobody's bothered"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "to fix because it's got a good story."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "She's been running a little rough on the last jump all week. Can't find it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She says it like she's talking to another mechanic. Not down to a kid."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Wesley notices that, and it matters more to him than almost anything"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that's happened all summer."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "choice",
+          "prompt": "Wesley looks the truck over. What does he go for first?",
+          "options": [
+            {
+              "key": "A",
+              "label": "The landing gear \u2014 he asks to see how the shocks are set for the jump.",
+              "effects": {
+                "wesley_first": "shocks"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Wesley crouches by the rear axle, tracing the shock mount with one"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "finger, the way he's watched a hundred pit crews do it on a screen."
+                },
+                {
+                  "type": "say",
+                  "name": "Wesley",
+                  "text": "If she's rough on landing and not on takeoff, it's probably rebound, not compression."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt goes still for a second."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "...Say that again."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Wesley says it again, a little less sure the second time, but he says it."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt crouches down next to him and checks the shock herself."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Rebound's soft. You're right. How old are you?"
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "The fuel line \u2014 he asks if anyone's checked it since the last show.",
+              "effects": {
+                "wesley_first": "fuel_line"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Wesley traces the fuel line with his eyes, all the way from the tank"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "to where it disappears under the engine cowling."
+                },
+                {
+                  "type": "say",
+                  "name": "Wesley",
+                  "text": "There's a kink right where it goes under the cowling. That'd explain rough, not stalling."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt leans over, follows where he's pointing, and pulls the cowling"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "panel half off."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "There it is. A kink, small, exactly where he said."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Well I'll be."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt straightens up, wiping her hands on a rag, looking at both boys"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "with something that isn't quite surprise and isn't quite pride, but"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "is standing very close to both."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Storm's supposed to roll in right around showtime. If she's still running rough when that happens, we've got a real problem."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody in the pit says the word cancel. But everyone is thinking it a little."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up in the bleachers, the rest of the family is spreading out towels"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "on aluminum benches that have been baking in the sun all day."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ivory isn't sitting. She's standing at the top rail, hair doing something"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "it doesn't usually do, even for beach wind."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's had the shell in her pocket since the boardwalk \u2014 a fan-shaped"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "thing, ridged like it's already mid-gust \u2014 and it hasn't stopped humming"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "since they crossed the bridge."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "The flags along the fence line are all pointing the same direction. Straight at her."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A gust comes through hard, sudden, and rattles the whole banner strung"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "across the pit gate \u2014 the one with RIPTIDE printed six feet tall \u2014 until"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "one corner tears loose from its zip tie and starts whipping like a sail"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "about to take off entirely."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody down in the pit has noticed yet. It's about to go."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Ivory do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She grabs the shell tight and pushes back \u2014 hard \u2014 against the gust with everything she's got.",
+              "effects": {
+                "ivory_first": "pushed"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She squeezes the shell and shoves, both hands out, like pushing a door"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "closed against a storm."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The gust stutters. Fights her. For one long second it's a tug-of-war"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "between a nine-year-old and the sky."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "She wins. Just barely. The banner slaps flat and stays down."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Ivory's arms are shaking. She looks thrilled and a little bit terrified"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "about how thrilled she is."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She doesn't fight it. She turns her whole body sideways and lets the wind pour through her, aiming it.",
+              "effects": {
+                "ivory_first": "aimed"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She turns, lets the wind come, and instead of stopping it she just \u2014"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "nudges it. Aims it. Like turning a hose instead of blocking it."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The gust changes direction mid-tear, catches the loose banner corner,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "and pins it flat against the fence instead of ripping it free."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Ivory grins, a little dazed. That took barely any effort at all."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down in the pit, Salt glances up at the banner, now oddly, perfectly"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "still despite the wind still moving everything else, and frowns just slightly."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "She doesn't say anything. She files it away. Pit crews notice things."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia has been quiet the whole drive, the whole walk in, the whole"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "time everyone else has been shouting about tie-rods and gust speeds."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's not bored. She's listening to something nobody else can hear yet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Her shell \u2014 small, spiraled tight, almost see-through at the edges \u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "has been cool and faintly damp in her palm since the parking lot, even"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "though the day is dry as a cracker."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "She's the first one to notice the fog starting to roll in off the bay side. Hours early."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "It's not much yet \u2014 just a thinning of the light, a softness at the edges"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "of the far bleachers \u2014 but it's fog, and fog this early, this fast, is not"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "what the weather app promised anybody."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia holds the shell up. The fog, very faintly, curls toward her hand,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the way smoke bends toward an open window."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Olivia do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She tries to hold it back \u2014 keep it thin, keep the track visible, before anyone notices.",
+              "effects": {
+                "olivia_first": "held"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She closes her hand around the shell and wills the fog to stay thin,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "stay low, stay out of the way of the track."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "It listens, mostly. It stays down around people's ankles instead of"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "climbing higher, a soft grey carpet instead of a wall."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Olivia's hands are shaking a little by the time she lets go. Holding"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "something back, it turns out, costs more than letting it happen."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She lets it come closer and studies it, trying to understand what it's actually doing.",
+              "effects": {
+                "olivia_first": "read"
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She lets it come. It rolls up around her sandals, cool and strange,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "and she crouches down into it, watching how it moves \u2014 not random."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Pulling toward the water. Pulling toward the storm still building offshore."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Olivia stands up slowly, a little pale."
+                },
+                {
+                  "type": "say",
+                  "name": "Olivia",
+                  "text": "It's not just going to rain. Something's really coming."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody in the stands quite hears her over the pre-show music kicking in,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "except Ivory, standing right next to her, who goes very still."
+        },
+        {
+          "type": "say",
+          "name": "Ivory",
+          "text": "How much time do you think we've got?"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia looks out at the darkening line over the water."
+        },
+        {
+          "type": "say",
+          "name": "Olivia",
+          "text": "Not as much as the flyer said."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up in the bleachers, waiting is its own kind of work, and Clementine"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "has never been good at just waiting."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She's the one who notices the little boy two rows down wince and grab"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "his shin on a bent bleacher bracket, blood already welling up thin"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and bright along a two-inch scrape."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "His mom's already digging through a bag for a band-aid that isn't there."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Clementine do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She kneels down and presses her palm flat over the scrape, quiet, the way she did for the gull.",
+              "effects": {
+                "clementine_ch2": "healed"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Clementine",
+                  "text": "Her palm goes warm, then hot, and by the time she lifts it the scrape's gone from bleeding to barely pink, like it happened a week ago instead of a minute."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "The kid stares at his own shin. His mom stares at Clementine."
+                },
+                {
+                  "type": "say",
+                  "name": "Clementine",
+                  "text": "It just \u2014 looked worse than it was."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "It did not, in fact, look worse than it was."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She runs a thumb along the bent bracket instead, smoothing the metal so it can't catch anyone else.",
+              "effects": {
+                "clementine_ch2": "fixed"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Clementine",
+                  "text": "She runs her thumb along the bent bracket and it straightens under her touch like warm wax, smooth, blunt, harmless."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Nobody else is going to catch a shin on that one."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Clementine's getting quicker at deciding which kind of help a thing needs."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A few feet away, Laine's not looking at the pit at all. She's watching"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a cooler someone left tipped over near the base of the speaker tower,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "melted ice water spreading fast toward a snake of extension cords."
+        },
+        {
+          "type": "choice",
+          "prompt": "What does Laine do?",
+          "options": [
+            {
+              "key": "A",
+              "label": "She yanks the water sideways, hard and fast, before it gets anywhere near the cords.",
+              "effects": {
+                "laine_ch2": "pulled"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Laine",
+                  "text": "She flicks her wrist and the whole spreading puddle snaps sideways all at once, like someone yanked a rug out from under it, and pools harmlessly six feet clear of the cords."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "A guy in a fairgrounds vest glances over at the splash, shrugs, and"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "goes back to his radio. Some things you just decide not to ask about."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She opens a slow channel through the gravel instead, letting the water drain away on its own.",
+              "effects": {
+                "laine_ch2": "guided"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Laine",
+                  "text": "She just nudges it, patient, and the water finds a thin seam in the gravel and drains away quietly, a little at a time, like it was always going to go that way."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "By the time anyone would've noticed there was a problem, there isn't one."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Neither of them says anything to the other about it. They don't have to."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Two more cousins are getting the hang of this."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The announcer's voice crackles over the speaker wall, cheerful and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a little too loud, welcoming everyone to a night of \"thunder, mud, and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "absolutely no refunds.\""
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody laughs harder at that than the grown-ups."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down in the pit, Salt is on one knee by Riptide's rear axle, tightening"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "something with a wrench that looks older than she is, when the first"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "real gust of the actual storm \u2014 not Ivory's, the storm's \u2014 comes through"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and knocks a stack of orange cones flat."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A man in a fairgrounds vest jogs over, clipboard against his chest,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "looking at the sky like it personally offended him."
+        },
+        {
+          "type": "adult",
+          "name": "Fairgrounds Manager",
+          "text": "Salt, they're saying this thing's moving faster than forecast. We might need to cut the show short."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "We haven't even run her yet."
+        },
+        {
+          "type": "adult",
+          "name": "Fairgrounds Manager",
+          "text": "I know. I'm just telling you what I'm hearing."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Theo and Wesley look at each other. Neither of them says the word cancel out loud either. It's starting to feel unlucky."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up in the bleachers, four cousins find each other in the crowd \u2014 Ivory,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia, Clementine, Laine \u2014 pulled together the way cousins always are,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "without anyone deciding to do it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine's shell is warm again in her pocket. Laine's is practically"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "buzzing."
+        },
+        {
+          "type": "say",
+          "name": "Laine",
+          "text": "Something's wrong with the truck. I heard the guy with the clipboard."
+        },
+        {
+          "type": "say",
+          "name": "Clementine",
+          "text": "Theo would know exactly what's wrong with the truck."
+        },
+        {
+          "type": "say",
+          "name": "Ivory",
+          "text": "Then we go tell him what we know. All of it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "They don't call it a plan. It's just four kids who are suddenly, quietly,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "carrying more than they knew how to carry an hour ago."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "They start moving toward the pit gate."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down on the porch steps, three streets and one bridge away, Henry and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah are watching the same storm come in from a completely different angle."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody thought to bring the two littlest to a monster truck show on a"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "stormy night, which had seemed, that morning, like a very sensible"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "decision."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry looks at the dark clouds stacking up over the water."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He goes quiet again. The thunderstorm-quiet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah looks at his own hands again. Longer this time."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Something is starting in both of them that neither one has a word for yet."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "The Road Back",
+      "beats": [
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Back in Brigantine, Memaw has been watching the sky for the last twenty"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "minutes with the specific stillness of someone who has decided something"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and hasn't announced it yet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The road off the island runs low along the bay in two places, and every"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "summer, sooner or later, the water finds a reason to sit on top of it"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "for a while."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Her phone buzzes. A flood watch, county-wide, starting within the hour."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "adult",
+          "name": "Memaw",
+          "text": "Boys. Coats. We're going to go be with everybody."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry is already at the door with his shoes on the wrong feet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah is holding his shoes, not wearing them, which is somehow faster."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The drive across the bridge is louder than usual \u2014 rain starting to"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "needle the windshield, wipers losing the argument \u2014 and both boys"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "press their faces to the glass and don't say a word the whole way."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Something in each of them is very, very awake."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "They find the rest of the family bunched under the bleacher overhang,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "ponchos on, watching the pit with the specific tension of people who"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "came a long way to see something that might not happen."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt is standing at the fence with the fairgrounds manager, both of them"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "looking at a phone screen, at a radar map that is mostly one large angry"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "green-and-yellow blob sitting directly over Atlantic City."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Storm's not slowing down. We've got maybe one window before it's just \u2014 not safe to run her."
+        },
+        {
+          "type": "adult",
+          "name": "Fairgrounds Manager",
+          "text": "How small a window?"
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Fifteen minutes. Maybe."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Eight cousins, four grown-ups, one truck, and fifteen minutes."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The problem, once everyone's actually looking at it, is not really"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the engine anymore. Theo and Wesley fixed what they could fix."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The problem is the ground."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The landing strip \u2014 the long stretch of packed dirt where Riptide comes"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "down off the big jump \u2014 has gone from packed to soup in about ten minutes"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "of hard rain, and a truck landing wrong in soup doesn't stick a landing."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "It buries itself."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Clementine and Laine look at each other. They don't need to say what they're both thinking."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "They duck under the fence together \u2014 nobody stops two kids who look"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "like they know exactly where they're going, and for once, they do."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine crouches at the edge of the landing strip, both palms flat"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "in the mud, her shell warm and insistent in her pocket."
+        },
+        {
+          "type": "choice",
+          "prompt": "Clementine has to decide how much of the strip to hold, and how hard.",
+          "options": [
+            {
+              "key": "A",
+              "label": "She focuses on just the landing zone \u2014 small, exact, everything she has poured into one spot.",
+              "effects": {
+                "clementine_second": "focused"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Clementine",
+                  "text": "The mud under her hands goes taut, packed, almost stone \u2014 a circle no wider than a truck's wheelbase, exactly where the wheels need to land."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Everywhere else, the ground stays soup. But right there, right where"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "it matters, it holds."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Not the whole track. Just the one square yard that counts."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She spreads herself thin across the whole strip, holding a little bit of everywhere instead of a lot of one place.",
+              "effects": {
+                "clementine_second": "spread"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Clementine",
+                  "text": "She spreads her hands wide, and the whole strip firms up at once \u2014 not stone, but not soup either. Something in between. Something forgiving."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "It's less certain than one perfect spot. But it means wherever the"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "truck actually lands, not just where it's supposed to, the ground"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "will hold."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Clementine's arms are shaking by the time she's done. She doesn't stop early."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Laine is already at the drainage ditch that runs along the fence line,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "watching it fill fast, watching it get closer to spilling right back"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "across the strip Clementine just spent everything holding."
+        },
+        {
+          "type": "choice",
+          "prompt": "Laine has to decide what to do with the water.",
+          "options": [
+            {
+              "key": "A",
+              "label": "She pulls it \u2014 hard \u2014 away from the strip and out toward the empty lot beyond the fence.",
+              "effects": {
+                "laine_second": "pulled"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Laine",
+                  "text": "She grabs a fistful of nothing and hauls sideways, and a whole sheet of standing water peels off the strip and slaps down in the empty lot beyond the fence, all at once."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She's breathing hard by the time it's over. The shell in her hand"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "has gone almost cold."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She doesn't fight the rain at all. She just guides it, gently, into the ditch, letting it go where it already wants to go, faster.",
+              "effects": {
+                "laine_second": "guided"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Laine",
+                  "text": "She just opens her hand, palm up, like she's asking the water where it wants to go \u2014 and it tells her. Ditch, then culvert, then gone. She just clears the way."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She stops watching before it's finished draining. It doesn't need"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "her to."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt jogs over from the fence, boots sucking in the mud, and stares"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "at the one dry, firm strip of ground in the middle of an otherwise"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "drowned field."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "...I am not going to ask."
+        },
+        {
+          "type": "say",
+          "name": "Clementine",
+          "text": "Probably better not to."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up above the arena, the storm is doing what storms do when nobody's"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "asked them nicely to slow down \u2014 pushing sheets of rain sideways,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "dragging the work lights' beams into long smeared columns, tearing"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "visibility down to almost nothing past the near fence."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ivory stands at the center of the bleachers, shell out, watching the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "banners all snap the same direction \u2014 toward the ramp, where Riptide"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "is idling, headlights the only steady thing in the whole gray mess."
+        },
+        {
+          "type": "choice",
+          "prompt": "Ivory has to decide what to do about the wind itself.",
+          "options": [
+            {
+              "key": "A",
+              "label": "She tries to hold a clear lane down the whole runway, pushing the crosswind out of the truck's path entirely.",
+              "effects": {
+                "ivory_second": "cleared"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Ivory",
+                  "text": "She plants her feet and pushes outward, both arms wide, and for a stretch of maybe forty feet down the runway, the crosswind just \u2014 stops. A tunnel of still air, walled in by weather on either side."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Her whole body is shaking with the effort of it. For one long minute, it holds anyway."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She doesn't fight the crosswind \u2014 she works with the driver instead, timing gusts so they land between jumps, not during them.",
+              "effects": {
+                "ivory_second": "timed"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Ivory",
+                  "text": "She closes her eyes and just listens \u2014 to the gusts, their rhythm, the gaps between them \u2014 and starts calling them out loud, like counting someone in."
+                },
+                {
+                  "type": "say",
+                  "name": "Ivory",
+                  "text": "Now \u2014 now \u2014 NOW, go now\u2014"
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "She's not stopping the storm. She's reading it, and that turns out to matter more."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Beside her, Olivia has both hands cupped around her shell, watching"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the mist and rain-fog tangle together into something thick enough now"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that even the announcer's booth has gone hazy and half-invisible."
+        },
+        {
+          "type": "choice",
+          "prompt": "Olivia has to decide what the mist should do.",
+          "options": [
+            {
+              "key": "A",
+              "label": "She thins it out over the whole arena, trading a little magic hidden for a lot more visibility.",
+              "effects": {
+                "olivia_second": "thinned"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Olivia",
+                  "text": "She spreads her hands and the whole grey blanket over the arena lifts, thins, goes from soup to gauze. Everyone can see everything now \u2014 including, for a half second, exactly what Clementine and Laine are doing to the ground."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "A few grown-ups in the stands blink and decide, quietly, not to mention what they just saw."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "She keeps it thick everywhere except one narrow, clear window over the landing strip \u2014 just enough for Salt and the driver to see, nothing more.",
+              "effects": {
+                "olivia_second": "windowed"
+              },
+              "beats": [
+                {
+                  "type": "power",
+                  "name": "Olivia",
+                  "text": "She keeps the mist thick everywhere, a soft grey curtain hiding most of the field \u2014 except one clean, clear column of visibility, aimed exactly at the landing strip, and nowhere else."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Nobody in the stands can see much of anything. Salt, right where it matters, can see everything."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down on the radio clipped to her coverall, Salt's voice comes through"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "static, tight and focused."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "I've got a window. It's not much. Somebody get me Theo and Wesley, now."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Theo and Wesley are already moving before she finishes the sentence,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "splashing across the pit toward Riptide's open door, where the driver \u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a woman about Salt's age, helmet already on, visor still up \u2014 is watching"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the storm with the specific calm of someone who has done this before"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and is choosing, right now, whether to trust two kids she met an hour ago."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt looks at both of them."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Rebound's fixed. Fuel line's fixed. Tell me what I'm missing."
+        },
+        {
+          "type": "choice",
+          "prompt": "Theo answers first. What does he tell her to watch for?",
+          "options": [
+            {
+              "key": "A",
+              "label": "\"The landing zone. It's firmer than the rest of the strip now \u2014 she needs to aim short, not long.\"",
+              "effects": {
+                "theo_second": "landing",
+                "team_spark": null
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo says it fast and sure, pointing at the one dry patch of ground"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "out there that only he and a few cousins understand the reason for."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Short landing. Copy."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "She says it into her own radio, relaying it straight to the driver,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "word for word, no hesitation."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "\"The crosswind timing. It's not steady \u2014 she needs to launch on a gap, not on the count.\"",
+              "effects": {
+                "theo_second": "wind",
+                "team_spark": null
+              },
+              "beats": [
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Theo points up, toward Ivory's silhouette at the top of the bleachers,"
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "timing gusts nobody else can feel yet."
+                },
+                {
+                  "type": "say",
+                  "name": "Theo",
+                  "text": "Watch for the gap, not the clock. Trust me."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt looks at him for one long second, then keys her radio anyway."
+                },
+                {
+                  "type": "adult",
+                  "name": "Salt",
+                  "text": "Launch on the gap, not the count. You'll feel it."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Wesley has the last word before the truck rolls out. What does he say?",
+          "options": [
+            {
+              "key": "A",
+              "label": "\"If she hesitates at all \u2014 cut power and reset. Don't force it.\"",
+              "effects": {
+                "wesley_second": "caution"
+              },
+              "beats": [
+                {
+                  "type": "say",
+                  "name": "Wesley",
+                  "text": "If it feels wrong at all, cut power and reset. Don't force it."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt nods, slow, and relays it exactly."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "Not a flashy thing to say. Salt relays it word for word anyway."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            },
+            {
+              "key": "B",
+              "label": "\"Once she commits, don't pull back. Committing halfway is worse than not going.\"",
+              "effects": {
+                "wesley_second": "commit"
+              },
+              "beats": [
+                {
+                  "type": "say",
+                  "name": "Wesley",
+                  "text": "Once you commit, don't pull back. Halfway is worse than all the way."
+                },
+                {
+                  "type": "line",
+                  "style": "speak",
+                  "text": "Salt actually grins at that one, just slightly, and relays it word for word."
+                },
+                {
+                  "type": "line",
+                  "style": "beat",
+                  "text": "It's the kind of advice a driver who's been doing this for twenty years already knows. It still means something, coming from him."
+                },
+                {
+                  "type": "wait"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The door slams. The engine climbs from a rumble to a roar that swallows"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the rain entirely."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Riptide rolls toward the start line."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The work lights choose that exact moment to flicker, buzz, and die \u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "all of them, all at once, the whole fairgrounds dropping into a wet,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "roaring dark broken only by Riptide's own headlights and the far-off"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "orange glow of the city across the water."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The crowd makes a sound that is half gasp, half groan."
+        },
+        {
+          "type": "adult",
+          "name": "Fairgrounds Manager",
+          "text": "Generator's out \u2014 that's it, that's the show, we can't run her blind\u2014"
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Somewhere in the dark, small and stubborn, a voice disagrees."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah has been standing at the fence rail this whole time, soaked,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "silent, watching his older cousins do things he didn't have a name for"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and feeling, very clearly, like he had one too and just hadn't used it yet."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "In the sudden dark, he opens both hands."
+        },
+        {
+          "type": "power",
+          "name": "Elijah",
+          "text": "Light comes up from his palms \u2014 not a flash, not fireworks, just a steady, warm glow, gold-white, spilling out and up like he's been holding a lantern this whole time and only just remembered."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Not much. Just enough."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "It catches the rain in the air and turns the whole strip in front of him"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "silver-gold, enough to see the mud, the fence line, the shape of the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "landing strip Clementine spent everything holding."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody taught him that. Nobody knew to ask if he could."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt turns around slowly, radio forgotten in her hand, staring at the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "small soaked kid glowing quietly at the fence like it's the most normal"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "thing that's happened all night \u2014 which, given the night so far, it"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "more or less is."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "...Okay. Okay! We can still see the strip \u2014 she's still cleared to run!"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine crouches down next to Elijah, staring at his hands like she's"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "seeing her own cousin for the first time."
+        },
+        {
+          "type": "say",
+          "name": "Clementine",
+          "text": "Elijah. How long could you do that?"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He shrugs, like it's obvious."
+        },
+        {
+          "type": "say",
+          "name": "Elijah",
+          "text": "Since always. Nobody asked."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The light holds. The crowd, in the dark, does not."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Somewhere behind the bleachers, someone shouts about lightning, and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that's all it takes \u2014 a ripple of real fear starts moving through people"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "packed too close together in the rain, the specific fast panic of a"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "crowd that's decided, all at once, that it wants to leave right now."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Over the radio, the driver's voice comes through tight, rattled."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "I can hear them from in here. I can't focus with that noise, I need \u2014 I need a second\u2014"
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "There isn't a second to spare. The window Salt found is already closing."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry has been standing very still this whole time, the way he does"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "right before a thunderstorm, the quiet that comes hours early and that"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "nobody ever quite believes until the sky proves him right."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "He looks at the crowd. He looks at the truck. He doesn't say anything \u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "he's four, he doesn't have the words for what he's about to do, he just"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "does it, the way you hum without deciding to."
+        },
+        {
+          "type": "power",
+          "name": "Henry",
+          "text": "A stillness moves out from him in a slow ring, not silence exactly \u2014 the rain keeps falling, the engine keeps roaring \u2014 but something underneath all of it goes calm, goes steady, the way a held breath does right before it's let out on purpose."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The panic in the crowd doesn't vanish. It just \u2014 softens. Stops climbing."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "People stop shoving toward the exits and start, instead, just watching."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody taught him that either. There isn't a lesson for a four-year-old learning to be steady."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Over the radio, the driver's breathing evens out, slow, on purpose."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "...Okay. Okay. I've got it. I've got it back."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt looks over at Henry \u2014 small, soaked, standing very still at the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "fence with his brother \u2014 and doesn't say anything at all for a second."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "This family."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She keys the radio one more time."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "You're cleared. Go."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The engine note changes \u2014 climbs, steadies, commits \u2014 and Riptide surges"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "down the runway toward the jump, headlights cutting twin tunnels through"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah's steady gold light and the last of the wind and rain."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Eight cousins, four grown-ups, and one very tired pit crew all stop breathing at the same moment."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The ramp takes her up and out, all four wheels off the ground, the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "whole enormous truck hanging in the air over the flooded field for a"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "stretch of time that feels much longer than it actually is."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Riptide rolls to a stop at the far end of the strip, engine ticking down,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "headlights still cutting through Elijah's fading gold light."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The crowd \u2014 soaked, cold, and utterly delighted \u2014 comes apart in noise."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "The storm, as if it had only been waiting for permission, starts to ease."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The driver climbs out into the rain, pulls her helmet off, and looks"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "straight past the cheering crowd to the fence, where eight cousins and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "one crew chief are standing in a huddle that doesn't look like it belongs"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "at a monster truck show at all."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She doesn't say anything about it. She just nods, once, like she knows"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "exactly how much she doesn't understand and has decided that's fine."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt walks the fence line slower this time, checking latches out of habit,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and stops in front of the whole group."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "I've been doing this a long time. I've never had a crew like tonight's."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She looks at Theo and Wesley."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "You two \u2014 anytime you're in a town with a show, you find me."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She looks at Clementine and Laine, at the one strange dry patch of ground"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "still holding out against a whole flooded field."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Whatever that was. Thank you."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She looks last at Elijah and Henry, and just shakes her head slowly,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "smiling."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Nobody's gonna believe the littlest ones saved the show. I believe it."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The three families find each other under the bleacher overhang, soaked"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "through, counting heads out of habit \u2014 the Repkos, the Mosers, and the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "other Repkos, eight cousins and four grown-ups and one new baby who"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "slept through literally all of it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Uncle Ian checks his phone."
+        },
+        {
+          "type": "adult",
+          "name": "Ian",
+          "text": "Road's still open. Storm's moving off the coast. We can make it back before it closes."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody moves right away. Nobody's quite ready to stop being here yet."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "On the drive back over the bridge, windows fogged, everyone talking"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "over everyone else about the parts they saw and the parts they only"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "heard about, Clementine looks back at Henry, asleep against the door,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "and at Elijah, still faintly, barely glowing at the fingertips, also asleep."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody decided the littlest ones would be the ones who saved it. They just were."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Somewhere behind them, across the water, Atlantic City's lights come"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "back on, one grid at a time, and Brigantine sits dark and quiet and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "waiting, three streets from a beach that's going to be covered in new"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "shells by morning."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody's found out yet what the new shells are going to give them."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "That's a different week."
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Low Tide",
+      "beats": [
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The last morning in Brigantine doesn't call attention to itself the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "way the storm did. Flat gray light. Gulls squabbling over something"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "in the sand. The whole street smells like salt and coffee and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "somebody's pancakes two houses down."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Every driveway has the same shape this morning. Open trunks. Folding"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "chairs stacked wrong on the first try. A flip-flop that's been missing"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "since Tuesday, turning up under a beach cart."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Packing up. Usually the least magical part of any vacation. Not this year."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine kneels by the last sandcastle anyone bothered to build, the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "one Henry says has to survive until Memaw gets the picture. She presses"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "two fingers into the base, barely thinking about it. The same way"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "you'd steady a wobbly table leg without breaking stride."
+        },
+        {
+          "type": "power",
+          "name": "Clementine",
+          "text": "The wet sand under her fingers goes just firm enough to hold its shape one photo longer, and she's already three steps away before it finishes settling."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Nobody comments. Nobody needs to. This is Tuesday-morning small. The"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "kind of thing that used to be the whole plot, and is now just how"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine says good morning to a sandcastle."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up at the cars, Theo and Wesley are having a genuine argument about"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "trunk space. Theo wants the cooler flat against the seats, for weight."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Wesley wants it upright because it \"looks more organized,\" which is"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "not, Theo points out, an engineering consideration."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "It's a little bit an engineering consideration."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "It is a zero percent an engineering consideration."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Meanwhile, at ankle height, the actual engineering problem of the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "morning is unfolding without anyone's permission. Elijah has decided"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "every sand toy belongs in the cooler instead of the beach bag. Henry"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "has found one flip-flop and is carrying it, very seriously, back and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "forth between two coolers that don't need it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Clementine scoops Henry up half a step before he wanders past the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "edge of the driveway, flip-flop and all, and swings him onto her hip"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "like she's done it forty times this week. She has."
+        },
+        {
+          "type": "say",
+          "name": "Clementine",
+          "text": "Not the street, buddy. Coolers only."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry considers this instruction with enormous seriousness and hands"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "her the flip-flop instead. To him, that feels like a fair compromise."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Down the street, Ivory flattens the flapping corner of a tarp with one"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "flick of her wrist before Uncle Ian even notices it's come loose."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Olivia thins the morning haze off the windshield glass just enough"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "for him to see the mirrors."
+        },
+        {
+          "type": "adult",
+          "name": "Ian",
+          "text": "Huh. Windshield cleared up fast."
+        },
+        {
+          "type": "say",
+          "name": "Olivia",
+          "text": "Sun does that."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "It is not, currently, sunny. Nobody's counting."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The cars are almost loaded, the coolers are almost empty, and the whole"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "street has that specific tug of a family about to leave somewhere it"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "liked. That's when Wesley plants himself in front of the trunk like"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a small, damp roadblock."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "We have to say bye to Riptide."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "And Salt. But mostly Riptide."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Behind him, seven other cousins arrange themselves into the exact"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "formation of a group that has already decided, and is only pretending"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "to ask permission."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "adult",
+          "name": "Ian",
+          "text": "We really do need to be on the road\u2014"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Memaw puts a hand on his arm, not looking up from the trunk she's"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "rearranging."
+        },
+        {
+          "type": "adult",
+          "name": "Memaw",
+          "text": "Twenty minutes, Ian. They earned twenty minutes."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody in the family has said out loud, exactly, what they earned it for. Everybody knows."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The fairgrounds, in daylight, without a storm on top of it, turns out"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "to be a much smaller, much more ordinary place than any of them"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "remembered. Mud drying to cracked pale crust. One lonely food truck"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "open for breakfast. A rig crew loading trailers for the next town on"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the schedule."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Riptide sits up on its lift, headlights dark, looking a good deal"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "smaller than it did coming down out of the sky."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt's already elbow-deep in the front axle when they find her, and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "she doesn't look up until Theo's shadow falls across the wheel well."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Then she does, and almost smiles."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Figured you'd turn up. Not enough of you to be a coincidence."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She wipes her hands, slow, taking in all eight of them lined up along"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the fence in the flat morning light. Considerably less soaked than"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "last time. Considerably less panicked."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Come here. Last thing before you go."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She walks them around the truck the way she must do it before every"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "single run. One hand flat against each tire. A tug on every strap."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A knuckle-rap on the frame here and there, like she's checking a"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "heartbeat."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Front left. Rear left. Straps, latches, fuel line, frame. Same order, every time. You skip the order, you miss the thing that matters."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Theo's already nodding along like he's memorizing it, which he is."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "Same order every time so you're not relying on remembering to check something. The order does the remembering."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt looks at him for a second too long."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "...Yeah. That's exactly it. Huh."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She digs in her coverall pocket and comes up with something small."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "A stripped bolt, the one from the tie-rod Theo caught back in the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "first pit walk. Worn smooth at the threads now, useless for anything"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "except being carried around in a pocket."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Can't run this again. Figured somebody who actually knows what it is should have it, instead of it going in a bucket."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She holds it out. Theo takes it like it's heavier than it is."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Without really discussing it, the eight of them pass it hand to hand"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "down the fence line, everybody getting a turn holding the thing that,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "technically, started all of this. They skip past Henry and Elijah's"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "hands, gently, the way you skip a toddler's hands past anything with"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "an edge."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "It ends up in Laine's pocket last, since she's the oldest and the one everyone trusts not to lose it by the parking lot."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt looks at all of them one more time. Muddy sneakers. Salt-crusted"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "hair. A four-year-old solemnly inspecting a bolt like it owes him"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "an explanation. She shakes her head slowly."
+        },
+        {
+          "type": "adult",
+          "name": "Salt",
+          "text": "Front left, rear left, straps, latches, frame. That's yours now. Whatever you're checking, wherever you're checking it."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She doesn't say what she means by that. She doesn't have to."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Walking back to the cars, Wesley, who has clearly been holding this"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "in since somewhere around the tie-rod bolt, can't hold it in any"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "longer."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "We need a name. A crew needs a name. Salt basically said we're a crew."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "The Torque Wrenches."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "YES."
+        },
+        {
+          "type": "say",
+          "name": "Theo",
+          "text": "None of us own a torque wrench, Wesley."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "I could get one."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Ivory's already counting on her fingers, half to herself."
+        },
+        {
+          "type": "say",
+          "name": "Ivory",
+          "text": "Eight of us. Something with eight in it. Gale Force Eight. That's a real wind measurement, I looked it up for a different reason\u2014"
+        },
+        {
+          "type": "say",
+          "name": "Olivia",
+          "text": "...that's a lot of syllables to yell across a beach."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Laine, walking a little apart with her hands in her pockets, says it"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "quiet enough that only the cousins nearest her catch it at first."
+        },
+        {
+          "type": "say",
+          "name": "Laine",
+          "text": "Salt already just calls us 'the crew.' Maybe that's not nothing."
+        },
+        {
+          "type": "say",
+          "name": "Clementine",
+          "text": "Maybe. But she named us by accident. I think this one should be on purpose."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry, not quite two, maybe a dozen words in his whole vocabulary,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "tugs Clementine's sleeve and points back at the fairgrounds, back at"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the storm that isn't there anymore, back at all of it."
+        },
+        {
+          "type": "say",
+          "name": "Henry",
+          "text": "Storm."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Just the one word. He's heard it said a hundred times this week and"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "it's the one that stuck. Everyone goes quiet for a second anyway,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "because out of everyone who could've named it, the almost-two-year-old"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "just did."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Elijah, barely three himself, catches the excitement more than the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "word, and starts bouncing on his toes, delighted with all of them."
+        },
+        {
+          "type": "say",
+          "name": "Elijah",
+          "text": "Storm! Storm!"
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Eight cousins stop walking, right there on the gravel between the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "fairgrounds and the cars, and look at each other. The way you do"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "right before a decision that's actually going to stick. The kind"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "that gets written on things, that somebody calls out across a beach"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "five years from now without even thinking about it."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Nobody's in charge of this one. It isn't a power. It's just a vote, and it's theirs."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "freeText",
+          "prompt": "So, what do the eight of them decide to call themselves?",
+          "stateKey": "crew_name",
+          "default": "The Storm Crew"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "\"{{crew_name}}.\" Somebody says it out loud first, doesn't matter who, and then everybody else says it too, testing the shape of it. It fits well enough that nobody argues twice."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "{{crew_name}}. That's them now. That's what they were, this whole trip, before anyone had a word for it."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "The drive off the island is nothing like the last one. Sun instead"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "of sideways rain, three cars instead of one, no radar map with a"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "green-and-yellow blob sitting over anything."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Henry's asleep against the window before the bridge even ends. Elijah's"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "not far behind him, fighting it, blinking slower and slower at the"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "marsh grass going by."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Up front, Laine's got the stripped bolt zipped safe in the smallest"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "pocket of her backpack, checked twice already."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "In the other car, Theo's already explaining torque specs to Wesley,"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "who is absolutely not listening and is instead narrating an imaginary"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "monster truck show out the window using nothing but sound effects."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Some things a whole vacation doesn't change. Nobody was trying to change those."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Somewhere past the marina, Clementine looks back at all of it. The"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "water going small behind them. The fairgrounds already just a shape"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "on the horizon. Brigantine folding itself back down into an ordinary"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "little island that most people driving past will never know did"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "anything unusual at all."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "She doesn't know yet what comes next. None of them do. There's no"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "storm on the radar, no new shells waiting on a beach, nothing lining"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "up to be the next big thing."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "Just eight cousins, four powers, two kids full of surprises, and a name that's theirs now, going home."
+        },
+        {
+          "type": "wait"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Salt knew it before any of them said it out loud. You could hear it"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "in \"this family,\" in \"that's yours now,\" in the way she handed"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "a worn-out bolt to eight kids instead of a bucket."
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "Front left. Rear left. Straps, latches, fuel line, frame. Long after"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "the last truck any of them ever help fix rolls off toward the next"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "town on the schedule, that's still going to be the order they check"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "each other in."
+        },
+        {
+          "type": "line",
+          "style": "beat",
+          "text": "{{crew_name}}, going home."
+        }
+      ]
+    }
+  ]
+}
