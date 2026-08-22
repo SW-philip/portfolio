@@ -14,6 +14,7 @@ const CAST = [
 
 let selectedSlug = null;
 let pinDigits = '';
+let isSubmitting = false;
 
 function renderNames() {
   const grid = document.getElementById('name-grid');
@@ -31,6 +32,7 @@ function renderNames() {
 function selectKid(kid) {
   selectedSlug = kid.slug;
   pinDigits = '';
+  isSubmitting = false;
   document.getElementById('name-screen').hidden = true;
   document.getElementById('pin-screen').hidden = false;
   const label = document.getElementById('pin-name');
@@ -45,14 +47,26 @@ function renderPinDots() {
 }
 
 async function submitPin() {
-  const result = await postLogin(selectedSlug, pinDigits);
-  if (!result) {
+  if (isSubmitting) {
+    return;
+  }
+  isSubmitting = true;
+  try {
+    const result = await postLogin(selectedSlug, pinDigits);
+    if (!result) {
+      document.getElementById('pin-error').hidden = false;
+      pinDigits = '';
+      renderPinDots();
+      return;
+    }
+    location.href = '/cousins/dashboard.html';
+  } catch (error) {
     document.getElementById('pin-error').hidden = false;
     pinDigits = '';
     renderPinDots();
-    return;
+  } finally {
+    isSubmitting = false;
   }
-  location.href = '/cousins/dashboard.html';
 }
 
 function renderPad() {
@@ -63,6 +77,9 @@ function renderPad() {
     btn.className = 'pin-key';
     btn.textContent = key;
     btn.addEventListener('click', () => {
+      if (isSubmitting) {
+        return;
+      }
       if (key === '⌫') {
         pinDigits = pinDigits.slice(0, -1);
       } else if (key === '⏎') {
