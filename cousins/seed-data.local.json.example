@@ -1,0 +1,12 @@
+{
+  "accounts": [
+    { "slug": "clementine", "name": "Clementine", "pin": "0000", "color": "#87af87" },
+    { "slug": "henry",      "name": "Henry",      "pin": "0000", "color": "#ffd7af" },
+    { "slug": "ivory",      "name": "Ivory",      "pin": "0000", "color": "#afffff" },
+    { "slug": "olivia",     "name": "Olivia",     "pin": "0000", "color": "#d7afff" },
+    { "slug": "theo",       "name": "Theo",       "pin": "0000", "color": "#d75f00" },
+    { "slug": "laine",      "name": "Laine",      "pin": "0000", "color": "#5fafff" },
+    { "slug": "wesley",     "name": "Wesley",     "pin": "0000", "color": "#8787af" },
+    { "slug": "elijah",     "name": "Elijah",     "pin": "0000", "color": "#ffd787" }
+  ]
+}
