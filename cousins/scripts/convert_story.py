@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""Converts a shorestorm_chNN.py source file's scene functions into the
+beats/chapter JSON schema consumed by public/js/engine.js.
+
+Handles: speak(), beat(), say(name,text), adult(name,text), power(name,text),
+wait(), a two-option choice()+if/else with state effects, and the
+name_the_crew() freeText call in chapter 4. Anything else is appended to
+UNHANDLED and must be reviewed by hand (see Task 16).
+"""
+import ast
+import json
+import sys
+
+NARRATE_FUNCS = {"speak": "speak", "beat": "beat"}
+NAMED_FUNCS = {"say": "say", "adult": "adult", "power": "power"}
+
+UNHANDLED = []
+
+
+def const_str(node):
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    return None
+
+
+def joined_str_to_template(node):
+    """Turn an f-string with only {name}/{crew_name} references into a
+    {{crew_name}} template marker. Anything else is flagged."""
+    parts = []
+    for value in node.values:
+        if isinstance(value, ast.Constant):
+            parts.append(value.value)
+        elif isinstance(value, ast.FormattedValue) and isinstance(value.value, ast.Name):
+            var = value.value.id
+            if var not in ("name", "crew_name"):
+                UNHANDLED.append(f"f-string references unexpected var {var!r}")
+                return None
+            parts.append("{{crew_name}}")
+        else:
+            UNHANDLED.append("f-string has an unsupported expression")
+            return None
+    return "".join(parts)
+
+
+def call_text_arg(call, index=0):
+    arg = call.args[index]
+    text = const_str(arg)
+    if text is not None:
+        return text
+    if isinstance(arg, ast.JoinedStr):
+        return joined_str_to_template(arg)
+    UNHANDLED.append(f"non-string arg at index {index} in a call")
+    return None
+
+
+def call_to_beat(call):
+    if not isinstance(call.func, ast.Name):
+        return None
+    fname = call.func.id
+    if fname == "wait":
+        return {"type": "wait"}
+    if fname == "pause":
+        return None
+    if fname in NARRATE_FUNCS:
+        text = call_text_arg(call)
+        if text is None:
+            return None
+        return {"type": "line", "style": NARRATE_FUNCS[fname], "text": text}
+    if fname in NAMED_FUNCS:
+        name = const_str(call.args[0])
+        text = call_text_arg(call, 1)
+        if name is None or text is None:
+            return None
+        return {"type": NAMED_FUNCS[fname], "name": name, "text": text}
+    UNHANDLED.append(f"unrecognized call to {fname}()")
+    return None
+
+
+def slot_key(subscript_slice):
+    # Python <3.9 wraps the slice in ast.Index(value=Constant(...)); 3.9+
+    # gives us the Constant directly. Constant nodes have their own
+    # `.value` holding the raw Python value, so only unwrap for Index.
+    if isinstance(subscript_slice, ast.Index):
+        subscript_slice = subscript_slice.value
+    return const_str(subscript_slice)
+
+
+def extract_effects(stmts):
+    """Walk a choice branch's body, returning (beats, effects)."""
+    beats = []
+    effects = {}
+    for stmt in stmts:
+        if isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Call):
+            beat = call_to_beat(stmt.value)
+            if beat:
+                beats.append(beat)
+            continue
+        target = None
+        if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1:
+            target = stmt.targets[0]
+        elif isinstance(stmt, ast.AugAssign):
+            target = stmt.target
+        if isinstance(target, ast.Subscript) and isinstance(target.value, ast.Name) and target.value.id in ("state", "s"):
+            key = slot_key(target.slice)
+            if key is None:
+                UNHANDLED.append("state assignment with a non-literal key")
+                continue
+            if isinstance(stmt, ast.AugAssign):
+                delta = stmt.value.value if isinstance(stmt.value, ast.Constant) else 1
+                effects[key] = effects.get(key, 0) + delta
+            else:
+                effects[key] = const_str(stmt.value)
+        # pause() and anything else inside a branch is intentionally ignored
+    return beats, effects
+
+
+def scene_to_beats(func):
+    beats = []
+    stmts = list(func.body)
+    i = 0
+    while i < len(stmts):
+        stmt = stmts[i]
+
+        if isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Call):
+            beat = call_to_beat(stmt.value)
+            if beat:
+                beats.append(beat)
+            i += 1
+            continue
+
+        if (
+            isinstance(stmt, ast.Assign)
+            and isinstance(stmt.value, ast.Call)
+            and isinstance(stmt.value.func, ast.Name)
+            and stmt.value.func.id == "choice"
+        ):
+            prompt = call_text_arg(stmt.value, 0)
+            options = [
+                (const_str(el.elts[0]), const_str(el.elts[1]))
+                for el in stmt.value.args[1].elts
+            ]
+            next_stmt = stmts[i + 1] if i + 1 < len(stmts) else None
+            if not isinstance(next_stmt, ast.If) or len(options) != 2:
+                UNHANDLED.append("choice() not followed by a two-branch if/else")
+                i += 1
+                continue
+            body_a, effects_a = extract_effects(next_stmt.body)
+            body_b, effects_b = extract_effects(next_stmt.orelse)
+            beats.append({
+                "type": "choice",
+                "prompt": prompt,
+                "options": [
+                    {"key": options[0][0], "label": options[0][1], "effects": effects_a, "beats": body_a},
+                    {"key": options[1][0], "label": options[1][1], "effects": effects_b, "beats": body_b},
+                ],
+            })
+            i += 2
+            continue
+
+        if (
+            isinstance(stmt, ast.Assign)
+            and isinstance(stmt.value, ast.Call)
+            and isinstance(stmt.value.func, ast.Name)
+            and stmt.value.func.id == "name_the_crew"
+        ):
+            prompt = call_text_arg(stmt.value, 0)
+            default = call_text_arg(stmt.value, 1)
+            beats.append({"type": "freeText", "prompt": prompt, "stateKey": "crew_name", "default": default})
+            i += 2  # skip the following `s["crew_name"] = name` — already modeled
+            continue
+
+        i += 1
+
+    return beats
+
+
+def chapter_scene_order(tree):
+    main_func = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "main")
+    order = []
+    for stmt in main_func.body:
+        if isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Call):
+            call = stmt.value
+            if isinstance(call.func, ast.Name) and call.func.id.startswith("scene"):
+                order.append(call.func.id)
+    return order
+
+
+def convert_chapter(path, chapter_number, title):
+    with open(path) as f:
+        tree = ast.parse(f.read())
+    scenes = {n.name: n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name.startswith("scene")}
+    beats = []
+    for name in chapter_scene_order(tree):
+        beats.extend(scene_to_beats(scenes[name]))
+    return {"number": chapter_number, "title": title, "beats": beats}
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("usage: convert_story.py <games-dir> [output.json]", file=sys.stderr)
+        sys.exit(1)
+
+    games_dir = sys.argv[1]
+    chapters = [
+        (f"{games_dir}/shorestorm.py", 1, "Three Families, One House"),
+        (f"{games_dir}/shorestorm_ch2.py", 2, "Across the Bridge"),
+        (f"{games_dir}/shorestorm_ch3.py", 3, "The Road Back"),
+        (f"{games_dir}/shorestorm_ch4.py", 4, "Low Tide"),
+    ]
+
+    story = {
+        "storyId": "shorestorm",
+        "title": "The Cousins of Brigantine",
+        "cast": [
+            {"name": "Clementine", "accountSlug": "clementine", "color": "#87af87", "role": "earth & healing", "powerStateKey": "clementine_power", "revealChapter": None, "revealedPower": None},
+            {"name": "Ivory", "accountSlug": "ivory", "color": "#afffff", "role": "wind", "powerStateKey": "ivory_power", "revealChapter": None, "revealedPower": None},
+            {"name": "Olivia", "accountSlug": "olivia", "color": "#d7afff", "role": "air & mist", "powerStateKey": "olivia_power", "revealChapter": None, "revealedPower": None},
+            {"name": "Laine", "accountSlug": "laine", "color": "#5fafff", "role": "water", "powerStateKey": "laine_power", "revealChapter": None, "revealedPower": None},
+            {"name": "Theo", "accountSlug": "theo", "color": "#d75f00", "role": "monster-truck expert", "powerStateKey": None, "revealChapter": None, "revealedPower": None},
+            {"name": "Wesley", "accountSlug": "wesley", "color": "#8787af", "role": "monster-truck expert", "powerStateKey": None, "revealChapter": None, "revealedPower": None},
+            {"name": "Henry", "accountSlug": "henry", "color": "#ffd7af", "role": "quiet", "powerStateKey": None, "revealChapter": 3, "revealedPower": "calm & hush"},
+            {"name": "Elijah", "accountSlug": "elijah", "color": "#ffd787", "role": "glow", "powerStateKey": None, "revealChapter": 3, "revealedPower": "light & glow"},
+        ],
+        "chapters": [convert_chapter(path, number, title) for path, number, title in chapters],
+    }
+
+    output_path = sys.argv[2] if len(sys.argv) > 2 else None
+    output = json.dumps(story, indent=2)
+    if output_path:
+        with open(output_path, "w") as f:
+            f.write(output)
+    else:
+        print(output)
+
+    if UNHANDLED:
+        print(f"\n{len(UNHANDLED)} construct(s) need manual review:", file=sys.stderr)
+        for msg in UNHANDLED:
+            print(f"  - {msg}", file=sys.stderr)
