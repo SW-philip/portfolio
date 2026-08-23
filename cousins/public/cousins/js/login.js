@@ -3,7 +3,7 @@ import { postLogin } from './api.js';
 
 const CAST = [
   { slug: 'clementine', name: 'Clementine', color: '#87af87' },
-  { slug: 'henry', name: 'Henry', color: '#ffd7af' },
+  { slug: 'henry', name: 'Henry', color: '#c14f6a' },
   { slug: 'ivory', name: 'Ivory', color: '#afffff' },
   { slug: 'olivia', name: 'Olivia', color: '#d7afff' },
   { slug: 'theo', name: 'Theo', color: '#d75f00' },

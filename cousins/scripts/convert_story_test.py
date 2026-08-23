@@ -89,6 +89,53 @@ class ConvertStoryTest(unittest.TestCase):
         ])
         self.assertEqual(option_b["effects"], {"clementine_power": "builder", "team_spark": 1})
 
+    def test_standalone_state_assignment_becomes_effect_beat(self):
+        func = self.parse_scene('''
+            def scene_1():
+                speak("Two cousins are in the pit.")
+                state["team_spark"] += 1
+                speak("Onward.")
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [
+            {"type": "line", "style": "speak", "text": "Two cousins are in the pit."},
+            {"type": "effect", "effects": {"team_spark": 1}},
+            {"type": "line", "style": "speak", "text": "Onward."},
+        ])
+
+    def test_running_total_get_plus_one_becomes_effect_beat(self):
+        func = self.parse_scene('''
+            def scene_1():
+                speak("Two cousins are in the pit.")
+                s["team_spark"] = s.get("team_spark", 0) + 1
+        ''')
+        beats = scene_to_beats(func)
+        self.assertEqual(beats, [
+            {"type": "line", "style": "speak", "text": "Two cousins are in the pit."},
+            {"type": "effect", "effects": {"team_spark": 1}},
+        ])
+
+    def test_running_total_get_plus_one_inside_choice_branch(self):
+        func = self.parse_scene('''
+            def scene_1():
+                key = choice(
+                    "What now?",
+                    [
+                        ("A", "Aim short."),
+                        ("B", "Aim wide."),
+                    ]
+                )
+                if key == "A":
+                    state["theo_second"] = "landing"
+                    state["team_spark"] = state.get("team_spark", 0) + 1
+                else:
+                    state["theo_second"] = "wind"
+                    state["team_spark"] = state.get("team_spark", 0) + 1
+        ''')
+        beats = scene_to_beats(func)
+        option_a = beats[0]["options"][0]
+        self.assertEqual(option_a["effects"], {"theo_second": "landing", "team_spark": 1})
+
     def test_name_the_crew_becomes_free_text(self):
         func = self.parse_scene('''
             def scene_5():

@@ -59,7 +59,7 @@
     {
       "name": "Henry",
       "accountSlug": "henry",
-      "color": "#ffd7af",
+      "color": "#c14f6a",
       "role": "quiet",
       "powerStateKey": null,
       "revealChapter": 3,
@@ -626,6 +626,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "She tucks the shell into her swimsuit strap, the only pocket she's got,"
@@ -787,6 +793,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
         },
         {
           "type": "line",
@@ -1255,6 +1267,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "wait"
         },
         {
@@ -1571,6 +1589,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "beat",
           "text": "Two cousins are now, officially, in the pit."
@@ -1735,6 +1759,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
         },
         {
           "type": "line",
@@ -1923,6 +1953,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Down in the pit, Salt glances up at the banner, now oddly, perfectly"
@@ -2089,6 +2125,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Nobody in the stands quite hears her over the pre-show music kicking in,"
@@ -2212,6 +2254,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "A few feet away, Laine's not looking at the pit at all. She's watching"
@@ -2280,6 +2328,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
         },
         {
           "type": "line",
@@ -2750,6 +2804,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Laine is already at the drainage ditch that runs along the fence line,"
@@ -2823,6 +2883,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
         },
         {
           "type": "line",
@@ -2943,6 +3009,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Beside her, Olivia has both hands cupped around her shell, watching"
@@ -3008,6 +3080,12 @@
           ]
         },
         {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Down on the radio clipped to her coverall, Salt's voice comes through"
@@ -3069,7 +3147,7 @@
               "label": "\"The landing zone. It's firmer than the rest of the strip now \u2014 she needs to aim short, not long.\"",
               "effects": {
                 "theo_second": "landing",
-                "team_spark": null
+                "team_spark": 1
               },
               "beats": [
                 {
@@ -3107,7 +3185,7 @@
               "label": "\"The crosswind timing. It's not steady \u2014 she needs to launch on a gap, not on the count.\"",
               "effects": {
                 "theo_second": "wind",
-                "team_spark": null
+                "team_spark": 1
               },
               "beats": [
                 {
@@ -3201,6 +3279,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "effect",
+          "effects": {
+            "team_spark": 1
+          }
         },
         {
           "type": "line",

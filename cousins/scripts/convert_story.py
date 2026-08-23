@@ -122,6 +122,59 @@ def slot_key(subscript_slice):
     return const_str(subscript_slice)
 
 
+def is_self_get(node, key):
+    """Match s.get('key', <default>) / state.get('key', <default>)."""
+    return (
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr == "get"
+        and isinstance(node.func.value, ast.Name)
+        and node.func.value.id in ("s", "state")
+        and len(node.args) >= 1
+        and const_str(node.args[0]) == key
+    )
+
+
+def running_total_delta(value_node, key):
+    """Match `state.get('key', 0) + N` / `N + state.get('key', 0)`, the
+    non-AugAssign spelling of an accumulating counter. Returns N or None."""
+    if not (isinstance(value_node, ast.BinOp) and isinstance(value_node.op, ast.Add)):
+        return None
+    left, right = value_node.left, value_node.right
+    if is_self_get(left, key) and isinstance(right, ast.Constant) and isinstance(right.value, (int, float)):
+        return right.value
+    if is_self_get(right, key) and isinstance(left, ast.Constant) and isinstance(left.value, (int, float)):
+        return left.value
+    return None
+
+
+def state_effect_from_stmt(stmt):
+    """If stmt is a state["key"] = value / state["key"] += delta assignment,
+    return (key, value). Otherwise return None. Flags non-literal keys."""
+    target = None
+    if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1:
+        target = stmt.targets[0]
+    elif isinstance(stmt, ast.AugAssign):
+        target = stmt.target
+    if not (isinstance(target, ast.Subscript) and isinstance(target.value, ast.Name) and target.value.id in ("state", "s")):
+        return None
+    key = slot_key(target.slice)
+    if key is None:
+        UNHANDLED.append("state assignment with a non-literal key")
+        return None
+    if isinstance(stmt, ast.AugAssign):
+        delta = stmt.value.value if isinstance(stmt.value, ast.Constant) else 1
+        return (key, delta)
+    delta = running_total_delta(stmt.value, key)
+    if delta is not None:
+        return (key, delta)
+    value = const_str(stmt.value)
+    if value is None:
+        UNHANDLED.append(f"state assignment to {key!r} has a non-literal value")
+        return None
+    return (key, value)
+
+
 def extract_effects(stmts):
     """Walk a choice branch's body, returning (beats, effects)."""
     beats = []
@@ -132,21 +185,13 @@ def extract_effects(stmts):
             if beat:
                 beats.append(beat)
             continue
-        target = None
-        if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1:
-            target = stmt.targets[0]
-        elif isinstance(stmt, ast.AugAssign):
-            target = stmt.target
-        if isinstance(target, ast.Subscript) and isinstance(target.value, ast.Name) and target.value.id in ("state", "s"):
-            key = slot_key(target.slice)
-            if key is None:
-                UNHANDLED.append("state assignment with a non-literal key")
-                continue
+        effect = state_effect_from_stmt(stmt)
+        if effect is not None:
+            key, value = effect
             if isinstance(stmt, ast.AugAssign):
-                delta = stmt.value.value if isinstance(stmt.value, ast.Constant) else 1
-                effects[key] = effects.get(key, 0) + delta
+                effects[key] = effects.get(key, 0) + value
             else:
-                effects[key] = const_str(stmt.value)
+                effects[key] = value
         # pause() and anything else inside a branch is intentionally ignored
     return beats, effects
 
@@ -218,6 +263,13 @@ def scene_to_beats(func):
             i += 2  # skip the following `s["crew_name"] = name` — already modeled
             continue
 
+        effect = state_effect_from_stmt(stmt)
+        if effect is not None:
+            key, value = effect
+            beats.append({"type": "effect", "effects": {key: value}})
+            i += 1
+            continue
+
         i += 1
 
     return beats
@@ -267,7 +319,7 @@ if __name__ == "__main__":
             {"name": "Laine", "accountSlug": "laine", "color": "#5fafff", "role": "water", "powerStateKey": "laine_power", "revealChapter": None, "revealedPower": None},
             {"name": "Theo", "accountSlug": "theo", "color": "#d75f00", "role": "monster-truck expert", "powerStateKey": None, "revealChapter": None, "revealedPower": None},
             {"name": "Wesley", "accountSlug": "wesley", "color": "#8787af", "role": "monster-truck expert", "powerStateKey": None, "revealChapter": None, "revealedPower": None},
-            {"name": "Henry", "accountSlug": "henry", "color": "#ffd7af", "role": "quiet", "powerStateKey": None, "revealChapter": 3, "revealedPower": "calm & hush"},
+            {"name": "Henry", "accountSlug": "henry", "color": "#c14f6a", "role": "quiet", "powerStateKey": None, "revealChapter": 3, "revealedPower": "calm & hush"},
             {"name": "Elijah", "accountSlug": "elijah", "color": "#ffd787", "role": "glow", "powerStateKey": None, "revealChapter": 3, "revealedPower": "light & glow"},
         ],
         "chapters": [convert_chapter(path, number, title) for path, number, title in chapters],

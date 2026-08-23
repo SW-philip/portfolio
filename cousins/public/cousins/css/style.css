@@ -1,13 +1,13 @@
 /* cousins/public/css/style.css */
 :root {
-  --base: #fdf6ec;
+  --base: #ecdfc4;
   --surface: #ffffff;
-  --muted: #a9c1c9;
-  --subtle: #5c7f8c;
-  --text: #2a3b47;
-  --gold: #f6a24b;
-  --iris: #6a7fdb;
-  --hl-med: #ffe9d2;
+  --muted: #7fa39c;
+  --subtle: #4a6560;
+  --text: #1a2b2c;
+  --gold: #c06a30;
+  --iris: #17606f;
+  --hl-med: #e0cfa8;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,10 +21,24 @@ body {
 
 h1, h2 { font-family: 'Baloo 2', 'Quicksand', system-ui, sans-serif; }
 
+h1, h2, .role, .power, .pin-dots, .beat, .choice-prompt {
+  text-shadow: 1px 1.5px 0 rgba(26, 43, 44, 0.18);
+}
+
 button { font-family: inherit; cursor: pointer; }
 
+/* -- coaster: a soft frame for text/content, distinct from the raised-edge buttons -- */
+.coaster {
+  background: var(--hl-med);
+  border-radius: 28px;
+  box-shadow: 0 6px 20px rgba(26, 43, 44, 0.14);
+  padding: 28px 24px;
+  width: 100%;
+}
+
 /* -- login -- */
-.login { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; gap: 24px; }
+.login { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+.login .coaster { max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .login h1 { font-size: clamp(20px, 5vw, 28px); font-weight: 500; margin-bottom: 8px; }
 
 .name-grid { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 14px; width: 100%; max-width: 420px; }

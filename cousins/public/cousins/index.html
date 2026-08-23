@@ -11,17 +11,19 @@
 </head>
 <body>
   <main class="login">
-    <section id="name-screen">
-      <h1>Who's playing?</h1>
-      <div id="name-grid" class="name-grid"></div>
-    </section>
-    <section id="pin-screen" hidden>
-      <h1 id="pin-name"></h1>
-      <p id="pin-dots" class="pin-dots"></p>
-      <p id="pin-error" class="pin-error" hidden>Wrong PIN — try again.</p>
-      <div id="pin-pad" class="pin-pad"></div>
-      <button id="back-to-names" class="link-button">&larr; not me</button>
-    </section>
+    <div class="coaster">
+      <section id="name-screen">
+        <h1>Who's playing?</h1>
+        <div id="name-grid" class="name-grid"></div>
+      </section>
+      <section id="pin-screen" hidden>
+        <h1 id="pin-name"></h1>
+        <p id="pin-dots" class="pin-dots"></p>
+        <p id="pin-error" class="pin-error" hidden>Wrong PIN — try again.</p>
+        <div id="pin-pad" class="pin-pad"></div>
+        <button id="back-to-names" class="link-button">&larr; not me</button>
+      </section>
+    </div>
   </main>
   <script type="module" src="/cousins/js/login.js"></script>
 </body>
