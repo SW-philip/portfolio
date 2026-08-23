@@ -1874,23 +1874,23 @@
               },
               "beats": [
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "She squeezes the shell and shoves, both hands out, like pushing a door"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "closed against a storm."
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "The gust stutters. Fights her. For one long second it's a tug-of-war"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "between a nine-year-old and the sky."
                 },
                 {
@@ -1921,23 +1921,23 @@
               },
               "beats": [
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "She turns, lets the wind come, and instead of stopping it she just \u2014"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "nudges it. Aims it. Like turning a hose instead of blocking it."
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "The gust changes direction mid-tear, catches the loose banner corner,"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Ivory",
                   "text": "and pins it flat against the fence instead of ripping it free."
                 },
                 {
@@ -2051,33 +2051,33 @@
               },
               "beats": [
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "She closes her hand around the shell and wills the fog to stay thin,"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "stay low, stay out of the way of the track."
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "It listens, mostly. It stays down around people's ankles instead of"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "climbing higher, a soft grey carpet instead of a wall."
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "Olivia's hands are shaking a little by the time she lets go. Holding"
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "something back, it turns out, costs more than letting it happen."
                 },
                 {
@@ -2093,18 +2093,18 @@
               },
               "beats": [
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "She lets it come. It rolls up around her sandals, cool and strange,"
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "and she crouches down into it, watching how it moves \u2014 not random."
                 },
                 {
-                  "type": "line",
-                  "style": "speak",
+                  "type": "power",
+                  "name": "Olivia",
                   "text": "Pulling toward the water. Pulling toward the storm still building offshore."
                 },
                 {
@@ -2243,7 +2243,7 @@
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "Clementine's getting quicker at deciding which kind of help a thing needs."
                 },
                 {
@@ -2292,12 +2292,12 @@
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "A guy in a fairgrounds vest glances over at the splash, shrugs, and"
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "goes back to his radio. Some things you just decide not to ask about."
                 },
                 {
@@ -2319,7 +2319,7 @@
                 },
                 {
                   "type": "line",
-                  "style": "speak",
+                  "style": "beat",
                   "text": "By the time anyone would've noticed there was a problem, there isn't one."
                 },
                 {
@@ -3956,6 +3956,9 @@
           "text": "It is a zero percent an engineering consideration."
         },
         {
+          "type": "wait"
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Meanwhile, at ankle height, the actual engineering problem of the"
@@ -3979,6 +3982,9 @@
           "type": "line",
           "style": "speak",
           "text": "forth between two coolers that don't need it."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -4014,23 +4020,23 @@
           "type": "wait"
         },
         {
-          "type": "line",
-          "style": "speak",
+          "type": "power",
+          "name": "Ivory",
           "text": "Down the street, Ivory flattens the flapping corner of a tarp with one"
         },
         {
-          "type": "line",
-          "style": "speak",
+          "type": "power",
+          "name": "Ivory",
           "text": "flick of her wrist before Uncle Ian even notices it's come loose."
         },
         {
-          "type": "line",
-          "style": "speak",
+          "type": "power",
+          "name": "Olivia",
           "text": "Olivia thins the morning haze off the windshield glass just enough"
         },
         {
-          "type": "line",
-          "style": "speak",
+          "type": "power",
+          "name": "Olivia",
           "text": "for him to see the mirrors."
         },
         {
