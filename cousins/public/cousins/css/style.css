@@ -1,23 +1,25 @@
 /* cousins/public/css/style.css */
 :root {
-  --base: #232136;
-  --surface: #2a273f;
-  --muted: #6e6a86;
-  --subtle: #908caa;
-  --text: #e0def4;
-  --gold: #f6c177;
-  --iris: #c4a7e7;
-  --hl-med: #44415a;
+  --base: #fdf6ec;
+  --surface: #ffffff;
+  --muted: #a9c1c9;
+  --subtle: #5c7f8c;
+  --text: #2a3b47;
+  --gold: #f6a24b;
+  --iris: #6a7fdb;
+  --hl-med: #ffe9d2;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Quicksand', system-ui, sans-serif;
   background: var(--base);
   color: var(--text);
   min-height: 100vh;
 }
+
+h1, h2 { font-family: 'Baloo 2', 'Quicksand', system-ui, sans-serif; }
 
 button { font-family: inherit; cursor: pointer; }
 
@@ -29,9 +31,11 @@ button { font-family: inherit; cursor: pointer; }
 .name-tile {
   background: var(--surface);
   border: 2px solid var(--muted);
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 3px 0 var(--muted);
   color: var(--text);
   font-size: 18px;
+  font-weight: 600;
   padding: 22px 8px;
 }
 .name-tile:active { background: var(--hl-med); }
@@ -41,10 +45,12 @@ button { font-family: inherit; cursor: pointer; }
 .pin-pad { display: grid; grid-template-columns: repeat(3, 64px); gap: 10px; }
 .pin-key {
   background: var(--surface);
-  border: 1px solid var(--muted);
-  border-radius: 10px;
+  border: 2px solid var(--muted);
+  border-radius: 14px;
+  box-shadow: 0 3px 0 var(--muted);
   color: var(--text);
   font-size: 22px;
+  font-weight: 600;
   padding: 16px 0;
 }
 .pin-key:active { background: var(--hl-med); }
@@ -57,7 +63,7 @@ button { font-family: inherit; cursor: pointer; }
 .power { color: var(--gold); margin-bottom: 20px; }
 .dashboard h2 { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px; }
 .chapter-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.chapter-list li { background: var(--surface); border-radius: 10px; padding: 14px; }
+.chapter-list li { background: var(--surface); border: 2px solid var(--muted); border-radius: 14px; box-shadow: 0 3px 0 var(--muted); padding: 14px; }
 .chapter-list li.locked { color: var(--muted); }
 .chapter-list a { color: var(--iris); text-decoration: none; }
 
@@ -74,13 +80,16 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
   margin-top: 10px;
   background: var(--surface);
-  border: 1px solid var(--muted);
-  border-radius: 8px;
+  border: 2px solid var(--muted);
+  border-radius: 12px;
+  box-shadow: 0 3px 0 var(--muted);
   color: var(--text);
+  font-weight: 600;
   padding: 12px 16px;
   width: 100%;
   text-align: left;
 }
+.tap-continue:active, .choice-option:active, .free-text button:active { background: var(--hl-med); }
 .choice-prompt { color: var(--gold); font-style: italic; margin-top: 16px; }
 .free-text input { width: 100%; padding: 10px; margin-top: 8px; background: var(--base); border: 1px solid var(--muted); border-radius: 8px; color: var(--text); }
 .chapter-complete { text-align: center; padding: 40px 0; }
