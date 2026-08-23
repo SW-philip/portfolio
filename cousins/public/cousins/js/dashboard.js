@@ -33,13 +33,13 @@ async function main() {
   for (const chapter of story.chapters) {
     const item = document.createElement('li');
     const done = me.chaptersCompleted.includes(chapter.number);
-    const unlocked = chapter.number === 1 || me.chaptersCompleted.includes(chapter.number - 1);
-    if (done) {
-      item.textContent = `✓ Chapter ${chapter.number}: ${chapter.title}`;
-    } else if (unlocked) {
+    const unlocked = chapter.number <= 3 || me.chaptersCompleted.includes(chapter.number - 1);
+    if (unlocked) {
       const link = document.createElement('a');
       link.href = `/cousins/play.html?story=shorestorm&chapter=${chapter.number}`;
-      link.textContent = `▶ Chapter ${chapter.number}: ${chapter.title}`;
+      link.textContent = done
+        ? `✓ Chapter ${chapter.number}: ${chapter.title} (replay)`
+        : `▶ Chapter ${chapter.number}: ${chapter.title}`;
       item.appendChild(link);
     } else {
       item.textContent = `🔒 Chapter ${chapter.number}: ${chapter.title}`;

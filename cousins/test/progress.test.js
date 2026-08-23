@@ -37,10 +37,31 @@ test('handleProgress saves chapter 1 with no prior progress', async () => {
   assert.equal(body.state.olivia_power, 'veil');
 });
 
-test('handleProgress rejects chapter 2 before chapter 1 is complete', async () => {
+test('handleProgress allows chapter 2 or 3 before earlier chapters are complete', async () => {
   const env = { COUSINS_KV: makeMockKv(), SESSION_SECRET: 'secret' };
   const request = await makeRequest('secret', 'olivia', { storyId: 'shorestorm', chapter: 2, effects: {} });
+  assert.equal((await handleProgress(request, env)).status, 200);
+});
+
+test('handleProgress rejects chapter 4 before chapter 3 is complete', async () => {
+  const env = { COUSINS_KV: makeMockKv(), SESSION_SECRET: 'secret' };
+  const request = await makeRequest('secret', 'olivia', { storyId: 'shorestorm', chapter: 4, effects: {} });
   assert.equal((await handleProgress(request, env)).status, 409);
+});
+
+test('handleProgress replaying a completed chapter keeps the original state instead of re-applying effects', async () => {
+  const kv = makeMockKv({
+    'progress:olivia:shorestorm': JSON.stringify({ chaptersCompleted: [1], state: { team_spark: 2 } }),
+  });
+  const env = { COUSINS_KV: kv, SESSION_SECRET: 'secret' };
+  const request = await makeRequest('secret', 'olivia', {
+    storyId: 'shorestorm',
+    chapter: 1,
+    effects: { team_spark: 100 },
+  });
+  const body = await (await handleProgress(request, env)).json();
+  assert.equal(body.state.team_spark, 2);
+  assert.deepEqual(body.chaptersCompleted, [1]);
 });
 
 test('handleProgress accumulates numeric effects across chapters', async () => {

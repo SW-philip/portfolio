@@ -1,5 +1,5 @@
 export function canPlayChapter(chaptersCompleted, chapterNumber) {
-  if (chapterNumber === 1) return true;
+  if (chapterNumber <= 3) return true;
   return chaptersCompleted.includes(chapterNumber - 1);
 }
 

@@ -12,7 +12,7 @@ async function main() {
     location.href = '/cousins/';
     return;
   }
-  const unlocked = chapter === 1 || me.chaptersCompleted.includes(chapter - 1);
+  const unlocked = chapter <= 3 || me.chaptersCompleted.includes(chapter - 1);
   if (!unlocked) {
     location.href = '/cousins/dashboard.html';
     return;
@@ -21,12 +21,15 @@ async function main() {
   const story = await (await fetch(`/cousins/stories/${storyId}.json`)).json();
   const chapterData = story.chapters.find(c => c.number === chapter);
 
-  document.title = `${story.title} — Chapter ${chapter}`;
+  const storyMode = me.chaptersCompleted.includes(chapter);
+  document.title = `${story.title} — Chapter ${chapter}${storyMode ? ' (replay)' : ''}`;
   const container = document.getElementById('beats');
-  const player = createPlayer(container, story.cast);
+  const player = createPlayer(container, story.cast, { storyMode, knownState: me.state });
   const effects = await player.playBeats(chapterData.beats);
 
-  await postProgress({ storyId, chapter, effects });
+  if (!storyMode) {
+    await postProgress({ storyId, chapter, effects });
+  }
 
   container.innerHTML = '';
   const done = document.createElement('div');

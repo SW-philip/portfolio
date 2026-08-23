@@ -6,10 +6,16 @@ test('chapter 1 is always playable', () => {
   assert.equal(canPlayChapter([], 1), true);
 });
 
-test('chapter N requires N-1 to be completed', () => {
-  assert.equal(canPlayChapter([1], 2), true);
-  assert.equal(canPlayChapter([1], 3), false);
-  assert.equal(canPlayChapter([], 2), false);
+test('chapters 1-3 are always playable regardless of prior completion', () => {
+  assert.equal(canPlayChapter([], 2), true);
+  assert.equal(canPlayChapter([], 3), true);
+  assert.equal(canPlayChapter([1], 3), true);
+});
+
+test('chapter 4+ still requires the previous chapter to be completed', () => {
+  assert.equal(canPlayChapter([1, 2, 3], 4), true);
+  assert.equal(canPlayChapter([1, 2], 4), false);
+  assert.equal(canPlayChapter([], 4), false);
 });
 
 test('applyEffects adds numeric fields onto existing state without mutating it', () => {

@@ -25,6 +25,10 @@ export async function handleProgress(request, env) {
     return jsonResponse({ error: 'chapter_locked' }, 409);
   }
 
+  if (progress.chaptersCompleted.includes(chapter)) {
+    return jsonResponse({ chaptersCompleted: progress.chaptersCompleted, state: progress.state });
+  }
+
   const nextState = applyEffects(progress.state, effects);
   const nextProgress = markComplete({ ...progress, state: nextState }, chapter);
 
