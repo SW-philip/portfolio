@@ -3,8 +3,10 @@ main = "src/worker.js"
 compatibility_date = "2026-08-21"
 
 kv_namespaces = [
-  { binding = "COUSINS_KV", id = "e99b82ec2b014a418fd9616805a96df3" }
+  { binding = "COUSINS_KV", id = "cac321cb20254e7a866a140cdce563f2" }
 ]
+
+workers_dev = true
 
 routes = [
   { pattern = "philipjrepko.com/cousins*", zone_name = "philipjrepko.com" }
