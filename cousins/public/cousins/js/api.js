@@ -31,3 +31,9 @@ export async function postProgress({ storyId, chapter, effects }) {
   if (!response.ok) return null;
   return response.json();
 }
+
+export async function getStoryState(storyId = 'shorestorm') {
+  const response = await apiFetch(`/story-state?story=${encodeURIComponent(storyId)}`);
+  if (!response.ok) return null;
+  return response.json();
+}

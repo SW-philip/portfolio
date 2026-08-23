@@ -11,3 +11,20 @@ export async function getProgress(kv, slug, storyId) {
 export async function putProgress(kv, slug, storyId, progress) {
   await kv.put(`progress:${slug}:${storyId}`, JSON.stringify(progress));
 }
+
+export async function listAccountSlugs(kv) {
+  const { keys } = await kv.list({ prefix: 'account:' });
+  return keys.map(({ name }) => name.slice('account:'.length));
+}
+
+export async function getMergedState(kv, storyId) {
+  const slugs = await listAccountSlugs(kv);
+  const progresses = await Promise.all(slugs.map(slug => getProgress(kv, slug, storyId)));
+  let state = {};
+  let chaptersCompleted = new Set();
+  for (const progress of progresses) {
+    state = { ...state, ...progress.state };
+    for (const chapter of progress.chaptersCompleted) chaptersCompleted.add(chapter);
+  }
+  return { state, chaptersCompleted: [...chaptersCompleted].sort((a, b) => a - b) };
+}

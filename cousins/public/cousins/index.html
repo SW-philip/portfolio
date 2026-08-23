@@ -12,9 +12,17 @@
 <body>
   <main class="login">
     <div class="coaster">
-      <section id="name-screen">
+      <section id="front-screen">
+        <h1>The Cousins of Brigantine</h1>
+        <div class="front-choices">
+          <button id="go-to-login" class="choice-option">Login</button>
+          <button id="go-to-story-mode" class="story-mode-option">🎬 Story mode</button>
+        </div>
+      </section>
+      <section id="name-screen" hidden>
         <h1>Who's playing?</h1>
         <div id="name-grid" class="name-grid"></div>
+        <button id="back-to-front" class="link-button">&larr; back</button>
       </section>
       <section id="pin-screen" hidden>
         <h1 id="pin-name"></h1>

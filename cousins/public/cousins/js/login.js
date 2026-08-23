@@ -101,5 +101,19 @@ document.getElementById('back-to-names').addEventListener('click', () => {
   document.getElementById('name-screen').hidden = false;
 });
 
+document.getElementById('go-to-login').addEventListener('click', () => {
+  document.getElementById('front-screen').hidden = true;
+  document.getElementById('name-screen').hidden = false;
+});
+
+document.getElementById('go-to-story-mode').addEventListener('click', () => {
+  location.href = '/cousins/story.html';
+});
+
+document.getElementById('back-to-front').addEventListener('click', () => {
+  document.getElementById('name-screen').hidden = true;
+  document.getElementById('front-screen').hidden = false;
+});
+
 renderNames();
 renderPad();
