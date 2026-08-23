@@ -104,6 +104,21 @@ button { font-family: inherit; cursor: pointer; }
   text-align: left;
 }
 .tap-continue:active, .choice-option:active, .free-text button:active { background: var(--hl-med); }
+.story-mode-option {
+  display: block;
+  margin-top: 14px;
+  background: none;
+  border: 2px dashed var(--muted);
+  border-radius: 12px;
+  box-shadow: none;
+  color: var(--subtle);
+  font-weight: 600;
+  font-style: italic;
+  padding: 10px 16px;
+  width: 100%;
+  text-align: center;
+}
+.story-mode-option:active { background: var(--hl-med); }
 .choice-prompt { color: var(--gold); font-style: italic; margin-top: 16px; }
 .free-text input { width: 100%; padding: 10px; margin-top: 8px; background: var(--base); border: 1px solid var(--muted); border-radius: 8px; color: var(--text); }
 .chapter-complete { text-align: center; padding: 40px 0; }

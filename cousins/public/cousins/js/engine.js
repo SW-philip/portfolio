@@ -4,7 +4,7 @@ const TYPE_DELAY_MS = 18;
 
 export function createPlayer(container, cast, options = {}) {
   const colorByName = Object.fromEntries((cast || []).map(c => [c.name, c.color]));
-  const { storyMode = false, knownState = {} } = options;
+  const { knownState = {} } = options;
   let effects = {};
 
   function findKnownOption(beat) {
@@ -58,6 +58,14 @@ export function createPlayer(container, cast, options = {}) {
         btn.addEventListener('click', () => { wrap.remove(); resolve(option); });
         wrap.appendChild(btn);
       }
+      const known = findKnownOption(beat);
+      if (known) {
+        const storyBtn = document.createElement('button');
+        storyBtn.className = 'story-mode-option';
+        storyBtn.textContent = '🎬 Story mode — show what they picked';
+        storyBtn.addEventListener('click', () => { wrap.remove(); resolve(known); });
+        wrap.appendChild(storyBtn);
+      }
       container.appendChild(wrap);
     });
   }
@@ -92,14 +100,7 @@ export function createPlayer(container, cast, options = {}) {
     } else if (beat.type === 'wait') {
       await waitForTap();
     } else if (beat.type === 'choice') {
-      const known = storyMode ? findKnownOption(beat) : null;
-      let option;
-      if (known) {
-        await typeLine(substitute(beat.prompt), null, 'choice-prompt');
-        option = known;
-      } else {
-        option = await presentChoice(beat);
-      }
+      const option = await presentChoice(beat);
       effects = mergeEffects(effects, option.effects || {});
       if (option.beats) await playBeats(option.beats);
     } else if (beat.type === 'freeText') {
