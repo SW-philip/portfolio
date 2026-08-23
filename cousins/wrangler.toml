@@ -2,14 +2,14 @@ name = "cousins"
 main = "src/worker.js"
 compatibility_date = "2026-08-21"
 
-[assets]
-directory = "./public"
-binding = "ASSETS"
-
 kv_namespaces = [
-  { binding = "COUSINS_KV", id = "REPLACE_WITH_KV_NAMESPACE_ID" }
+  { binding = "COUSINS_KV", id = "e99b82ec2b014a418fd9616805a96df3" }
 ]
 
 routes = [
   { pattern = "philipjrepko.com/cousins*", zone_name = "philipjrepko.com" }
 ]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"

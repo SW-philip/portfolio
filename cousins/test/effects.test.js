@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeEffects } from '../public/js/effects.js';
+import { mergeEffects } from '../public/cousins/js/effects.js';
 
 test('mergeEffects sums numeric effects across calls', () => {
   let acc = {};
