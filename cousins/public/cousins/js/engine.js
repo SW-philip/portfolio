@@ -128,6 +128,7 @@ export function createPlayer(container, cast, options = {}) {
         await typeLine(screenEl, substitute(effects, beat.text), colorByName[beat.name], 'beat-power');
         narrationCount += 1;
       } else if (beat.type === 'effect') {
+        // Mutate effects in place (not reassign) so the change is visible immediately to later beats in the same screen for {{key}} substitution.
         Object.assign(effects, mergeEffects(effects, beat.effects || {}));
         continue;
       } else if (beat.type === 'wait') {
