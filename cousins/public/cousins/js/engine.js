@@ -39,6 +39,10 @@ export function createPlayer(container, cast, options = {}) {
     return null;
   }
 
+  function cloneFrameStack(frameStack) {
+    return frameStack.map(frame => ({ beats: frame.beats, index: frame.index }));
+  }
+
   async function typeLine(screenEl, text, color, styleClass) {
     const p = document.createElement('p');
     p.className = `beat ${styleClass}`;
@@ -51,10 +55,17 @@ export function createPlayer(container, cast, options = {}) {
     container.scrollTop = container.scrollHeight;
   }
 
-  function renderContinueControls(screenEl) {
+  function renderContinueControls(screenEl, canGoBack) {
     return new Promise(resolve => {
       const wrap = document.createElement('div');
       wrap.className = 'controls';
+      if (canGoBack) {
+        const backBtn = document.createElement('button');
+        backBtn.className = 'back-button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', () => { wrap.remove(); resolve({ action: 'back' }); }, { once: true });
+        wrap.appendChild(backBtn);
+      }
       const continueBtn = document.createElement('button');
       continueBtn.className = 'tap-continue';
       continueBtn.textContent = '[ tap to continue ]';
@@ -64,7 +75,7 @@ export function createPlayer(container, cast, options = {}) {
     });
   }
 
-  function presentChoice(screenEl, beat, effects) {
+  function presentChoice(screenEl, beat, effects, canGoBack) {
     return new Promise(resolve => {
       const wrap = document.createElement('div');
       wrap.className = 'choice';
@@ -87,11 +98,18 @@ export function createPlayer(container, cast, options = {}) {
         storyBtn.addEventListener('click', () => { wrap.remove(); resolve({ action: 'choice', option: known }); });
         wrap.appendChild(storyBtn);
       }
+      if (canGoBack) {
+        const backBtn = document.createElement('button');
+        backBtn.className = 'back-button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', () => { wrap.remove(); resolve({ action: 'back' }); }, { once: true });
+        wrap.appendChild(backBtn);
+      }
       screenEl.appendChild(wrap);
     });
   }
 
-  function presentFreeText(screenEl, beat, effects) {
+  function presentFreeText(screenEl, beat, effects, canGoBack) {
     return new Promise(resolve => {
       const wrap = document.createElement('div');
       wrap.className = 'free-text';
@@ -105,6 +123,13 @@ export function createPlayer(container, cast, options = {}) {
       btn.textContent = 'Go';
       btn.addEventListener('click', () => { wrap.remove(); resolve({ action: 'freeText', value: input.value.trim() || beat.default }); });
       wrap.append(prompt, input, btn);
+      if (canGoBack) {
+        const backBtn = document.createElement('button');
+        backBtn.className = 'back-button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', () => { wrap.remove(); resolve({ action: 'back' }); }, { once: true });
+        wrap.appendChild(backBtn);
+      }
       screenEl.appendChild(wrap);
     });
   }
@@ -145,13 +170,17 @@ export function createPlayer(container, cast, options = {}) {
   }
 
   async function runChapter(initialBeats) {
-    const frameStack = [{ beats: initialBeats, index: 0 }];
+    let frameStack = [{ beats: initialBeats, index: 0 }];
     let effects = {};
+    const checkpoints = [{ frameStack: cloneFrameStack(frameStack), effects: { ...effects } }];
+    const screenEls = [];
+    let screenIndex = 0;
 
     while (true) {
       const screenEl = document.createElement('div');
       screenEl.className = 'screen';
       container.appendChild(screenEl);
+      screenEls[screenIndex] = screenEl;
 
       const result = await typeScreen(screenEl, frameStack, effects);
 
@@ -159,13 +188,24 @@ export function createPlayer(container, cast, options = {}) {
         return effects;
       }
 
+      const canGoBack = screenIndex > 0;
       let control;
       if (result.kind === 'wait' || result.kind === 'soft') {
-        control = await renderContinueControls(screenEl);
+        control = await renderContinueControls(screenEl, canGoBack);
       } else if (result.kind === 'choice') {
-        control = await presentChoice(screenEl, result.beat, effects);
+        control = await presentChoice(screenEl, result.beat, effects, canGoBack);
       } else if (result.kind === 'freeText') {
-        control = await presentFreeText(screenEl, result.beat, effects);
+        control = await presentFreeText(screenEl, result.beat, effects, canGoBack);
+      }
+
+      if (control.action === 'back') {
+        screenEls[screenIndex].remove();
+        screenEls[screenIndex - 1].remove();
+        screenIndex -= 1;
+        checkpoints.length = screenIndex + 1;
+        frameStack = cloneFrameStack(checkpoints[screenIndex].frameStack);
+        effects = { ...checkpoints[screenIndex].effects };
+        continue;
       }
 
       if (control.action === 'choice') {
@@ -174,6 +214,9 @@ export function createPlayer(container, cast, options = {}) {
       } else if (control.action === 'freeText') {
         effects = mergeEffects(effects, { [result.beat.stateKey]: control.value });
       }
+
+      screenIndex += 1;
+      checkpoints[screenIndex] = { frameStack: cloneFrameStack(frameStack), effects: { ...effects } };
     }
   }
 

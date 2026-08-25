@@ -106,6 +106,23 @@ button { font-family: inherit; cursor: pointer; }
   text-align: left;
 }
 .tap-continue:active, .choice-option:active, .free-text button:active { background: var(--hl-med); }
+.controls { display: flex; gap: 8px; margin-top: 10px; }
+.controls .tap-continue { margin-top: 0; width: auto; flex: 1; text-align: center; }
+.back-button {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  background: none;
+  border: 2px dashed var(--muted);
+  border-radius: 12px;
+  box-shadow: none;
+  color: var(--subtle);
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: center;
+}
+.back-button:active { background: var(--hl-med); }
+.controls .back-button { margin-top: 0; width: auto; flex: 1; }
 .story-mode-option {
   display: block;
   margin-top: 14px;

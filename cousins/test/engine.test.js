@@ -137,3 +137,51 @@ test('a run of 11 narration beats is broken into two screens within the 6-10 sof
   assert.ok(firstCount >= 6 && firstCount <= 10, `expected 6-10, got ${firstCount}`);
   assert.equal(firstCount + beatsOf(screens[1]).length, 11);
 });
+
+test('the first screen of a chapter never shows a back button', async () => {
+  const container = new FakeEl('div');
+  setActions([]);
+  const player = createPlayer(container, []);
+  await player.playBeats([{ type: 'line', style: 'speak', text: 'Only line.' }, { type: 'wait' }]);
+  const controls = screensOf(container)[0].children.find(c => c.className === 'controls');
+  assert.equal(controls.children.some(c => c.className === 'back-button'), false);
+});
+
+test('back after a choice undoes its effects and lets it be re-picked', async () => {
+  const container = new FakeEl('div');
+  const beats = [
+    {
+      type: 'choice',
+      prompt: 'Pick one',
+      options: [
+        { key: 'A', label: 'A', effects: { spark: 1 }, beats: [{ type: 'line', style: 'speak', text: 'You picked A.' }, { type: 'wait' }] },
+        { key: 'B', label: 'B', effects: { spark: 5 }, beats: [{ type: 'line', style: 'speak', text: 'You picked B.' }, { type: 'wait' }] },
+      ],
+    },
+    { type: 'line', style: 'speak', text: 'The end.' },
+  ];
+  setActions([
+    { type: 'choice', index: 0 },
+    { type: 'back' },
+    { type: 'choice', index: 1 },
+  ]);
+  const player = createPlayer(container, []);
+  const effects = await player.playBeats(beats);
+  assert.deepEqual(effects, { spark: 5 });
+});
+
+test('back at a plain pause re-renders the previous screen and play continues correctly', async () => {
+  const container = new FakeEl('div');
+  const beats = [
+    { type: 'line', style: 'speak', text: 'A1' }, { type: 'wait' },
+    { type: 'line', style: 'speak', text: 'B1' }, { type: 'wait' },
+    { type: 'line', style: 'speak', text: 'C1' },
+  ];
+  setActions([{ type: 'continue' }, { type: 'back' }]);
+  const player = createPlayer(container, []);
+  const effects = await player.playBeats(beats);
+  assert.deepEqual(effects, {});
+  const screens = screensOf(container);
+  assert.equal(screens.length, 5);
+  assert.equal(beatsOf(screens[screens.length - 1])[0].textContent, 'C1');
+});
