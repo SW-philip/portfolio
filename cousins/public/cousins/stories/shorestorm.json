@@ -106,6 +106,9 @@
           "text": "who has not yet said an opinion about any of this but seems fine with it."
         },
         {
+          "type": "wait"
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Down the hall, Memaw is waking up, and pop-pop is starting coffee...quietly."
@@ -276,6 +279,9 @@
           "type": "line",
           "style": "beat",
           "text": "The two littlest stay back on the porch. For now."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -504,6 +510,9 @@
           "type": "line",
           "style": "speak",
           "text": "Like it's got somewhere to be and would like her to move."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -842,6 +851,9 @@
           "type": "line",
           "style": "beat",
           "text": "(She still pushes it, of course. She's Bean's daughter...)"
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -1439,6 +1451,9 @@
           "type": "line",
           "style": "speak",
           "text": "just realized is also real."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -2448,6 +2463,9 @@
           "type": "line",
           "style": "speak",
           "text": "buzzing."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "say",
@@ -3708,6 +3726,9 @@
           "text": "You two \u2014 anytime you're in a town with a show, you find me."
         },
         {
+          "type": "wait"
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "She looks at Clementine and Laine, at the one strange dry patch of ground"
@@ -3804,6 +3825,9 @@
           "text": "Nobody decided the littlest ones would be the ones who saved it. They just were."
         },
         {
+          "type": "wait"
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "Somewhere behind them, across the water, Atlantic City's lights come"
@@ -3842,17 +3866,17 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "The last morning in Brigantine doesn't call attention to itself the"
+          "text": "The last morning in Brigantine doesn't announce itself the"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "way the storm did. Flat gray light. Gulls squabbling over something"
+          "text": "way the storm did. Outside, some gulls are squabbling over something"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "in the sand. The whole street smells like salt and coffee and"
+          "text": "in the sand. The whole street smells like salt, coffee and"
         },
         {
           "type": "line",
@@ -3862,22 +3886,22 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Every driveway has the same shape this morning. Open trunks. Folding"
+          "text": "Every driveway has the same shape this morning. Trunks open, spilling folding"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "chairs stacked wrong on the first try. A flip-flop that's been missing"
+          "text": "chairs over that were stacked wrong on the first try. Bebop found a flipflop"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "since Tuesday, turning up under a beach cart."
+          "text": "that was missing since Tuesday; it turned up under a beach cart."
         },
         {
           "type": "line",
           "style": "beat",
-          "text": "Packing up. Usually the least magical part of any vacation. Not this year."
+          "text": "Usually, packing up is the least magical part of any vacation. Not this year."
         },
         {
           "type": "wait"
@@ -3885,22 +3909,17 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Clementine kneels by the last sandcastle anyone bothered to build, the"
+          "text": "Clementine kneels by the last sandcastle. Henry has tried to topple it."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "one Henry says has to survive until Memaw gets the picture. She presses"
+          "text": "Twice. Even though Bebop says has to survive until Memaw gets the picture."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "two fingers into the base, barely thinking about it. The same way"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "you'd steady a wobbly table leg without breaking stride."
+          "text": "She touches it with two fingers at the base, barely thinking about it."
         },
         {
           "type": "power",
@@ -3910,17 +3929,12 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Nobody comments. Nobody needs to. This is Tuesday-morning small. The"
+          "text": "That used to be the whole plot, but now, it's just how"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "kind of thing that used to be the whole plot, and is now just how"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "Clementine says good morning to a sandcastle."
+          "text": "Clementine says goodbye to a sandcastle."
         },
         {
           "type": "wait"
@@ -3933,27 +3947,22 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "trunk space. Theo wants the cooler flat against the seats, for weight."
+          "text": "trunk space. Theo wants the his backpack flat against the seats, for weight."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "Wesley wants it upright because it \"looks more organized,\" which is"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "not, Theo points out, an engineering consideration."
-        },
-        {
-          "type": "say",
-          "name": "Wesley",
-          "text": "It's a little bit an engineering consideration."
+          "text": "Wesley wants to keep it upright because it \"looks more organized.\" It isn't."
         },
         {
           "type": "say",
           "name": "Theo",
-          "text": "It is a zero percent an engineering consideration."
+          "text": "It is zero percent an engineering consideration."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "It could be a little bit an engineering consideration."
         },
         {
           "type": "wait"
@@ -3976,12 +3985,17 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "has found one flip-flop and is carrying it, very seriously, back and"
+          "text": "is pulling them back out and pretending it's a hat, then putting them back."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "forth between two coolers that don't need it."
+          "text": "He spies one flip-flop under wet towels and is carries it, very seriously"
+        },
+        {
+          "type": "line",
+          "style": "speak",
+          "text": "back and forth between two coolers that don't need it."
         },
         {
           "type": "wait"
@@ -4047,12 +4061,12 @@
         {
           "type": "say",
           "name": "Olivia",
-          "text": "Sun does that."
+          "text": "The sun does that??."
         },
         {
           "type": "line",
           "style": "beat",
-          "text": "It is not, currently, sunny. Nobody's counting."
+          "text": "It is not, currently, sunny."
         },
         {
           "type": "wait"
@@ -4060,22 +4074,22 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "The cars are almost loaded, the coolers are almost empty, and the whole"
+          "text": "The cars are almost loaded, the coolers are full, and the whole"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "street has that specific tug of a family about to leave somewhere it"
+          "text": "street has that specific look of a family about to leave somewhere it"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "liked. That's when Wesley plants himself in front of the trunk like"
+          "text": "liked. Wesley plants himself in front of the trunk like a small, damp"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "a small, damp roadblock."
+          "text": "roadblock."
         },
         {
           "type": "say",
@@ -4085,22 +4099,22 @@
         {
           "type": "say",
           "name": "Wesley",
-          "text": "And Salt. But mostly Riptide."
+          "text": "..."
+        },
+        {
+          "type": "say",
+          "name": "Wesley",
+          "text": "OH, and Salt. But mostly Riptide."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "Behind him, seven other cousins arrange themselves into the exact"
+          "text": "Behind him, seven other cousins prepare to move with"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "formation of a group that has already decided, and is only pretending"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "to ask permission."
+          "text": "speed. Mostly because they do not have permission."
         },
         {
           "type": "wait"
@@ -4123,12 +4137,17 @@
         {
           "type": "adult",
           "name": "Memaw",
-          "text": "Twenty minutes, Ian. They earned twenty minutes."
+          "text": "Twenty minutes, Ian? I can wait for..."
         },
         {
           "type": "line",
           "style": "beat",
-          "text": "Nobody in the family has said out loud, exactly, what they earned it for. Everybody knows."
+          "text": "She turns to an empty room, hearing someone faintly yelling."
+        },
+        {
+          "type": "say",
+          "name": "Elijah",
+          "text": "HAVAGOOWEEKENNNNNND."
         },
         {
           "type": "wait"
@@ -4141,7 +4160,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "to be a much smaller, much more ordinary place than any of them"
+          "text": "is MUCH smaller and more ordinary than any of them"
         },
         {
           "type": "line",
@@ -4189,7 +4208,7 @@
         {
           "type": "adult",
           "name": "Salt",
-          "text": "Figured you'd turn up. Not enough of you to be a coincidence."
+          "text": "Figured you'd turn up."
         },
         {
           "type": "line",
@@ -4209,7 +4228,7 @@
         {
           "type": "adult",
           "name": "Salt",
-          "text": "Come here. Last thing before you go."
+          "text": "Come here. I want to say something. before I...before you go."
         },
         {
           "type": "wait"
@@ -4237,7 +4256,7 @@
         {
           "type": "adult",
           "name": "Salt",
-          "text": "Front left. Rear left. Straps, latches, fuel line, frame. Same order, every time. You skip the order, you miss the thing that matters."
+          "text": "Front left. Rear left. Straps, latches, fuel line, frame. Same order, every time. If you skip the order, you end up missing the thing that matters."
         },
         {
           "type": "line",
@@ -4247,7 +4266,7 @@
         {
           "type": "say",
           "name": "Theo",
-          "text": "Same order every time so you're not relying on remembering to check something. The order does the remembering."
+          "text": "Same order every time. Don't forget to check something. It checks..."
         },
         {
           "type": "line",
@@ -4288,6 +4307,9 @@
           "text": "Can't run this again. Figured somebody who actually knows what it is should have it, instead of it going in a bucket."
         },
         {
+          "type": "wait"
+        },
+        {
           "type": "line",
           "style": "speak",
           "text": "She holds it out. Theo takes it like it's heavier than it is."
@@ -4320,7 +4342,7 @@
         {
           "type": "line",
           "style": "beat",
-          "text": "It ends up in Laine's pocket last, since she's the oldest and the one everyone trusts not to lose it by the parking lot."
+          "text": "It ends up in Laine's pocket last, since she's the oldest and the one everyone trusts not to lose it before the parking lot."
         },
         {
           "type": "wait"
@@ -4348,7 +4370,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "She doesn't say what she means by that. She doesn't have to."
+          "text": "She doesn't say what she means by that."
         },
         {
           "type": "wait"
@@ -4356,7 +4378,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Walking back to the cars, Wesley, who has clearly been holding this"
+          "text": "Walking back to the cars, Clementine, who has clearly been holding this"
         },
         {
           "type": "line",
@@ -4370,13 +4392,13 @@
         },
         {
           "type": "say",
-          "name": "Wesley",
+          "name": "Clementine",
           "text": "We need a name. A crew needs a name. Salt basically said we're a crew."
         },
         {
           "type": "say",
           "name": "Theo",
-          "text": "The Torque Wrenches."
+          "text": "THE TORQUE WRENCHES."
         },
         {
           "type": "say",
@@ -4386,7 +4408,7 @@
         {
           "type": "say",
           "name": "Theo",
-          "text": "None of us own a torque wrench, Wesley."
+          "text": "Wait, we don't have a torque wrench, Wesley."
         },
         {
           "type": "say",
@@ -4409,17 +4431,12 @@
         {
           "type": "say",
           "name": "Olivia",
-          "text": "...that's a lot of syllables to yell across a beach."
+          "text": "...that's a lot of stuff to yell across a beach."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "Laine, walking a little apart with her hands in her pockets, says it"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "quiet enough that only the cousins nearest her catch it at first."
+          "text": "Laine says something quiet enough that only the cousins nearest her catch it at first."
         },
         {
           "type": "say",
@@ -4429,7 +4446,7 @@
         {
           "type": "say",
           "name": "Clementine",
-          "text": "Maybe. But she named us by accident. I think this one should be on purpose."
+          "text": "Maybe. But I think our name should be on purpose."
         },
         {
           "type": "wait"
@@ -4437,22 +4454,17 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Henry, not quite two, maybe a dozen words in his whole vocabulary,"
+          "text": "Henry tugs Clementine's sleeve and points back at the fairgrounds,"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "tugs Clementine's sleeve and points back at the fairgrounds, back at"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "the storm that isn't there anymore, back at all of it."
+          "text": "toward the storm that stopped."
         },
         {
           "type": "say",
           "name": "Henry",
-          "text": "Storm."
+          "text": "Staw."
         },
         {
           "type": "line",
@@ -4462,32 +4474,22 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "it's the one that stuck. Everyone goes quiet for a second anyway,"
+          "text": "it's the one that stuck."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "because out of everyone who could've named it, the almost-two-year-old"
+          "text": "Elijah, catches the excitement more than even HE expected"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "just did."
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "Elijah, barely three himself, catches the excitement more than the"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "word, and starts bouncing on his toes, delighted with all of them."
+          "text": "and starts bouncing on his toes, delighted with all of them."
         },
         {
           "type": "say",
           "name": "Elijah",
-          "text": "Storm! Storm!"
+          "text": "Storm! Storm! HEYOOOOO!"
         },
         {
           "type": "wait"
@@ -4495,32 +4497,12 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Eight cousins stop walking, right there on the gravel between the"
+          "text": "They stop walking, right there on the gravel between the"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "fairgrounds and the cars, and look at each other. The way you do"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "right before a decision that's actually going to stick. The kind"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "that gets written on things, that somebody calls out across a beach"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "five years from now without even thinking about it."
-        },
-        {
-          "type": "line",
-          "style": "beat",
-          "text": "Nobody's in charge of this one. It isn't a power. It's just a vote, and it's theirs."
+          "text": "fairgrounds and the cars, and look at each other. No one says a word."
         },
         {
           "type": "wait"
@@ -4539,7 +4521,7 @@
         {
           "type": "line",
           "style": "beat",
-          "text": "{{crew_name}}. That's them now. That's what they were, this whole trip, before anyone had a word for it."
+          "text": "{{crew_name}}. That's them now."
         },
         {
           "type": "wait"
@@ -4547,17 +4529,12 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "The drive off the island is nothing like the last one. Sun instead"
+          "text": "The drive off the island is nothing like the last one. Rays of sun bounce"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "of sideways rain, three cars instead of one, no radar map with a"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "green-and-yellow blob sitting over anything."
+          "text": "off the windshield instead of sideways rain."
         },
         {
           "type": "line",
@@ -4573,6 +4550,9 @@
           "type": "line",
           "style": "speak",
           "text": "marsh grass going by."
+        },
+        {
+          "type": "wait"
         },
         {
           "type": "line",
@@ -4602,7 +4582,7 @@
         {
           "type": "line",
           "style": "beat",
-          "text": "Some things a whole vacation doesn't change. Nobody was trying to change those."
+          "text": "Some things a whole vacation doesn't change."
         },
         {
           "type": "wait"
@@ -4610,47 +4590,27 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Somewhere past the marina, Clementine looks back at all of it. The"
+          "text": "Somewhere past the marina, Clementine looks back at Brigantine as it"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "water going small behind them. The fairgrounds already just a shape"
+          "text": "transforms back into the little island where nothing unusual happens at all."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "on the horizon. Brigantine folding itself back down into an ordinary"
+          "text": "She doesn't know yet what comes next, but none of them really do. There's no"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "little island that most people driving past will never know did"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "anything unusual at all."
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "She doesn't know yet what comes next. None of them do. There's no"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "storm on the radar, no new shells waiting on a beach, nothing lining"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "up to be the next big thing."
+          "text": "storm on the radar, no new shells waiting on a beach."
         },
         {
           "type": "line",
           "style": "beat",
-          "text": "Just eight cousins, four powers, two kids full of surprises, and a name that's theirs now, going home."
+          "text": "Just eight cousins, four powers, two kids full of surprises, and a name, going home."
         },
         {
           "type": "wait"
@@ -4658,37 +4618,22 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Salt knew it before any of them said it out loud. You could hear it"
+          "text": "She'd handed them a worn-out bolt instead of a bucket. \"This family,\""
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "in \"this family,\" in \"that's yours now,\" in the way she handed"
+          "text": "she'd said. \"That's yours now,\" she'd said. Nobody had to explain"
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "a worn-out bolt to eight kids instead of a bucket."
+          "text": "what she meant."
         },
         {
           "type": "line",
           "style": "speak",
-          "text": "Front left. Rear left. Straps, latches, fuel line, frame. Long after"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "the last truck any of them ever help fix rolls off toward the next"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "town on the schedule, that's still going to be the order they check"
-        },
-        {
-          "type": "line",
-          "style": "speak",
-          "text": "each other in."
+          "text": "Front left. Rear left. Straps, latches, fuel line, frame."
         },
         {
           "type": "line",
