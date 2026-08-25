@@ -84,7 +84,8 @@ button { font-family: inherit; cursor: pointer; }
 .chapter-list a { color: var(--iris); text-decoration: none; }
 
 /* -- player -- */
-.player { max-width: 640px; margin: 0 auto; padding: 24px 20px 80px; }
+.player { max-width: 640px; margin: 0 auto; padding: 24px 20px; min-height: 100vh; display: flex; align-items: center; }
+.player .coaster { width: 100%; }
 #beats { display: flex; flex-direction: column; gap: 10px; }
 .screen { display: flex; flex-direction: column; gap: 10px; }
 .beat { line-height: 1.5; }

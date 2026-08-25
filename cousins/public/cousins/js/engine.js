@@ -181,6 +181,9 @@ export function createPlayer(container, cast, options = {}) {
     while (true) {
       const screenEl = document.createElement('div');
       screenEl.className = 'screen';
+      if (screenIndex > 0 && screenEls[screenIndex - 1]) {
+        screenEls[screenIndex - 1].style.display = 'none';
+      }
       container.appendChild(screenEl);
       screenEls[screenIndex] = screenEl;
 
