@@ -86,13 +86,14 @@ button { font-family: inherit; cursor: pointer; }
 /* -- player -- */
 .player { max-width: 640px; margin: 0 auto; padding: 24px 20px 80px; }
 #beats { display: flex; flex-direction: column; gap: 10px; }
+.screen { display: flex; flex-direction: column; gap: 10px; }
 .beat { line-height: 1.5; }
 .beat-narrate { color: var(--text); }
 .beat-emphasis { color: var(--muted); font-style: italic; }
 .beat-say { font-weight: bold; }
 .beat-adult { color: var(--subtle); }
 .beat-power { font-style: italic; }
-.tap-continue, .choice-option, .free-text button {
+.tap-continue, .choice-option, .free-text button:not(.back-button) {
   display: block;
   margin-top: 10px;
   background: var(--surface);
@@ -105,7 +106,7 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   text-align: left;
 }
-.tap-continue:active, .choice-option:active, .free-text button:active { background: var(--hl-med); }
+.tap-continue:active, .choice-option:active, .free-text button:active:not(.back-button) { background: var(--hl-med); }
 .controls { display: flex; gap: 8px; margin-top: 10px; }
 .controls .tap-continue { margin-top: 0; width: auto; flex: 1; text-align: center; }
 .back-button {

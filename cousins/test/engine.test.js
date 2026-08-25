@@ -185,3 +185,24 @@ test('back at a plain pause re-renders the previous screen and play continues co
   assert.equal(screens.length, 5);
   assert.equal(beatsOf(screens[screens.length - 1])[0].textContent, 'C1');
 });
+
+test('a soft break never produces a screen with zero beats before an explicit wait', async () => {
+  const container = new FakeEl('div');
+  setActions([]);
+  const beats = [
+    ...Array.from({ length: 6 }, (_, i) => ({ type: 'line', style: 'speak', text: `line ${i}` })),
+    { type: 'wait' },
+    { type: 'line', style: 'speak', text: 'after' },
+  ];
+  const originalRandom = Math.random;
+  Math.random = () => 0; // forces softBreakTarget to the minimum, 6 — the exact boundary case
+  try {
+    await createPlayer(container, []).playBeats(beats);
+  } finally {
+    Math.random = originalRandom;
+  }
+  const screens = screensOf(container);
+  for (const screen of screens) {
+    assert.ok(beatsOf(screen).length > 0, 'no screen should render with zero beats');
+  }
+});

@@ -140,32 +140,34 @@ export function createPlayer(container, cast, options = {}) {
     while (true) {
       const beat = nextBeat(frameStack);
       if (!beat) return { kind: 'end' };
-      if (beat.type === 'line') {
-        await typeLine(screenEl, substitute(effects, beat.text), null, beat.style === 'beat' ? 'beat-emphasis' : 'beat-narrate');
-        narrationCount += 1;
-      } else if (beat.type === 'say') {
-        await typeLine(screenEl, `${beat.name}: "${substitute(effects, beat.text)}"`, colorByName[beat.name], 'beat-say');
-        narrationCount += 1;
-      } else if (beat.type === 'adult') {
-        await typeLine(screenEl, `${beat.name}: "${substitute(effects, beat.text)}"`, null, 'beat-adult');
-        narrationCount += 1;
-      } else if (beat.type === 'power') {
-        await typeLine(screenEl, substitute(effects, beat.text), colorByName[beat.name], 'beat-power');
-        narrationCount += 1;
-      } else if (beat.type === 'effect') {
+      if (beat.type === 'effect') {
         // Mutate effects in place (not reassign) so the change is visible immediately to later beats in the same screen for {{key}} substitution.
         Object.assign(effects, mergeEffects(effects, beat.effects || {}));
         continue;
-      } else if (beat.type === 'wait') {
+      }
+      if (beat.type === 'wait') {
         return { kind: 'wait' };
-      } else if (beat.type === 'choice') {
+      }
+      if (beat.type === 'choice') {
         return { kind: 'choice', beat };
-      } else if (beat.type === 'freeText') {
+      }
+      if (beat.type === 'freeText') {
         return { kind: 'freeText', beat };
       }
       if (narrationCount >= softBreakTarget) {
+        frameStack[frameStack.length - 1].index -= 1;
         return { kind: 'soft' };
       }
+      if (beat.type === 'line') {
+        await typeLine(screenEl, substitute(effects, beat.text), null, beat.style === 'beat' ? 'beat-emphasis' : 'beat-narrate');
+      } else if (beat.type === 'say') {
+        await typeLine(screenEl, `${beat.name}: "${substitute(effects, beat.text)}"`, colorByName[beat.name], 'beat-say');
+      } else if (beat.type === 'adult') {
+        await typeLine(screenEl, `${beat.name}: "${substitute(effects, beat.text)}"`, null, 'beat-adult');
+      } else if (beat.type === 'power') {
+        await typeLine(screenEl, substitute(effects, beat.text), colorByName[beat.name], 'beat-power');
+      }
+      narrationCount += 1;
     }
   }
 

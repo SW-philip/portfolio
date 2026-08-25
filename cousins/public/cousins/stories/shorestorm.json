@@ -3914,7 +3914,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Twice. Even though Bebop says has to survive until Memaw gets the picture."
+          "text": "Twice. Even though Bebop says it has to survive until Memaw gets the picture."
         },
         {
           "type": "line",
@@ -3947,7 +3947,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "trunk space. Theo wants the his backpack flat against the seats, for weight."
+          "text": "trunk space. Theo wants his backpack flat against the seats, for weight."
         },
         {
           "type": "line",
@@ -3990,7 +3990,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "He spies one flip-flop under wet towels and is carries it, very seriously"
+          "text": "He spies one flip-flop under wet towels and carries it, very seriously"
         },
         {
           "type": "line",
@@ -4061,7 +4061,7 @@
         {
           "type": "say",
           "name": "Olivia",
-          "text": "The sun does that??."
+          "text": "The sun does that?"
         },
         {
           "type": "line",
@@ -4407,12 +4407,12 @@
         },
         {
           "type": "say",
-          "name": "Theo",
-          "text": "Wait, we don't have a torque wrench, Wesley."
+          "name": "Wesley",
+          "text": "Wait, we don't have a torque wrench, Theo."
         },
         {
           "type": "say",
-          "name": "Wesley",
+          "name": "Theo",
           "text": "I could get one."
         },
         {
@@ -4479,7 +4479,7 @@
         {
           "type": "line",
           "style": "speak",
-          "text": "Elijah, catches the excitement more than even HE expected"
+          "text": "Elijah catches the excitement more than even HE expected"
         },
         {
           "type": "line",
